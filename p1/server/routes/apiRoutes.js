@@ -5,7 +5,8 @@ module.exports = (app, db) => {
 
   // Create a new Tutorial
   console.log("hello again con test")
-  console.log("hellllo thereer")
+
+
   // Retrieve all users
   router.get("/", users.findAll);
 

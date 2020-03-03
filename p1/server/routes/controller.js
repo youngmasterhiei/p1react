@@ -42,6 +42,9 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     console.log("hello from controller")
     console.log("hello concurent test")
+    console.log("hello 2nd concurent test")
+    console.log("hello 3rd concurent test")
+
     User.findAll()
       .then(data => {
         res.send(data);
