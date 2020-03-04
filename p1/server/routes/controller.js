@@ -41,9 +41,7 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
     console.log("hello from controller")
-    console.log("hello concurent test")
-    console.log("hello 2nd concurent test")
-    console.log("hello 3rd concurent test")
+
 
     User.findAll()
       .then(data => {
