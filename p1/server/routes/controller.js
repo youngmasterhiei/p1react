@@ -1,31 +1,29 @@
 const db = require("../models");
+
 // require("./apiRoutes")(app);
+const cors = require("cors");
 
 const app = require("./apiRoutes");
-const User = db.users;
+console.log("hello")
+
 
 
 
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
+  console.log("here")
     console.log(req.body)
-        // Validate request
-        if (!req.body.email || !req.body.password) {
-          res.status(400).send({
-            message: "Content can not be empty!"
-          });
-          return;
-        }
-      
-        // Create a Tutorial
-        const user = {
-          email: req.body.email,
-          password: req.body.password
-        };
-      
+ 
+    const userInfo = {
+      email: req.body.email.toString(),
+      password: req.body.password.toString()
+    };
+    console.log("start here")
+
         // Save Tutorial in the database
-        User.create(user)
+        db.user.create(userInfo)
+    
           .then(data => {
             res.send(data);
           })

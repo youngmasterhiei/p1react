@@ -1,39 +1,78 @@
-// import ReactDOM from "react-dom";
+import React, { useEffect, useState, Component } from "react";
+import axios from "axios"
+class Form extends Component {
+  constructor(props) {
+    super(props);
 
-// class Form extends Component {
-//   constructor() {
-//     super();
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+  submitHandler = e => {
 
-//     this.state = {
-//       value: ""
-//     };
+    e.preventDefault()
+    console.log(this.state)
+    axios({
+        method: 'post',
+        url: "http://localhost:5000/newuser", 
+        data: this.state
+      }).then(response => {
+        console.log(response)
 
-//     this.handleChange = this.handleChange.bind(this);
-//   }
+    })
+    .catch(error => {
+        console.log(error)
+    });
+}
+  changeHandler = e => {
+    e.preventDefault();
 
-//   handleChange(event) {
-//     const { value } = event.target;
-//     this.setState(() => {
-//       return {
-//         value
-//       };
-//     });
-//   }
+    this.setState({ [e.target.name]: [e.target.value] });
+    console.log(e.target.value);
+  };
 
-//   render() {
-//     return (
-//       <form>
-//         <input
-//           type="text"
-//           value={this.state.value}
-//           onChange={this.handleChange}
-//         />
-//       </form>
-//     );
-//   }
-// }
+  render() {
+    const { email, password } = this.state;
+ 
 
-// export default Form;
+    return (
+      <div>
+        <h1> Sign up</h1>
+        <form onSubmit={this.submitHandler}>
+          <input
+            type="text"
+            placeholder="email "
+            id="email"
+            name="email"
+            value={email}
+            onChange={this.changeHandler}
+          />
+          <br />
 
-// const wrapper = document.getElementById("container");
-// wrapper ? ReactDOM.render(<Form />, wrapper) : false;
+          <input
+            //   value={passWord}
+            //   onChange={getCredentials}
+            type="password"
+            name="password"
+            value={password}
+            id="passWord"
+            placeholder="Password"
+            onChange={this.changeHandler}
+          />
+          <br />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+          />
+          <br />
+
+          <input type="submit" name="Submit" />
+        </form>
+      </div>
+    );
+  }
+}
+export default Form;

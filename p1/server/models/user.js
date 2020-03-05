@@ -1,21 +1,23 @@
-module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("user", {
+var db = require("../models");
+
+module.exports = (sequelize, DataTypes) => {
+    const user = sequelize.define("user", {
       email: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       password: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING
       },
       createdAt: 
         {
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true
         },
         updatedAt:
         { 
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
             allowNull: true}
     });
     console.log("hello from model user")
-    return User;
+    return user;
   };

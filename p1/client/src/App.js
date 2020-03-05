@@ -1,6 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Form from "./js/components/Form";
+
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -15,9 +17,10 @@ function App() {
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
-        >
-          Learn React works
-        </a>
+        ></a>
+        <div>
+          <Form />
+        </div>
       </header>
     </div>
   );

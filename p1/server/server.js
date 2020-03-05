@@ -15,7 +15,7 @@ var corsOptions = {
   origin: "http://localhost:5000"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -25,6 +25,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({type: 'application/vnd.api+json' }));
 
 apiRoutes(app);
+
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome" });
