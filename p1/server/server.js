@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
+const session = require("express-session");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const apiRoutes = require("./routes/apiRoutes.js");
+var passport = require('passport');
+require('./config/passport');
+app.use(passport.initialize());
 
 const PORT = process.env.PORT || 5000;
 
@@ -23,6 +27,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type: 'application/vnd.api+json' }));
+
+// We need to use sessions to keep track of our user's login status
+
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 apiRoutes(app);
 

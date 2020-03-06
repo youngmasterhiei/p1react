@@ -1,4 +1,5 @@
-var db = require("../models");
+const db = require("../models");
+const bcrypt = require("bcryptjs")
 
 module.exports = (sequelize, DataTypes) => {
     const user = sequelize.define("user", {
@@ -18,6 +19,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: true}
     });
-    console.log("hello from model user")
+
+    user.prototype.validPassword = function(password) {
+      return bcrypt.compareSync(password, this.password);
+    };
+
+     user.beforeCreate(user => {
+   user.password = bcrypt.hashSync(
+     user.password,
+      bcrypt.genSaltSync(10),
+      null
+    );
+  });
     return user;
   };
+
+
+
