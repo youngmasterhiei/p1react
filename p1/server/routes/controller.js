@@ -1,5 +1,5 @@
 const db = require("../models");
-
+const passport = require("../config/passport")
 // require("./apiRoutes")(app);
 const cors = require("cors");
 
