@@ -4,9 +4,11 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const apiRoutes = require("./routes/apiRoutes.js");
-var passport = require('passport');
-require('./config/passport');
+const passport = require('passport');
+const localLoginStrategy = require('../server/config/local-login');
 app.use(passport.initialize());
+app.use(passport.session());
+passport.use('local-login', localLoginStrategy);
 
 const PORT = process.env.PORT || 5000;
 
@@ -26,13 +28,12 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(bodyParser.json({type: 'application/vnd.api+json' }));
+app.use(bodyParser.json());
 
 // We need to use sessions to keep track of our user's login status
 
-app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+
+
 
 apiRoutes(app);
 

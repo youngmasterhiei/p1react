@@ -1,10 +1,6 @@
 const db = require("../models");
-const passport = require("../config/passport")
+const passport = require("passport")
 // require("./apiRoutes")(app);
-const cors = require("cors");
-
-const app = require("./apiRoutes");
-console.log("hello")
 
 
 
@@ -12,17 +8,14 @@ console.log("hello")
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-  console.log("here")
-    console.log(req.body)
  
     const userInfo = {
-      email: req.body.email.toString(),
-      password: req.body.password.toString()
+      email: req.body.email,
+      password: req.body.password
     };
-    console.log("start here")
-
+    console.log(userInfo)
         // Save Tutorial in the database
-        db.user.create(userInfo)
+        db.User.create(userInfo)
     
           .then(data => {
             res.send(data);
@@ -35,6 +28,50 @@ exports.create = (req, res) => {
           });
   
 };
+
+exports.passportLogin = (req, res, next) => {
+  console.log(req.body)
+  console.log("hello")
+    const userInfo = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    console.log(userInfo)
+
+    console.log("this far")
+  return passport.authenticate('local-login', (err, token, userInfo) => {
+    console.log(err);
+    console.log("error^^^")
+    if (err) {
+      if (err.name === 'IncorrectCredentialsError') {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        });
+      }
+
+      return res.status(400).json({
+        success: false,
+        message: 'Could not process the form.'
+      });
+    }
+
+
+    return res.json({
+      success: true,
+      message: 'You have successfully logged in!',
+      token,
+      user: userInfo
+    });
+  })(req, res, next);
+  
+};
+
+
+
+
+
+
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
@@ -54,9 +91,7 @@ exports.findAll = (req, res) => {
   };
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {
-  
-};
+
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {

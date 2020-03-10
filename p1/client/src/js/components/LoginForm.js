@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios"
-class Form extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,7 @@ class Form extends Component {
     console.log(this.state)
     axios({
         method: 'post',
-        url: "http://localhost:5000/newuser", 
+        url: "http://localhost:5000/login", 
         data: this.state
       }).then(response => {
         console.log(response)
@@ -28,7 +28,7 @@ class Form extends Component {
   changeHandler = e => {
     e.preventDefault();
 
-    this.setState({ [e.target.name]: [e.target.value] });
+    this.setState({ [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
 
@@ -38,12 +38,11 @@ class Form extends Component {
 
     return (
       <div>
-        <h1> Sign up</h1>
+        <h1> Login </h1>
         <form onSubmit={this.submitHandler}>
           <input
             type="text"
             placeholder="email "
-            id="email"
             name="email"
             value={email}
             onChange={this.changeHandler}
@@ -56,18 +55,12 @@ class Form extends Component {
             type="password"
             name="password"
             value={password}
-            id="passWord"
             placeholder="Password"
             onChange={this.changeHandler}
           />
           <br />
 
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-          />
-          <br />
+     
 
           <input type="submit" name="Submit" />
         </form>
@@ -75,4 +68,4 @@ class Form extends Component {
     );
   }
 }
-export default Form;
+export default LoginForm;

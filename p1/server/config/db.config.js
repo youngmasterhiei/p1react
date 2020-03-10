@@ -1,4 +1,6 @@
 module.exports = {
+  jwtSecret: "a secret phrase!!",
+
     HOST: "localhost",
     USER: "root",
     PASSWORD: "",

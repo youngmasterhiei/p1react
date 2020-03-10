@@ -1,7 +1,11 @@
  
 module.exports = (app, db) => {
   const users = require("./controller.js");
-  var cors = require("cors");
+  const cors = require("cors");
+  const jwt = require('jsonwebtoken');
+
+
+
 
   const router = require("express").Router();
   router.use(cors());
@@ -12,22 +16,11 @@ module.exports = (app, db) => {
   router.get("/", users.findAll);
 
   router.post("/newuser", cors(), users.create);
+  // passes the request/response to controller.js using /login route
+  router.post("/login", cors(), users.passportLogin);
 
-  // app.post("/auth/api/comment/:post_id", function (req, res) {
-  //   db.comment.create(
-  //     {
-  //       post_id: req.params.post_id,
-  //       user_id: req.body.user_id,
-  //       title: req.body.title,
-  //       content: req.body.content,
-  //       status: 'In Review'
-  //     })
-  //     .then(function (dbcomment) {
-  //       res.json(dbcomment);
-  //     });
-  // });
 
-  //create event
+
 
   app.use("/", router);
 };
