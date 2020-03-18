@@ -19,6 +19,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.User = require("./user.js")(sequelize, Sequelize);
+db.user = require("./user.js")(sequelize, Sequelize);
+db.profile = require("./profile.js")(sequelize, Sequelize);
+
+db.user.hasOne(db.profile);
+db.profile.belongsTo(db.user);
+
+
 
 module.exports = db;

@@ -39,5 +39,14 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compare(userPass, enteredPass, callback);
     };
 
+    // user.hasOne(db.profile);
+    // user.hasOne(db.profile, {foreignKey: 'userId', as: 'user'});
+
+    // user.hasMany(db.event);
+    // user.hasMany(db.thread);
+    // user.hasMany(db.post);
+    // user.hasMany(db.comment);
+
+
 return user
 }
