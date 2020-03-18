@@ -15,7 +15,7 @@ exports.create = (req, res) => {
     };
     console.log(userInfo)
         // Save Tutorial in the database
-        db.User.create(userInfo)
+        db.user.create(userInfo)
     
           .then(data => {
             res.send(data);

@@ -1,6 +1,5 @@
 import React from "react";
-import SignUpForm from "../SignUpForm";
-import LoginForm from "../LoginForm";
+import DisplayLoginSignup from "../LoginComps/DisplayLoginSignup"
 
 import { Link } from "react-router-dom";
 
@@ -14,8 +13,7 @@ const Navigation = () => {
       <Link to="/forum">Forum</Link>
       <Link to="/Profile">Profile</Link>
       <div>
-        <SignUpForm />
-        <LoginForm />
+       <DisplayLoginSignup />
       </div>
     </div>
   );
