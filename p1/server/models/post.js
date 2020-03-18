@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     }
 )
 
-// thread.belongsTo(User)
 
 return thread
 }

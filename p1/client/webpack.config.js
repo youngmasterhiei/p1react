@@ -11,6 +11,11 @@ module.exports = {
         filename: 'index_bundle.js'
 
       },
+      devServer: {
+        historyApiFallback: true,
+        contentBase: './',
+        hot: true
+     },
   module: {
     rules: [
       {

@@ -24,8 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       deleted_at: DataTypes.DATE
     }
 )
-// comment.belongsTo(db.user);
-// comment.belongsTo(db.post);
+
 
 
 return comment

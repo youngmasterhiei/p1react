@@ -7,22 +7,19 @@ import Home from "./js/components/pages/Home";
 import Profile from "./js/components/pages/Profile";
 import DisplayEvent from "./js/components/pages/DisplayEvent";
 
-
-
-
-
-
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   return (
+    <BrowserRouter>
+
     <div className="App">
-      <BrowserRouter>
-        <div>
+        <Nav />
+
             <Switch>
-          
-             <Route path="/" component={Home} exact/>
+
+             <Route path="/" exact component={Home} />
              <Route path="/events" component={Events}/>
              <Route path="/forum" component={Forum}/>
              <Route path="/home" component={Home}/>
@@ -31,13 +28,15 @@ function App() {
 
             <Route component={Error}/>
            </Switch>
-           <Nav />
 
         </div> 
       </BrowserRouter>
-      </div>
       
   );
 }
+
+
+
+
 
 export default App;
