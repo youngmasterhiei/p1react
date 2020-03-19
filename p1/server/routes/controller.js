@@ -56,7 +56,7 @@ exports.passportLogin = (req, res, next) => {
       });
     }
 
-
+// error is not coming back however if i switch it to a get request ill get errors but ill need to use params to send the username 
     return res.json({
       success: true,
       message: 'You have successfully logged in!',
@@ -73,24 +73,6 @@ exports.passportLogin = (req, res, next) => {
 
 
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-    console.log("hello from controller")
-
-
-    User.findAll()
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials."
-        });
-      });
-  };
-
-// Find a single Tutorial with an id
 
 
 // Update a Tutorial by the id in the request

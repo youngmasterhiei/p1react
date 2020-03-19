@@ -13,7 +13,6 @@ module.exports = (app, db) => {
   console.log("hello from apiRoutret");
 
   // Retrieve all users
-  router.get("/", users.findAll);
 
   router.post("/newuser", cors(), users.create);
   // passes the request/response to controller.js using /login route

@@ -9,16 +9,25 @@ class LoginForm extends Component {
       password: ""
     };
   }
+
+  sendToken = () => {
+
+    this.props.parentCallback(localStorage.getItem("token"));
+    console.log("token after click")
+    console.log(localStorage.getItem("token"))
+  }
   submitHandler = e => {
 
     e.preventDefault()
-    console.log(this.state)
     axios({
         method: 'post',
         url: "http://localhost:5000/login", 
         data: this.state
       }).then(response => {
-        console.log(response)
+        if (response.data.token){
+        localStorage.setItem("token", response.data.token);
+}
+        this.sendToken();
 
     })
     .catch(error => {
@@ -29,8 +38,9 @@ class LoginForm extends Component {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
+
+
 
   render() {
     const { email, password } = this.state;

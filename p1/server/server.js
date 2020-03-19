@@ -32,15 +32,9 @@ app.use(bodyParser.json());
 
 // We need to use sessions to keep track of our user's login status
 
-
-
-
 apiRoutes(app);
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome" });
-});
+
 
 
 db.sequelize.sync({ force: false }).then(() => {

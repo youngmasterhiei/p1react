@@ -29,7 +29,6 @@ class SignUpform extends Component {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
 
   render() {

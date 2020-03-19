@@ -21,26 +21,15 @@ module.exports = new PassportLocalStrategy(
     };
     // find a user by email address
 
-    return db.User.findOne({
+    return db.user.findOne({
       where: { email: userData.email }
     })
     .then(function(user) {
       userPass = userData.password;
       dataPass = user.dataValues.password;
 
-      //     }).catch(function (err) {
-      //       return res.status(400).send({'message': 'query is fail',err});
 
-      //   });
-      //       .then((property) => {
-      //  if (property) {
-      //   res.json({ status: true }); // send 200 response if record found
-      //  } else {
-      //   // What should be Status Code if record is not found.
-
-      //left off here, working with replacing validpassword, maybe import bcrypt, working through the errors.
-      // check if a hashed user's password is equal to a value saved in the database
-      return db.User.build().validatePass(
+      return db.user.build().validatePass(
         userData.password,
         dataPass,
         (err, result) => {
@@ -57,9 +46,9 @@ module.exports = new PassportLocalStrategy(
           };
 
           // create a token string
-          // const token = jwt.sign(payload, config.jwtSecret);
-          const token = user.dataValues.id;
-
+          const token = jwt.sign(payload, config.jwtSecret);
+          // const token = user.dataValues.id;
+         
           const data = {
             email: user.dataValues.email,
             id: user.dataValues.id
