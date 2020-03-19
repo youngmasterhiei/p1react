@@ -16,6 +16,10 @@ class LoginForm extends Component {
     console.log("token after click")
     console.log(localStorage.getItem("token"))
   }
+
+  
+
+
   submitHandler = e => {
 
     e.preventDefault()

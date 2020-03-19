@@ -1,5 +1,7 @@
 import React, { useEffect, useState, Component } from "react";
-import axios from "axios"
+import axios from "axios";
+import LoginForm from "./LoginForm";
+
 class SignUpform extends Component {
   constructor(props) {
     super(props);
@@ -8,23 +10,36 @@ class SignUpform extends Component {
       email: "",
       password: ""
     };
+
+  
+  }
+
+  sendToken = () => {
+
+    this.props.parentCallback(localStorage.getItem("token"));
+    console.log("token after click")
+    console.log(localStorage.getItem("token"))
   }
   submitHandler = e => {
-
-    e.preventDefault()
-    console.log(this.state)
+    e.preventDefault();
+    console.log(this.state);
     axios({
-        method: 'post',
-        url: "http://localhost:5000/newuser", 
-        data: this.state
-      }).then(response => {
-        console.log(response)
-
-    })
-    .catch(error => {
-        console.log(error)
-    });
+      method: "post",
+      url: "http://localhost:5000/newuser",
+      data: this.state
+    }).then(response => {
+      console.log(response.data)
+      if (response){
+      localStorage.setItem("token", response.data);
 }
+      this.sendToken();
+
+  }).catch(error => {
+        console.log(error);
+      });
+
+    
+  };
   changeHandler = e => {
     e.preventDefault();
 
@@ -33,7 +48,6 @@ class SignUpform extends Component {
 
   render() {
     const { email, password } = this.state;
- 
 
     return (
       <div>

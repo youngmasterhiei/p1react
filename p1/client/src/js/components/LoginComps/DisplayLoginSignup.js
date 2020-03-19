@@ -25,6 +25,8 @@ class DisplayLoginSignup extends Component {
   callbackFunction = (childData) => {
     this.setState({token: localStorage.getItem("token")});
   }
+
+  
   render() {
     const loginClicked = this.state.loginClicked;
     const token = localStorage.getItem("token");
@@ -35,8 +37,8 @@ class DisplayLoginSignup extends Component {
     if (loginClicked && token === "") {
       displayForm = <LoginForm parentCallback = {this.callbackFunction} />;
       button = <button onClick={this.handleSignUpClick}>SignUp?</button>;
-    } else if (!loginClicked){
-      displayForm = <SignUpform />;
+    } else if (!loginClicked && token === ""){
+      displayForm = <SignUpform parentCallback = {this.callbackFunction} />;
       button = <button onClick={this.handleLoginClick}>Login</button>;
     } else {
         

@@ -1,5 +1,9 @@
 const db = require("../models");
 const passport = require("passport")
+const jwt = require("jsonwebtoken");
+const config = require("../config/db.config");
+
+
 // require("./apiRoutes")(app);
 
 
@@ -16,9 +20,17 @@ exports.create = (req, res) => {
     console.log(userInfo)
         // Save Tutorial in the database
         db.user.create(userInfo)
-    
+   
           .then(data => {
-            res.send(data);
+            const payload = {
+              sub: data.dataValues.id
+            }
+            const token = jwt.sign(payload, config.jwtSecret)
+    
+            res.send(token);
+            console.log(token)
+
+
           })
           .catch(err => {
             res.status(500).send({
