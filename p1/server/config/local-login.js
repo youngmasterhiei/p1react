@@ -27,6 +27,8 @@ module.exports = new PassportLocalStrategy(
     .then(function(user) {
       userPass = userData.password;
       dataPass = user.dataValues.password;
+      console.log("user Id no jwt")
+      console.log(user.dataValues.id)
 
 
       return db.user.build().validatePass(
@@ -40,13 +42,13 @@ module.exports = new PassportLocalStrategy(
             console.log("no match");
             return done(err);
           }
-
+          console.log(result)
           const payload = {
-            sub: user._id
+            sub: user.dataValues.id
           };
 
           // create a token string
-          const token = jwt.sign(payload, config.jwtSecret);
+          const token = jwt.sign(payload.sub, config.jwtSecret);
           // const token = user.dataValues.id;
          
           const data = {

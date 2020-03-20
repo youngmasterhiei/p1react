@@ -1,6 +1,7 @@
  
 module.exports = (app, db) => {
   const users = require("./controller.js");
+  const profile = require("./controller.js")
   const cors = require("cors");
   const jwt = require('jsonwebtoken');
 
@@ -15,9 +16,11 @@ module.exports = (app, db) => {
   // Retrieve all users
 
   router.post("/newuser", cors(), users.create);
+
   // passes the request/response to controller.js using /login route
   router.post("/login", cors(), users.passportLogin);
 
+  router.post("/profile", cors(), profile.createProfile);
 
 
 

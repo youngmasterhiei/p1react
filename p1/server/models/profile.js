@@ -2,10 +2,28 @@ const db = require("../models");
 
 module.exports = (sequelize, DataTypes) => {
   const profile = sequelize.define("profile", {
-    name: {
+    fName: {
       type: DataTypes.STRING
     },
-    work: {
+    lName: {
+      type: DataTypes.STRING
+    },
+    city: {
+      type: DataTypes.STRING
+    },
+    st: {
+      type: DataTypes.STRING
+    },
+    dateOfBirth: {
+      type: DataTypes.STRING
+    },
+    speciality: {
+      type: DataTypes.STRING
+    },
+    github: {
+      type: DataTypes.STRING
+    },
+    linkedIn: {
       type: DataTypes.STRING
     },
     bio: {
@@ -17,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
       deletedAt: DataTypes.DATE
-    },
+    }
 )
 // profile.belongsTo(db.User);
 // profile.belongsTo(db.user , {foreignKey: 'ID', as: 'profile'});
