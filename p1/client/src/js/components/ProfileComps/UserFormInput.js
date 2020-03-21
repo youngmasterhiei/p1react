@@ -9,6 +9,7 @@ class UserFormInput extends Component {
       lName: "",
       city: "",
       st: "",
+      dateOfBirth: "",
       speciality: "",
       github: "",
       linkedIn: "",

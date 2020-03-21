@@ -105,5 +105,37 @@ exports.createProfile = (req, res) => {
     });
 };
 
+exports.getProfile = (req, res) => {
+  console.log(req.params.userId)
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
+  console.log(decoded)
+  console.log("decoded token")
+
+  // Save Tutorial in the database
+  db.profile.findAll(
+    {
+      where: { userId: decoded }
+    }).then(function (dbprofile) {
+
+      console.log()
+      delete dbprofile[0].dataValues.id
+      delete dbprofile[0].dataValues.userId
+      delete dbprofile[0].dataValues.updatedAt
+      delete dbprofile[0].dataValues.deletedAt
+      delete dbprofile[0].dataValues.createdAt
+
+
+      res.json(dbprofile);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the profile."
+      });
+    });
+};
+
+
+
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {};
