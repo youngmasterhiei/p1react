@@ -10,6 +10,11 @@ class UserProjectInput extends Component {
       project3: "",
       project4: "",
       project5: "",
+      p1Link: "",
+      p2Link: "",
+      p3Link: "",
+      p4Link: "",
+      p5Link: "",
       userId: localStorage.getItem("token")
     };
   }
@@ -35,7 +40,18 @@ class UserProjectInput extends Component {
   };
 
   render() {
-    const { project1, project2, project3, project4, project5 } = this.state;
+    const {
+      project1,
+      project2,
+      project3,
+      project4,
+      project5,
+      p1Link,
+      p2Link,
+      p3Link,
+      p4Link,
+      p5Link
+    } = this.state;
 
     return (
       <div>
@@ -43,7 +59,7 @@ class UserProjectInput extends Component {
         <form onSubmit={this.submitProfile}>
           <input
             type="text"
-            placeholder="Project 1"
+            placeholder="Project 1 Title"
             name="project1"
             value={project1}
             onChange={this.changeHandler}
@@ -52,9 +68,27 @@ class UserProjectInput extends Component {
 
           <input
             type="text"
+            placeholder="Project 1 Link"
+            name="p1Link"
+            value={p1Link}
+            onChange={this.changeHandler}
+          />
+          <br />
+
+          <input
+            type="text"
             name="project2"
             value={project2}
-            placeholder="Project 2"
+            placeholder="Project 2 Title"
+            onChange={this.changeHandler}
+          />
+          <br />
+
+          <input
+            type="text"
+            name="p2Link"
+            value={p2Link}
+            placeholder="Project 2 Link"
             onChange={this.changeHandler}
           />
           <br />
@@ -63,16 +97,33 @@ class UserProjectInput extends Component {
             type="text"
             name="project3"
             value={project3}
-            placeholder="Project 3"
+            placeholder="Project 3 Title"
             onChange={this.changeHandler}
+          />
+          <br />
 
+          <input
+            type="text"
+            name="p3Link"
+            value={p3Link}
+            placeholder="Project 3 Link"
+            onChange={this.changeHandler}
           />
           <br />
           <input
             type="text"
             name="project4"
             value={project4}
-            placeholder="Project 4"
+            placeholder="Project 4 Title"
+            onChange={this.changeHandler}
+          />
+          <br />
+
+          <input
+            type="text"
+            name="p4Link"
+            value={p4Link}
+            placeholder="Project 4 Link"
             onChange={this.changeHandler}
           />
           <br />
@@ -80,11 +131,19 @@ class UserProjectInput extends Component {
             type="text"
             name="project5"
             value={project5}
-            placeholder="Project 5"
+            placeholder="Project 5 Title"
             onChange={this.changeHandler}
           />
           <br />
-          
+
+          <input
+            type="text"
+            name="p5Link"
+            value={p5Link}
+            placeholder="Project 5 Link"
+            onChange={this.changeHandler}
+          />
+          <br />
 
           <input type="submit" name="Submit" />
         </form>

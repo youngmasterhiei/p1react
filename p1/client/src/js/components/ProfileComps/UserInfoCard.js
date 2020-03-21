@@ -44,8 +44,8 @@ class UserInfoCard extends Component {
       .get("http://localhost:5000/auth/api/project/" + userId)
       .then(res => {
         this.setState({
-            userProjects: [...this.state.userProjects, ...res.data[0]]
-          });
+          userProjects: [...this.state.userProjects, ...res.data[0]]
+        });
       })
       .catch(error => {
         console.log(error);
@@ -53,21 +53,25 @@ class UserInfoCard extends Component {
   }
 
   render() {
-
     return (
+      <div style={{ display: "flex" }}>
         <div>
-      <div style={{float:'left'}}>
-          <h1>UserInfo</h1>
-        {this.state.userData.map((data, i) => (
-          <UserDetails key={i} data={data} />
-        ))}
+        <img src="https://images.idgesg.net/images/article/2017/06/reactjs_code_coding_thinkstock-100725807-large.jpg" width="400" height="400" alt="Italian Trulli" />
         </div>
         <div>
-            <h1>Projects</h1>
+          <h3>UserInfo</h3>
+          {this.state.userData.map((data, i) => (
+            <UserDetails key={i} data={data} />
+          ))}
+        </div>
+        <div>
+          <h3>Projects</h3>
           {this.state.userProjects.map((data, i) => (
-          <UserDetails key={i} data={data} />
-        ))}
-      </div>
+            <a href="https://www.w3schools.com">
+              <UserDetails key={i} data={data} />
+            </a>
+          ))}
+        </div>
       </div>
     );
   }

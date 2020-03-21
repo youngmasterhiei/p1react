@@ -3,12 +3,12 @@ import React from "react";
 
 const UserDetails = props => {
   // console.log(props.data)
-  const fuckthis = Object.values(props.data);
-  console.log(fuckthis);
+  const propData = Object.values(props.data);
+  console.log(propData);
   return (
     <div>
-      <ul>
-        {fuckthis.map((data, i) => (
+      <ul style={{listStyle:'none'}}>
+        {propData.map((data, i) => (
           <li key={i}>{data}</li>
         ))}
       </ul>

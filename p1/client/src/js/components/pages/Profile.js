@@ -1,18 +1,21 @@
-import React from 'react';
-import UserFormInput from "../ProfileComps/UserFormInput"; 
-import DisplayTopHalfProfile from '../ProfileComps/DisplayUserDetails';
-import UserProjectInput from '../ProfileComps/UserProjectInput';
+import React from "react";
+import UserFormInput from "../ProfileComps/UserFormInput";
+import DisplayTopHalfProfile from "../ProfileComps/DisplayUserDetails";
+import UserProjectInput from "../ProfileComps/UserProjectInput";
 const Profile = () => {
-    return (
-       <div>
-          <h1>Profile</h1>
-          <DisplayTopHalfProfile />
-           <p>Profile page body content</p>
-           <UserFormInput />
-           <UserProjectInput />
+  return (
+    <div>
+      <h1>Profile</h1>
+  
+      <div style={{display: "flex"}}>
+      <DisplayTopHalfProfile />
+      </div>
+      <div style={{display: "flex"}}>
+        <UserFormInput />
+        <UserProjectInput />
+      </div>
+    </div>
+  );
+};
 
-       </div>
-    );
-}
- 
 export default Profile;
