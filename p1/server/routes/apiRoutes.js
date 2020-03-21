@@ -1,7 +1,8 @@
  
 module.exports = (app, db) => {
   const users = require("./controller.js");
-  const profile = require("./controller.js")
+  const profile = require("./controller.js");
+  const project = require("./controller.js");
   const cors = require("cors");
   const jwt = require('jsonwebtoken');
 
@@ -22,6 +23,9 @@ module.exports = (app, db) => {
 
   router.post("/profile", cors(), profile.createProfile);
   router.get("/auth/api/profile/:userId", cors(), profile.getProfile);
+
+  router.post("/auth/api/project", cors(), project.createProject);
+  router.get("/auth/api/project/:userId", cors(), project.getProjects);
 
 
 

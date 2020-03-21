@@ -1,6 +1,7 @@
 import React from 'react';
 import UserFormInput from "../ProfileComps/UserFormInput"; 
 import DisplayTopHalfProfile from '../ProfileComps/DisplayUserDetails';
+import UserProjectInput from '../ProfileComps/UserProjectInput';
 const Profile = () => {
     return (
        <div>
@@ -8,6 +9,7 @@ const Profile = () => {
           <DisplayTopHalfProfile />
            <p>Profile page body content</p>
            <UserFormInput />
+           <UserProjectInput />
 
        </div>
     );

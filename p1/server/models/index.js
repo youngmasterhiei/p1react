@@ -24,12 +24,14 @@ db.comment = require("./comment.js")(sequelize, Sequelize);
 db.event = require("./event.js")(sequelize, Sequelize);
 db.post = require("./post.js")(sequelize, Sequelize);
 db.profile = require("./profile.js")(sequelize, Sequelize);
+db.project = require("./project.js")(sequelize, Sequelize);
 db.thread = require("./thread.js")(sequelize, Sequelize);
-
 
 db.user.hasOne(db.profile);
 db.profile.belongsTo(db.user);
 
+db.user.hasMany(db.project);
+db.project.belongsTo(db.user);
 
 // db.user.hasMany(db.event);
 // db.event.belongsTo(db.user);
@@ -40,10 +42,7 @@ db.profile.belongsTo(db.user);
 // db.user.hasMany(db.comment);
 // db.comment.belongsTo(db.user);
 
-
 // db.comment.belongsTo(db.user);
 // db.comment.belongsTo(db.post);
-
-
 
 module.exports = db;

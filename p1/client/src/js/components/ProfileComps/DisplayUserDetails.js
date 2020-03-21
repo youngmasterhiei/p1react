@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserInfoCard from './UserInfoCard';
 
 
+
 //display top half comp
 class DisplayTopHalfProfile extends Component {
     render() {

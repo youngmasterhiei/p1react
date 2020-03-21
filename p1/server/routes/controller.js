@@ -82,6 +82,7 @@ exports.createProfile = (req, res) => {
     lName: req.body.lName,
     city: req.body.city,
     st: req.body.st,
+    dateOfBirth: req.body.dateOfBirth,
     speciality: req.body.speciality,
     github: req.body.github,
     linkedIn: req.body.linkedIn,
@@ -137,5 +138,58 @@ exports.getProfile = (req, res) => {
 
 
 
-// Update a Tutorial by the id in the request
-exports.update = (req, res) => {};
+
+exports.createProject = (req, res) => {
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret)
+
+  const project = {
+    project1: req.body.project1,
+    project2: req.body.project2,
+    project3: req.body.project3,
+    project4: req.body.project4,
+    project5: req.body.project5,
+    userId: decoded
+  };
+  console.log(project);
+  // Save Tutorial in the database
+  db.project
+    .create(project)
+    .then(data => {
+
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+
+
+exports.getProjects = (req, res) => {
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
+
+  // Save Tutorial in the database
+  db.project.findAll(
+    {
+      where: { userId: decoded }
+    }).then(function (dbProject) {
+      delete dbProject[0].dataValues.id
+      delete dbProject[0].dataValues.userId
+      delete dbProject[0].dataValues.updatedAt
+      delete dbProject[0].dataValues.deletedAt
+      delete dbProject[0].dataValues.createdAt
+    
+      res.json(dbProject);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};
+
+// router.post("/auth/api/project", cors(), project.createProject);
+// router.get("/auth/api/project/:userId", cors(), project.getProjects);

@@ -44,7 +44,7 @@ class UserFormInput extends Component {
 
     return (
       <div>
-        <h1>Profile</h1>
+        <h1>Edit Profile</h1>
         <form onSubmit={this.submitProfile}>
           <input
             type="text"

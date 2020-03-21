@@ -8,37 +8,66 @@ import UserDetails from "./UserDetails";
 class UserInfoCard extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-  
+      userData: [],
+      userProjects: []
     };
-
-
-
   }
+
+  //   userData: {
+  //     fName: "",
+  //     lName: "",
+  //     city: "",
+  //     st: "",
+  //     dateOfBirth: "",
+  //     speciality: "",
+  //     github: "",
+  //     linkedIn: "",
+  //     bio: ""
+  //   }
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
       .then(res => {
-        this.setState(res.data[0])
+        this.setState({
+          userData: [...this.state.userData, ...res.data[0]]
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    axios
+      .get("http://localhost:5000/auth/api/project/" + userId)
+      .then(res => {
+        this.setState({
+            userProjects: [...this.state.userProjects, ...res.data[0]]
+          });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-
   render() {
-    console.log(this.state)
 
     return (
-        
-      <div>
-        {Object.entries(this.state).map((data, index) => (
-          <UserDetails key={index} data={data} />
+        <div>
+      <div style={{float:'left'}}>
+          <h1>UserInfo</h1>
+        {this.state.userData.map((data, i) => (
+          <UserDetails key={i} data={data} />
         ))}
+        </div>
+        <div>
+            <h1>Projects</h1>
+          {this.state.userProjects.map((data, i) => (
+          <UserDetails key={i} data={data} />
+        ))}
+      </div>
       </div>
     );
   }
