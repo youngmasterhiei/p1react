@@ -11,21 +11,11 @@ class UserInfoCard extends Component {
 
     this.state = {
       userData: [],
-      userProjects: []
+      userProjects: [],
+      userEvents: []
     };
   }
 
-  //   userData: {
-  //     fName: "",
-  //     lName: "",
-  //     city: "",
-  //     st: "",
-  //     dateOfBirth: "",
-  //     speciality: "",
-  //     github: "",
-  //     linkedIn: "",
-  //     bio: ""
-  //   }
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
@@ -46,6 +36,18 @@ class UserInfoCard extends Component {
         this.setState({
           userProjects: [...this.state.userProjects, ...res.data[0]]
         });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+      axios
+      .get("http://localhost:5000/auth/api/events/" + userId)
+      .then(res => {
+        this.setState({
+          userEvents: [...this.state.userEvents, ...res.data[0]]
+        });
+        console.log(this.state)
       })
       .catch(error => {
         console.log(error);

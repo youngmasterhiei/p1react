@@ -20,10 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: true
-    }
+
   });
 
   // event.belongsTo(db.user);

@@ -191,5 +191,55 @@ exports.getProjects = (req, res) => {
     });
 };
 
-// router.post("/auth/api/project", cors(), project.createProject);
-// router.get("/auth/api/project/:userId", cors(), project.getProjects);
+
+exports.createEvent = (req, res) => {
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret)
+
+  const event = {
+    title: req.body.title,
+    date: req.body.date,
+    time: req.body.time,
+    author: req.body.author,
+    location: req.body.location,
+    userId: decoded
+  };
+  console.log(event);
+  // Save Tutorial in the database
+  db.event
+    .create(event)
+    .then(data => {
+
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+
+
+exports.getEvents = (req, res) => {
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
+
+  // Save Tutorial in the database
+  db.event.findAll(
+    {
+      where: { userId: decoded }
+    }).then(function (dbEvent) {
+      delete dbEvent[0].dataValues.id
+      delete dbEvent[0].dataValues.userId
+      delete dbEvent[0].dataValues.updatedAt
+      delete dbEvent[0].dataValues.deletedAt
+      delete dbEvent[0].dataValues.createdAt
+    
+      res.json(dbEvent);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};

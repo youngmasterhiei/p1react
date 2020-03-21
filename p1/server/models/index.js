@@ -33,8 +33,8 @@ db.profile.belongsTo(db.user);
 db.user.hasMany(db.project);
 db.project.belongsTo(db.user);
 
-// db.user.hasMany(db.event);
-// db.event.belongsTo(db.user);
+db.user.hasMany(db.event);
+db.event.belongsTo(db.user);
 
 // db.user.hasMany(db.thread);
 // db.thread.belongsTo(db.user);

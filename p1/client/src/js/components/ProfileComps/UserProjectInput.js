@@ -55,7 +55,7 @@ class UserProjectInput extends Component {
 
     return (
       <div>
-        <h1>Edit Projects</h1>
+        <h3>Edit Projects</h3>
         <form onSubmit={this.submitProfile}>
           <input
             type="text"
