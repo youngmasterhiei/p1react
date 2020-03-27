@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LoginForm from "./LoginForm";
 import SignUpform from "./SignUpForm";
 
+
 class DisplayLoginSignup extends Component {
   constructor(props) {
     super(props);
@@ -20,11 +21,13 @@ class DisplayLoginSignup extends Component {
   };
   handleLogOut = e => {
     localStorage.setItem("token", ""), this.setState({ token: "" });
+    this.props.storeToken()
   };
 
   callbackFunction = (childData) => {
     this.setState({token: localStorage.getItem("token")});
   }
+
 
   
   render() {
@@ -32,11 +35,10 @@ class DisplayLoginSignup extends Component {
     const token = localStorage.getItem("token");
     let displayForm;
     let button;
-    console.log("hello 1 ")
-    console.log(token)
+
     if (loginClicked && token === "") {
-      displayForm = <LoginForm parentCallback = {this.callbackFunction} />;
-      button = <button onClick={this.handleSignUpClick}>SignUp?</button>;
+      displayForm = <LoginForm parentCallback = {this.callbackFunction} storeToken = {this.props.storeToken} />;
+      button = <button onClick={this.handleSignUpClick} >SignUp?</button>;
     } else if (!loginClicked && token === ""){
       displayForm = <SignUpform parentCallback = {this.callbackFunction} />;
       button = <button onClick={this.handleLoginClick}>Login</button>;

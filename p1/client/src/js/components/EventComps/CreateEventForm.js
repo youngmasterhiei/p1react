@@ -40,6 +40,7 @@ class CreateEventForm extends Component {
 
   render() {
     const { title, date, time, author, location } = this.state;
+    const header = "Create an Event";
 
     return (
       <div>

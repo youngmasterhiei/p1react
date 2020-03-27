@@ -14,7 +14,8 @@ class UserFormInput extends Component {
       github: "",
       linkedIn: "",
       bio: "",
-      userId: localStorage.getItem("token")
+      userId: localStorage.getItem("token"),
+      formTitle : "Edit Profile"
     };
   }
   submitProfile = e => {
@@ -28,6 +29,7 @@ class UserFormInput extends Component {
     })
       .then(response => {
         console.log(response);
+
       })
       .catch(error => {
         console.log(error);
@@ -39,13 +41,24 @@ class UserFormInput extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+  // sendToken = () => {
+
+  //   this.props.parentCallback(header);
+  //   console.log(header)
+  //   console.log("title^^")
+  // }
+
   render() {
     const { fName, lName, city, st, dateOfBirth, speciality, github, linkedIn, bio } = this.state;
+    const header = "Edit Profile";
+    console.log(header)
+    console.log("wont post before click")
 
     return (
       <div>
-        <h3>Edit Profile</h3>
-        <form onSubmit={this.submitProfile}>
+{        <h3 className="formName" value="Edit Profile"></h3>
+}        <form onSubmit={this.submitProfile}>
           <input
             type="text"
             placeholder="First Name "

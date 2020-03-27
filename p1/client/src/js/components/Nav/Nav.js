@@ -4,7 +4,9 @@ import DisplayLoginSignup from "../LoginComps/DisplayLoginSignup"
 import { Link } from "react-router-dom";
 
 
-const Navigation = () => {
+const Navigation = (props) => {
+  console.log(props)
+  
   return (
     <div className="navBar">
    
@@ -13,7 +15,7 @@ const Navigation = () => {
       <Link to="/forum">Forum</Link>
       <Link to="/Profile">Profile</Link>
       <div>
-       <DisplayLoginSignup />
+       <DisplayLoginSignup storeToken = {props.storeToken} />
       </div>
     </div>
   );
