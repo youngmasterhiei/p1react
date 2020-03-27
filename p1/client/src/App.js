@@ -9,6 +9,9 @@ import Home from "./js/components/pages/Home";
 import Profile from "./js/components/pages/Profile";
 import DisplayEvent from "./js/components/pages/DisplayEvent";
 
+import PrivateRoute from './Routes/PrivateRoute';
+import PublicRoute from './Routes/PublicRoute';
+
 import { useDispatch } from "react-redux";
 import { loggedIn } from "./redux/actions/index";
 
@@ -18,23 +21,6 @@ import "./App.css";
 
 
 
-
-
-
-
-
-//create store
-
-//display store in console
-// store.subscribe(() => console.log(store.getState()));
-// storeLoginRedux = {this.storeLoginRedux}
-
-
-// store.dispatch(getProfile())
-// storeLoginRedux = data => {
-//   const dispatch = useDispatch();
-//   dispatch(loggedIn(data));
-// };
 
 
 
@@ -67,12 +53,12 @@ function App() {
 
             <Switch>
 
-             <Route path="/" exact component={Home} />
-             <Route path="/events" component={Events}/>
-             <Route path="/forum" component={Forum}/>
-             <Route path="/home" component={Home}/>
-             <Route path="/profile" component={Profile}/>
-             <Route path="/displayevent" component={DisplayEvent}/>
+             <PublicRoute restricted={false} path="/" exact component={Home} />
+             <PrivateRoute restricted={true} path="/events" component={Events}/>
+             <PrivateRoute restricted={true} path="/forum" component={Forum}/>
+             <PrivateRoute restricted={true} path="/home" component={Home}/>
+             <PrivateRoute restricted={true} path="/profile" component={Profile}/>
+             <PrivateRoute restricted={true} path="/displayevent" component={DisplayEvent}/>
 
             <Route component={Error}/>
            </Switch>

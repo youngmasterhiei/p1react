@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm";
 import SignUpform from "./SignUpForm";
 
 
+
 class DisplayLoginSignup extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,9 @@ class DisplayLoginSignup extends Component {
   };
   handleLogOut = e => {
     localStorage.setItem("token", ""), this.setState({ token: "" });
-    this.props.storeToken()
+    this.props.storeToken();
+  
+    this.props.history.push("/")
   };
 
   callbackFunction = (childData) => {

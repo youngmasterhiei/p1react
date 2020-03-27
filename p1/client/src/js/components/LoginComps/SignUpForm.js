@@ -17,8 +17,6 @@ class SignUpform extends Component {
   sendToken = () => {
 
     this.props.parentCallback(localStorage.getItem("token"));
-    console.log("token after click")
-    console.log(localStorage.getItem("token"))
   }
   submitHandler = e => {
     e.preventDefault();
@@ -28,7 +26,6 @@ class SignUpform extends Component {
       url: "http://localhost:5000/newuser",
       data: this.state
     }).then(response => {
-      console.log(response.data)
       if (response){
       localStorage.setItem("token", response.data);
 }

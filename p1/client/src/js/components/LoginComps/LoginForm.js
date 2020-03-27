@@ -13,8 +13,7 @@ class LoginForm extends Component {
   sendToken = () => {
 
     this.props.parentCallback(localStorage.getItem("token"));
-    console.log("token after click")
-    console.log(localStorage.getItem("token"))
+
 
   }
 
@@ -50,7 +49,6 @@ class LoginForm extends Component {
 
   render() {
     const { email, password } = this.state;
-    console.log(this.props)
     return (
       <div>
         <h1> Login </h1>

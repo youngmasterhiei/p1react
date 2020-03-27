@@ -9,9 +9,7 @@ const DropDownForm = props => {
  
 
   const toggle = () => setOpen(!open);
-  //   const header = () => setTitle(!open);
 
-  // const valueFromForm={valueFromForm}
 
   return (
     <div className="dd-wrapper">

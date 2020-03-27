@@ -21,7 +21,6 @@ class UserFormInput extends Component {
   submitProfile = e => {
     e.preventDefault();
     localStorage.getItem("token")
-    console.log(this.state);
     axios({
       method: "post",
       url: "http://localhost:5000/profile",
@@ -42,18 +41,9 @@ class UserFormInput extends Component {
   };
 
 
-  // sendToken = () => {
-
-  //   this.props.parentCallback(header);
-  //   console.log(header)
-  //   console.log("title^^")
-  // }
 
   render() {
     const { fName, lName, city, st, dateOfBirth, speciality, github, linkedIn, bio } = this.state;
-    const header = "Edit Profile";
-    console.log(header)
-    console.log("wont post before click")
 
     return (
       <div>

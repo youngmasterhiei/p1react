@@ -52,7 +52,6 @@ class UserProjectInput extends Component {
       p4Link,
       p5Link
     } = this.state;
-    const header = "Edit Projects";
 
     return (
       <div>
