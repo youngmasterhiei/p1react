@@ -25,6 +25,11 @@ module.exports = (app, db) => {
   router.post("/auth/api/events", cors(), events.createEvent);
   // get events for that userId
   router.get("/auth/api/events/:userId", cors(), events.getEvents);
+  //get all events
+  router.get("/auth/api/events", cors(), events.getAllEvents);
 
   app.use("/", router);
 };
+
+
+

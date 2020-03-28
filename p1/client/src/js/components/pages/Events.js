@@ -1,14 +1,21 @@
-import React from 'react';
- 
-function Events() {
-    return (
-       <div>
-          <h1>Events US</h1>
-          <h1>Events US</h1>
+import React from "react";
+import EventsDisplayParent from "../EventComps/EventsDisplayParent";
 
-          <p>Events US page body content</p>
-       </div>
-    );
+function Events() {
+  return (
+    <div>
+
+
+      <div>
+        <h1>Events US</h1>
+      </div>
+      <div>
+         <EventsDisplayParent />
+      </div>
+
+
+    </div>
+  );
 }
- 
+
 export default Events;

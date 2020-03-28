@@ -13,14 +13,15 @@ exports.create = (req, res) => {
   };
   console.log(userInfo);
   // Save Tutorial in the database
-  db.user.create(userInfo)
+  db.user
+    .create(userInfo)
 
     .then(data => {
       const payload = {
         sub: data.dataValues.id
       };
-      console.log(data.dataValues.id)
-      console.log("users id")
+      console.log(data.dataValues.id);
+      console.log("users id");
       const token = jwt.sign(payload.sub, config.jwtSecret);
 
       res.send(token);
@@ -73,10 +74,10 @@ exports.passportLogin = (req, res, next) => {
 
 //profile create
 exports.createProfile = (req, res) => {
-  console.log(req.body.userId)
-  let decoded = jwt.verify(req.body.userId, config.jwtSecret)
-  console.log(decoded)
-  console.log("decoded token")
+  console.log(req.body.userId);
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
+  console.log(decoded);
+  console.log("decoded token");
   const profile = {
     fName: req.body.fName,
     lName: req.body.lName,
@@ -94,9 +95,7 @@ exports.createProfile = (req, res) => {
   db.profile
     .create(profile)
     .then(data => {
-
       res.send(data);
-
     })
     .catch(err => {
       res.status(500).send({
@@ -107,40 +106,35 @@ exports.createProfile = (req, res) => {
 };
 
 exports.getProfile = (req, res) => {
-  console.log(req.params.userId)
-  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
-  console.log(decoded)
-  console.log("decoded token")
+  console.log(req.params.userId);
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret);
+  console.log(decoded);
+  console.log("decoded token");
 
   // Save Tutorial in the database
-  db.profile.findAll(
-    {
+  db.profile
+    .findAll({
       where: { userId: decoded }
-    }).then(function (dbprofile) {
-
-      console.log()
-      delete dbprofile[0].dataValues.id
-      delete dbprofile[0].dataValues.userId
-      delete dbprofile[0].dataValues.updatedAt
-      delete dbprofile[0].dataValues.deletedAt
-      delete dbprofile[0].dataValues.createdAt
-
+    })
+    .then(function(dbprofile) {
+      console.log();
+      delete dbprofile[0].dataValues.id;
+      delete dbprofile[0].dataValues.userId;
+      delete dbprofile[0].dataValues.updatedAt;
+      delete dbprofile[0].dataValues.deletedAt;
+      delete dbprofile[0].dataValues.createdAt;
 
       res.json(dbprofile);
     })
     .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while getting the profile."
+        message: err.message || "Some error occurred while getting the profile."
       });
     });
 };
 
-
-
-
 exports.createProject = (req, res) => {
-  let decoded = jwt.verify(req.body.userId, config.jwtSecret)
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
 
   const project = {
     project1: req.body.project1,
@@ -155,7 +149,6 @@ exports.createProject = (req, res) => {
   db.project
     .create(project)
     .then(data => {
-
       res.send(data);
     })
     .catch(err => {
@@ -166,21 +159,21 @@ exports.createProject = (req, res) => {
     });
 };
 
-
 exports.getProjects = (req, res) => {
-  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret);
 
   // Save Tutorial in the database
-  db.project.findAll(
-    {
+  db.project
+    .findAll({
       where: { userId: decoded }
-    }).then(function (dbProject) {
-      delete dbProject[0].dataValues.id
-      delete dbProject[0].dataValues.userId
-      delete dbProject[0].dataValues.updatedAt
-      delete dbProject[0].dataValues.deletedAt
-      delete dbProject[0].dataValues.createdAt
-    
+    })
+    .then(function(dbProject) {
+      delete dbProject[0].dataValues.id;
+      delete dbProject[0].dataValues.userId;
+      delete dbProject[0].dataValues.updatedAt;
+      delete dbProject[0].dataValues.deletedAt;
+      delete dbProject[0].dataValues.createdAt;
+
       res.json(dbProject);
     })
     .catch(err => {
@@ -191,9 +184,8 @@ exports.getProjects = (req, res) => {
     });
 };
 
-
 exports.createEvent = (req, res) => {
-  let decoded = jwt.verify(req.body.userId, config.jwtSecret)
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
 
   const event = {
     title: req.body.title,
@@ -208,7 +200,6 @@ exports.createEvent = (req, res) => {
   db.event
     .create(event)
     .then(data => {
-
       res.send(data);
     })
     .catch(err => {
@@ -219,21 +210,39 @@ exports.createEvent = (req, res) => {
     });
 };
 
-
 exports.getEvents = (req, res) => {
-  let decoded = jwt.verify(req.params.userId, config.jwtSecret)
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret);
 
   // Save Tutorial in the database
-  db.event.findAll(
-    {
+  db.event
+    .findAll({
       where: { userId: decoded }
-    }).then(function (dbEvent) {
-      delete dbEvent[0].dataValues.id
-      delete dbEvent[0].dataValues.userId
-      delete dbEvent[0].dataValues.updatedAt
-      delete dbEvent[0].dataValues.deletedAt
-      delete dbEvent[0].dataValues.createdAt
-    
+    })
+    .then(function(dbEvent) {
+      delete dbEvent[0].dataValues.id;
+      delete dbEvent[0].dataValues.userId;
+      delete dbEvent[0].dataValues.updatedAt;
+      delete dbEvent[0].dataValues.deletedAt;
+      delete dbEvent[0].dataValues.createdAt;
+
+      res.json(dbEvent);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};
+
+exports.getAllEvents = (req, res) => {
+  // Save Tutorial in the database
+  db.event
+    .findAll()
+    .then(function(dbEvent) {
+      delete dbEvent[0].dataValues.updatedAt;
+      delete dbEvent[0].dataValues.deletedAt;
+
       res.json(dbEvent);
     })
     .catch(err => {
