@@ -263,3 +263,27 @@ exports.getAllEvents = (req, res) => {
       });
     });
 };
+
+exports.getSingleEvent = (req, res) => {
+  console.log(req.params.eventId)
+  // Save Tutorial in the database
+  db.event
+    .findAll({
+      where: { id: req.params.eventId }
+    })
+    .then(function(dbEvent) {
+      delete dbEvent[0].dataValues.eventId;
+      delete dbEvent[0].dataValues.userId;
+      delete dbEvent[0].dataValues.updatedAt;
+      delete dbEvent[0].dataValues.deletedAt;
+      delete dbEvent[0].dataValues.createdAt;
+
+      res.json(dbEvent);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};

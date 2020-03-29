@@ -12,6 +12,10 @@ const EventList = props => {
   const propData = Object.values(props.data);
   const eventId = props.data.id;
 
+  const setEventId = (eventId) => {
+      console.log("hello")
+    localStorage.setItem("eventId", eventId)
+  }
 
   return (
     <div
@@ -25,7 +29,7 @@ const EventList = props => {
         <li>
           {/* <a href={"http://localhost:5000/auth/api/events/" + eventId }> */}
 
-          <Link to={"/displayevent/" + eventId} onClick={localStorage.setItem("eventId", eventId)}> <img
+          <Link to={"/displayevent/?eventid=" + eventId} onClick={setEventId()}> <img
             style={{ width: "200px", height: "20%", minWidth: "150px" }}
             src={props.data.imagePath}
           /></Link>
