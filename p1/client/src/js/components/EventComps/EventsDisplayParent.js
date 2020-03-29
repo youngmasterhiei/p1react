@@ -3,13 +3,16 @@ import PropTypes from "prop-types";
 import SearchEvents from "./SearchEvents";
 import axios from "axios";
 import EventList from "./EventList";
+import "../../../style/Event.css";
 
 class EventsDisplayParent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      events: [{}]
+      events: [{}],
+      displayedEvent: "",
+      eventIndex: 0
     };
   }
 
@@ -18,44 +21,77 @@ class EventsDisplayParent extends Component {
     axios
       .get("http://localhost:5000/auth/api/events")
       .then(res => {
+
+        const events = res.data
+        events.map(function(name, index){
+            name.index = index;
+          })
+
         this.setState({
-          events: res.data
+          events: events,
+          displayedEvent: events[0]
         });
-        // console.log(res)
       })
       .catch(error => {
         console.log(error.events);
       });
   }
 
-  dataTest() {
-    console.log("hello from datatest");
-    axios
-      .get("http://localhost:5000/auth/api/events")
-      .then(res => {
-        this.setState({
-          events: res.data
-        });
-        // console.log(res)
-      })
-      .catch(error => {
-        console.log(error.events);
-      });
-  }
+  nextSlide = () => {
+    let newIndex = this.state.displayedEvent.index + 1;
+    this.setState({
+      displayedEvent: this.state.events[newIndex]
+    });
+    console.log(newIndex);
+  };
+
+  prevSlide = () => {
+    let newIndex = this.state.displayedEvent.index - 1;
+    this.setState({
+      displayedEvent: this.state.events[newIndex]
+    });
+  };
 
   render() {
-    // this.dataTest()
-    // console.log(this.state)
+    const { events, displayedEvent, eventIndex } = this.state;
+    console.log(events);
+
     return (
       <div>
-        <div>
+        <div style={{}}>
           <SearchEvents />
         </div>
+        <button
+          onClick={this.nextSlide}
+            disabled={displayedEvent.index === events.length - 1}
+        >
+          next
+        </button>
+        <button
+          onClick={this.prevSlide}
+            disabled={displayedEvent.index === 0}
+        >
+          prev
+        </button>
+        <div
+          className={`card-slider active-slide-${displayedEvent.index}`}
+          style={{
+            overflow: "hidden",
+            display: "flex",
+            
 
-        <div>
-          {this.state.events.map((data, i) => (
-            <EventList key={i} data={data} />
-          ))}
+          }}
+        >
+          <div
+            className="cards-slider-wrapper"
+            style={{
+              transform: `translateX(-${displayedEvent.index * (100 / events.length)}%)`
+            }}
+          >
+            {this.state.events.map((data, i) => (
+              <EventList key={i} data={data} activeCard={displayedEvent.index} />
+            ))}
+          </div>
         </div>
       </div>
     );

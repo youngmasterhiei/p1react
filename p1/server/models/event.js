@@ -9,9 +9,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     time: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.STRING
     },
+    desc: {
+      type: DataTypes.STRING,
+
+    },
+    imagePath: {
+      type: DataTypes.STRING,
+
+    }, 
     author: {
       type: DataTypes.STRING,
       allowNull: true

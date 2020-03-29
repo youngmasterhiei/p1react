@@ -8,6 +8,7 @@ import Forum from "./js/components/pages/Forum";
 import Home from "./js/components/pages/Home";
 import Profile from "./js/components/pages/Profile";
 import DisplayEvent from "./js/components/pages/DisplayEvent";
+import Event from "./js/components/pages/Event";
 
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
@@ -59,6 +60,7 @@ function App() {
              <PrivateRoute restricted={true} path="/home" component={Home}/>
              <PrivateRoute restricted={true} path="/profile" component={Profile}/>
              <PrivateRoute restricted={true} path="/displayevent" component={DisplayEvent}/>
+             <PrivateRoute restricted={true} path="/event" component={Event}/>
 
             <Route component={Error}/>
            </Switch>

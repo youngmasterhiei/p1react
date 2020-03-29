@@ -8,6 +8,8 @@ class CreateEventForm extends Component {
       title: "",
       date: "",
       time: "",
+      desc: "",
+      imagePath: "",
       author: "",
       location: "",
       userId: localStorage.getItem("token")
@@ -39,7 +41,7 @@ class CreateEventForm extends Component {
 
 
   render() {
-    const { title, date, time, author, location } = this.state;
+    const { title, date, time, desc, imagePath, author, location } = this.state;
     const header = "Create an Event";
 
     return (
@@ -69,6 +71,24 @@ class CreateEventForm extends Component {
             name="time"
             value={time}
             placeholder="Event Time"
+            onChange={this.changeHandler}
+
+          />
+          <br />
+          <input
+            type="text"
+            name="desc"
+            value={desc}
+            placeholder="Event description"
+            onChange={this.changeHandler}
+
+          />
+          <br />
+          <input
+            type="text"
+            name="imagePath"
+            value={imagePath}
+            placeholder="Image Link"
             onChange={this.changeHandler}
 
           />

@@ -191,6 +191,8 @@ exports.createEvent = (req, res) => {
     title: req.body.title,
     date: req.body.date,
     time: req.body.time,
+    desc: req.body.desc,
+    imagePath: req.body.imagePath,
     author: req.body.author,
     location: req.body.location,
     userId: decoded
@@ -235,13 +237,22 @@ exports.getEvents = (req, res) => {
     });
 };
 
+// grabs all events
 exports.getAllEvents = (req, res) => {
-  // Save Tutorial in the database
   db.event
     .findAll()
     .then(function(dbEvent) {
-      delete dbEvent[0].dataValues.updatedAt;
-      delete dbEvent[0].dataValues.deletedAt;
+      
+      // cycles through each event and removes details before sending to front end
+      dbEvent.forEach(ele => {
+        delete ele.dataValues.updatedAt
+        delete ele.dataValues.deletedAt
+        delete ele.dataValues.createdAt
+
+      })
+
+      
+  
 
       res.json(dbEvent);
     })

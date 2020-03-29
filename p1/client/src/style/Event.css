@@ -1,0 +1,27 @@
+
+.cards-slider-wrapper {
+    position: absolute;
+    display: flex;
+    transition: transform 300ms cubic-bezier(0.455, 0.03, 0.515, 0.955);
+ 
+}
+.card {
+padding-right: 43px;    
+margin-left: 45px;   
+margin-top: 15px;
+}
+
+.cards-slider {
+    position: relative;
+    max-width: 226px;
+    margin: 0 auto;
+    
+
+
+}
+
+.activeCard {
+    outline: 5px solid black;
+
+    
+}
