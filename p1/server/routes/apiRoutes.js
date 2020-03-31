@@ -32,6 +32,7 @@ module.exports = (app, db) => {
 
   //sign up for event
   router.post("/auth/api/joinevent", cors(), eventAttendance.joinEvent);
+  router.get("/auth/api/userAttendingEvents/:userId/:eventId", cors(), eventAttendance.getUserAttendingEvents);
 
   app.use("/", router);
 };

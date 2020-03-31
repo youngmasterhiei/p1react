@@ -286,19 +286,6 @@ exports.getSingleEvent = (req, res) => {
       });
     });
 };
-// get the username 
-const getUserName = async(userId) => {
-  db.profile
-    .findOne({
-      where: { userId: userId }
-    })
-    .then(function(dbprofile) {
-      let username = dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
-      console.log(username)
-      return username;
-    })
-   
-}
 
 exports.joinEvent = (req, res) => {
   let decoded = jwt.verify(req.body.userId, config.jwtSecret);
@@ -336,3 +323,30 @@ exports.joinEvent = (req, res) => {
 
 };
 
+
+
+// grabs all events
+exports.getUserAttendingEvents = (req, res) => {
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret);
+
+
+  db.eventAttendance
+  .findAll({
+    where: { 
+      userId: decoded,
+      eventId: req.params.eventId
+    }
+  })
+    .then(function(dbAttendance) {
+      
+      // cycles through each event and removes details before sending to front end
+      console.log(dbAttendance)
+      res.json(dbAttendance);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};

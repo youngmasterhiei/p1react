@@ -35,6 +35,11 @@ class EventsDisplayParent extends Component {
       .catch(error => {
         console.log(error.events);
       });
+
+
+
+    
+      
   }
 
   nextSlide = () => {
@@ -42,7 +47,6 @@ class EventsDisplayParent extends Component {
     this.setState({
       displayedEvent: this.state.events[newIndex]
     });
-    console.log(newIndex);
   };
 
   prevSlide = () => {
@@ -54,7 +58,6 @@ class EventsDisplayParent extends Component {
 
   render() {
     const { events, displayedEvent, eventIndex } = this.state;
-    console.log(events);
 
     return (
       <div>

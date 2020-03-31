@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { Carousel } from "react-responsive-carousel";
+import JoinEventButton from "./JoinEventButton";
 
 const EventList = props => {
   //   console.log(props);
@@ -14,32 +13,9 @@ const EventList = props => {
   const propData = Object.values(props.data);
   const eventId = props.data.id;
 
+
   const setEventId = eventId => {
-    console.log("hello");
     localStorage.setItem("eventId", eventId);
-  };
-
-  const joinEvent = e => {
-    e.preventDefault();
-    // localStorage.getItem("token")
-    // console.log(this.state);
-    const eventSignUp = {
-        eventTitle: props.data.title,
-        eventId: props.data.id,
-        userId: localStorage.getItem("token")
-    }
-    axios({
-      method: "post",
-      url: "http://localhost:5000/auth/api/joinevent",
-      data: eventSignUp
-    })
-
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   };
 
   return (
@@ -54,7 +30,7 @@ const EventList = props => {
         <li>
           {/* <a href={"http://localhost:5000/auth/api/events/" + eventId }> */}
 
-          <Link to={"/displayevent?eventid=" + eventId} onClick={setEventId()}>
+          <Link to={"/displayevent?eventid=" + eventId}  onClick={setEventId()}>
             {" "}
             <img
               style={{ width: "200px", height: "20%", minWidth: "150px" }}
@@ -70,8 +46,8 @@ const EventList = props => {
         <li style={{ fontWeight: "bold" }}>{props.data.title}</li>
         <li style={{}}>{props.data.desc}</li>
         <li>
-          {" "}
-          <button onClick={joinEvent}>Sign Up</button>
+         
+          <JoinEventButton data = {props.data}/>
         </li>
       </ul>
       {/* <ul style={{ listStyle: "none" }}>
