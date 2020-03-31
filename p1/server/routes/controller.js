@@ -215,7 +215,6 @@ exports.createEvent = (req, res) => {
 exports.getEvents = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
 
-  // Save Tutorial in the database
   db.event
     .findAll({
       where: { userId: decoded }
@@ -287,3 +286,53 @@ exports.getSingleEvent = (req, res) => {
       });
     });
 };
+// get the username 
+const getUserName = async(userId) => {
+  db.profile
+    .findOne({
+      where: { userId: userId }
+    })
+    .then(function(dbprofile) {
+      let username = dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
+      console.log(username)
+      return username;
+    })
+   
+}
+
+exports.joinEvent = (req, res) => {
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
+
+
+  db.profile
+    .findOne({
+      where: { userId: decoded }
+    })
+    .then(function(dbprofile) {
+      let username = dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
+      console.log(username)
+ 
+    const eventSignUp = {
+      eventTitle: req.body.eventTitle,
+      username: username,
+      userId: decoded,
+      eventId: req.body.eventId
+    };
+    console.log(eventSignUp);
+    // Save Tutorial in the database
+    db.eventAttendance
+      .create(eventSignUp)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial."
+        });
+      });
+
+    })
+
+};
+

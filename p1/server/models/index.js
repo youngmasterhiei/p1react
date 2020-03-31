@@ -22,6 +22,7 @@ db.sequelize = sequelize;
 db.user = require("./user.js")(sequelize, Sequelize);
 db.comment = require("./comment.js")(sequelize, Sequelize);
 db.event = require("./event.js")(sequelize, Sequelize);
+db.eventAttendance = require("./eventAttendance.js")(sequelize, Sequelize);
 db.post = require("./post.js")(sequelize, Sequelize);
 db.profile = require("./profile.js")(sequelize, Sequelize);
 db.project = require("./project.js")(sequelize, Sequelize);
@@ -35,6 +36,11 @@ db.project.belongsTo(db.user);
 
 db.user.hasMany(db.event);
 db.event.belongsTo(db.user);
+
+db.user.belongsToMany(db.event, { through: db.eventAttendance });
+db.event.belongsToMany(db.user, { through: db.eventAttendance });
+
+
 
 // db.user.hasMany(db.thread);
 // db.thread.belongsTo(db.user);

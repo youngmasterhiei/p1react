@@ -3,6 +3,7 @@ module.exports = (app, db) => {
   const profile = require("./controller.js");
   const project = require("./controller.js");
   const events = require("./controller.js");
+  const eventAttendance = require("./controller.js")
 
   const cors = require("cors");
   const jwt = require("jsonwebtoken");
@@ -28,6 +29,9 @@ module.exports = (app, db) => {
   //get all events
   router.get("/auth/api/events", cors(), events.getAllEvents);
   router.get("/auth/api/event/:eventId", cors(), events.getSingleEvent);
+
+  //sign up for event
+  router.post("/auth/api/joinevent", cors(), eventAttendance.joinEvent);
 
   app.use("/", router);
 };

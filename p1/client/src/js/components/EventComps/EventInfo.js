@@ -16,13 +16,13 @@ class EventInfo extends Component {
 
   componentWillMount() {
 
-
-
-    const userId = localStorage.getItem("token");
+    // console.log(this.props.match.params)
+    console.log("hello from eventInfo")
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const eventId = urlParams.get("eventid")
     console.log(eventId)
+    localStorage.setItem("eventId", eventId)
     axios
       .get("http://localhost:5000/auth/api/event/" + eventId)
       .then(res => {

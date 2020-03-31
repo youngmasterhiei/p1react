@@ -19,6 +19,7 @@ import { loggedIn } from "./redux/actions/index";
 
 import logo from "./logo.svg";
 import "./App.css";
+import EventInfo from "./js/components/EventComps/EventInfo";
 
 
 
@@ -43,6 +44,14 @@ function App() {
       console.log("token being set true")
     }
   }
+  // const queryString = window.location.search;
+  // const urlParams = new URLSearchParams(queryString);
+  // const eventId = 1
+  // console.log(eventId.toString())
+
+
+  // const displayEventRoute = "?eventid=" + eventId
+  // console.log(displayEventRoute)
 
 // localStorage.getItem("token" === "") ? dispatch(loggedIn(false)) : dispatch(loggedIn(false));
 
@@ -59,7 +68,7 @@ function App() {
              <PrivateRoute restricted={true} path="/forum" component={Forum}/>
              <PrivateRoute restricted={true} path="/home" component={Home}/>
              <PrivateRoute restricted={true} path="/profile" component={Profile}/>
-             <PrivateRoute restricted={true} path="/displayevent" component={DisplayEvent}/>
+             <PrivateRoute restricted={true}  path="/displayevent"  component={DisplayEvent}/>
              <PrivateRoute restricted={true} path="/event" component={Event}/>
 
             <Route component={Error}/>
