@@ -7,6 +7,8 @@ import Events from "./js/components/pages/Events";
 import Forum from "./js/components/pages/Forum";
 import Home from "./js/components/pages/Home";
 import Profile from "./js/components/pages/Profile";
+import ProfileViewUser from "./js/components/pages/ProfileViewUser";
+
 import DisplayEvent from "./js/components/pages/DisplayEvent";
 import Event from "./js/components/pages/Event";
 
@@ -20,6 +22,7 @@ import { loggedIn } from "./redux/actions/index";
 import logo from "./logo.svg";
 import "./App.css";
 import EventInfo from "./js/components/EventComps/EventInfo";
+import DisplayNotifications from "./js/components/Notifications/DisplayNotifications";
 
 
 
@@ -60,6 +63,7 @@ function App() {
 
     <div className="App">
         <Nav storeToken = {storeToken}/>
+        <DisplayNotifications />
 
             <Switch>
 
@@ -68,6 +72,8 @@ function App() {
              <PrivateRoute restricted={true} path="/forum" component={Forum}/>
              <PrivateRoute restricted={true} path="/home" component={Home}/>
              <PrivateRoute restricted={true} path="/profile" component={Profile}/>
+             <PrivateRoute restricted={true}  path="/displayprofile"  component={ProfileViewUser}/>
+
              <PrivateRoute restricted={true}  path="/displayevent"  component={DisplayEvent}/>
              <PrivateRoute restricted={true} path="/event" component={Event}/>
 

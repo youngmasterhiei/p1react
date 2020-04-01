@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "parse": "^2.11.0",
     "path": "^0.12.7",
+    "pg": "^8.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",

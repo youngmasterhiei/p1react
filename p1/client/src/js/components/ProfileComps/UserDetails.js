@@ -8,7 +8,7 @@ const UserDetails = props => {
           // console.log("user profile from redux");
         // // const usersProfile = useSelector(state => state.profile);
     props.passedFunction(props.data)
-        // console.log(usersProfile);
+        // console.log(props);
   return (
     <div>
       <ul style={{listStyle:'none'}}>

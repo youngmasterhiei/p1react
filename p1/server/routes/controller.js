@@ -184,6 +184,29 @@ exports.getProjects = (req, res) => {
     });
 };
 
+exports.getViewUserProjects = (req, res) => {
+  // Save Tutorial in the database
+  db.project
+    .findAll({
+      where: { userId: req.params.userId }
+    })
+    .then(function(dbProject) {
+      delete dbProject[0].dataValues.id;
+      delete dbProject[0].dataValues.userId;
+      delete dbProject[0].dataValues.updatedAt;
+      delete dbProject[0].dataValues.deletedAt;
+      delete dbProject[0].dataValues.createdAt;
+
+      res.json(dbProject);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};
+
 exports.createEvent = (req, res) => {
   let decoded = jwt.verify(req.body.userId, config.jwtSecret);
 
@@ -241,17 +264,12 @@ exports.getAllEvents = (req, res) => {
   db.event
     .findAll()
     .then(function(dbEvent) {
-      
       // cycles through each event and removes details before sending to front end
       dbEvent.forEach(ele => {
-        delete ele.dataValues.updatedAt
-        delete ele.dataValues.deletedAt
-        delete ele.dataValues.createdAt
-
-      })
-
-      
-  
+        delete ele.dataValues.updatedAt;
+        delete ele.dataValues.deletedAt;
+        delete ele.dataValues.createdAt;
+      });
 
       res.json(dbEvent);
     })
@@ -264,7 +282,7 @@ exports.getAllEvents = (req, res) => {
 };
 
 exports.getSingleEvent = (req, res) => {
-  console.log(req.params.eventId)
+  console.log(req.params.eventId);
   // Save Tutorial in the database
   db.event
     .findAll({
@@ -290,57 +308,50 @@ exports.getSingleEvent = (req, res) => {
 exports.joinEvent = (req, res) => {
   let decoded = jwt.verify(req.body.userId, config.jwtSecret);
 
-
   db.profile
     .findOne({
       where: { userId: decoded }
     })
     .then(function(dbprofile) {
-      let username = dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
-      console.log(username)
- 
-    const eventSignUp = {
-      eventTitle: req.body.eventTitle,
-      username: username,
-      userId: decoded,
-      eventId: req.body.eventId
-    };
-    console.log(eventSignUp);
-    // Save Tutorial in the database
-    db.eventAttendance
-      .create(eventSignUp)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Tutorial."
+      let username =
+        dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
+      console.log(username);
+
+      const eventSignUp = {
+        eventTitle: req.body.eventTitle,
+        username: username,
+        userId: decoded,
+        eventId: req.body.eventId
+      };
+      console.log(eventSignUp);
+      // Save Tutorial in the database
+      db.eventAttendance
+        .create(eventSignUp)
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Tutorial."
+          });
         });
-      });
-
-    })
-
+    });
 };
-
-
 
 // grabs all events
 exports.getUserAttendingEvents = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
 
-
   db.eventAttendance
-  .findAll({
-    where: { 
-      userId: decoded,
-      eventId: req.params.eventId
-    }
-  })
+    .findAll({
+      where: {
+        userId: decoded,
+        eventId: req.params.eventId
+      }
+    })
     .then(function(dbAttendance) {
-      
       // cycles through each event and removes details before sending to front end
-      console.log(dbAttendance)
       res.json(dbAttendance);
     })
     .catch(err => {
@@ -350,3 +361,101 @@ exports.getUserAttendingEvents = (req, res) => {
       });
     });
 };
+
+exports.getAllAttendingEvent = (req, res) => {
+  // let decoded = jwt.verify(req.params.userId, config.jwtSecret);
+
+  db.eventAttendance
+    .findAll({
+      where: {
+        eventId: req.params.eventId
+      }
+    })
+    .then(function(dbAttendance) {
+      // cycles through each event and removes details before sending to front end
+      res.json(dbAttendance);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while getting the projects."
+      });
+    });
+};
+
+exports.getViewUserProfile = (req, res) => {
+  console.log(req.params.userId);
+  // let decoded = jwt.verify(req.params.userId, config.jwtSecret);
+  // console.log(decoded);
+  // console.log("decoded token");
+
+  // Save Tutorial in the database
+  db.profile
+    .findAll({
+      where: { userId: req.params.userId }
+    })
+    .then(function(dbprofile) {
+      console.log();
+      delete dbprofile[0].dataValues.updatedAt;
+      delete dbprofile[0].dataValues.deletedAt;
+      delete dbprofile[0].dataValues.createdAt;
+
+      res.json(dbprofile);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while getting the profile."
+      });
+    });
+};
+
+exports.sendFriendRequest = (req, res) => {
+  let decoded = jwt.verify(req.body.fromUserId, config.jwtSecret);
+
+  const notification = {
+    messageType: req.body.messageType,
+    fromUserId: decoded,
+    receivingUserId: req.body.receivingUserId,
+    message: req.body.message,
+    read: false
+  };
+  console.log(notification);
+  // Save Tutorial in the database
+  db.notification
+    .create(notification)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+
+exports.getAllNotifications = (req, res) => {
+  let decoded = jwt.verify(req.params.userId, config.jwtSecret);
+
+
+  // Save Tutorial in the database
+  db.notification
+    .findAll({
+      where: { receivingUserId: decoded}
+    })
+    .then(function(dbNotificationList) {
+      console.log(dbNotificationList);
+      delete dbNotificationList[0].dataValues.userId;
+      delete dbNotificationList[0].dataValues.updatedAt;
+      delete dbNotificationList[0].dataValues.deletedAt;
+      delete dbNotificationList[0].dataValues.createdAt;
+
+      res.json(dbNotificationList);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while getting the profile."
+      });
+    });
+};
+
