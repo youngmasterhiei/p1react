@@ -2,10 +2,10 @@ const db = require("../models");
 
 module.exports = (sequelize, DataTypes) => {
   const friendsList = sequelize.define("friendsList", {
-    username: {
+    userId: {
       type: DataTypes.STRING
     },
-    friendUsername: {
+    friendUserId: {
       type: DataTypes.STRING
     }
   });

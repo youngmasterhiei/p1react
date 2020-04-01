@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom';
 
 import { Link} from "react-router-dom";
 import DisplayNotifications from "../Notifications/DisplayNotifications";
+import DropDownForm from "../reusable/DropDownForm";
 
-const notifications = <notifications key={"Edit Profile"} />
+const notifications = <DisplayNotifications key={"Notifications"} />
 
 
 const Navigation = (props) => {
@@ -13,6 +14,9 @@ const Navigation = (props) => {
   return (
     <div className="navBar">
       <div>
+      <DropDownForm form={notifications}  />
+
+        
       </div>
       <Link to="/">Home</Link>
       <Link to="/events">Events</Link>

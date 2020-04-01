@@ -23,6 +23,7 @@ db.user = require("./user.js")(sequelize, Sequelize);
 db.comment = require("./comment.js")(sequelize, Sequelize);
 db.event = require("./event.js")(sequelize, Sequelize);
 db.eventAttendance = require("./eventAttendance.js")(sequelize, Sequelize);
+db.friendsList = require("./friendsList.js")(sequelize, Sequelize);
 db.notification = require("./notification.js")(sequelize, Sequelize);
 db.post = require("./post.js")(sequelize, Sequelize);
 db.profile = require("./profile.js")(sequelize, Sequelize);

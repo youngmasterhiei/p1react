@@ -47,6 +47,9 @@ module.exports = (app, db) => {
 
   router.get("/auth/api/notifications/:userId", cors(), notification.getAllNotifications);
 
+  router.post("/auth/api/addFriend", cors(), notification.addFriend);
+
+  router.put("/auth/api/updateNotification/:notifyId", cors(), notification.updateNotification);
 
 
   app.use("/", router);

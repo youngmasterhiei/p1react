@@ -9,15 +9,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     receivingUserId: {
-        type: DataTypes.STRING
-
+      type: DataTypes.STRING
     },
     message: {
-        type: DataTypes.STRING
-
+      type: DataTypes.STRING
     },
-    read: {
-        type: DataTypes.BOOLEAN
+    seen: {
+      type: DataTypes.BOOLEAN
+    },
+    actedUpon: {
+      type: DataTypes.BOOLEAN
     }
   });
 

@@ -417,7 +417,8 @@ exports.sendFriendRequest = (req, res) => {
     fromUserId: decoded,
     receivingUserId: req.body.receivingUserId,
     message: req.body.message,
-    read: false
+    read: false,
+    actedUpon: false
   };
   console.log(notification);
   // Save Tutorial in the database
@@ -437,14 +438,12 @@ exports.sendFriendRequest = (req, res) => {
 exports.getAllNotifications = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
 
-
   // Save Tutorial in the database
   db.notification
     .findAll({
-      where: { receivingUserId: decoded}
+      where: { receivingUserId: decoded, actedUpon: false }
     })
     .then(function(dbNotificationList) {
-      console.log(dbNotificationList);
       delete dbNotificationList[0].dataValues.userId;
       delete dbNotificationList[0].dataValues.updatedAt;
       delete dbNotificationList[0].dataValues.deletedAt;
@@ -457,5 +456,56 @@ exports.getAllNotifications = (req, res) => {
         message: err.message || "Some error occurred while getting the profile."
       });
     });
+};
+
+exports.updateNotification = (req, res) => {
+  // Save Tutorial in the database
+  console.log("before update")
+  db.notification
+    .update({ actedUpon: true }, { where: { id: req.params.notifyId } })
+    
+    .then(function(dbNotificationList) {
+      delete dbNotificationList[0].dataValues.userId;
+      delete dbNotificationList[0].dataValues.updatedAt;
+      delete dbNotificationList[0].dataValues.deletedAt;
+      delete dbNotificationList[0].dataValues.createdAt;
+      console.log("after up date")
+      console.log(dbNotificationList)
+      res.json(dbNotificationList);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while getting the profile."
+      });
+    });
+};
+
+exports.addFriend = (req, res) => {
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
+  console.log(req.body);
+  const connection = {
+    userId: decoded,
+    friendUserId: req.body.friendUserId
+  };
+
+  const connectionLink = {
+    userId: req.body.friendUserId,
+    friendUserId: decoded
+  };
+  console.log(connection);
+  // Save Tutorial in the database
+  db.friendsList.create(connection),
+    db.friendsList
+      .create(connectionLink)
+
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial."
+        });
+      });
 };
 

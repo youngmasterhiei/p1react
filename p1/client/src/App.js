@@ -22,7 +22,6 @@ import { loggedIn } from "./redux/actions/index";
 import logo from "./logo.svg";
 import "./App.css";
 import EventInfo from "./js/components/EventComps/EventInfo";
-import DisplayNotifications from "./js/components/Notifications/DisplayNotifications";
 
 
 
@@ -63,7 +62,6 @@ function App() {
 
     <div className="App">
         <Nav storeToken = {storeToken}/>
-        <DisplayNotifications />
 
             <Switch>
 
