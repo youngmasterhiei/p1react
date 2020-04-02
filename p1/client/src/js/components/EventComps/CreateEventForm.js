@@ -3,7 +3,7 @@ import axios from "axios";
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
-
+    // set state for the form
     this.state = {
       title: "",
       date: "",
@@ -15,6 +15,8 @@ class CreateEventForm extends Component {
       userId: localStorage.getItem("token")
     };
   }
+
+  // onclick submit form data to db
   submitProfile = e => {
     e.preventDefault();
     localStorage.getItem("token")
@@ -24,6 +26,7 @@ class CreateEventForm extends Component {
       url: "http://localhost:5000/auth/api/events",
       data: this.state
     })
+    // log response from server
       .then(response => {
         console.log(response);
       })
@@ -31,6 +34,7 @@ class CreateEventForm extends Component {
         console.log(error);
       });
   };
+  // handles change in the input boxes and sets state to the value
   changeHandler = e => {
     e.preventDefault();
 
@@ -41,11 +45,13 @@ class CreateEventForm extends Component {
 
 
   render() {
+    // destructs the state into a const 
     const { title, date, time, desc, imagePath, author, location } = this.state;
     const header = "Create an Event";
 
     return (
       <div>
+        
         <h3>Create Event</h3>
         <form onSubmit={this.submitProfile}>
           <input

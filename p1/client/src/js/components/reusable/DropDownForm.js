@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import UserFormInput from "../ProfileComps/UserFormInput";
-import UserProjectInput from "../ProfileComps/UserProjectInput";
-import CreateEventForm from "../EventComps/CreateEventForm";
+
 
 const DropDownForm = props => {
   const [open, setOpen] = useState(false);
@@ -10,6 +8,7 @@ const DropDownForm = props => {
 
   const toggle = () => setOpen(!open);
 
+ 
 
   return (
     <div className="dd-wrapper">
@@ -37,8 +36,8 @@ const DropDownForm = props => {
       <div>
         {" "}
         {open && (
-          <React.Fragment>
-            <span key={props.index}>{props.form}</span>
+          <React.Fragment key={props.index}  >
+            <span   key={props.index}>{props.form}</span>
           </React.Fragment>
         )}
       </div>

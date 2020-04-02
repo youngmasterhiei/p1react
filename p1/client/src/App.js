@@ -42,18 +42,19 @@ function App() {
     }
   
     else {
-      dispatch(loggedIn(true))
+      dispatch(loggedIn(true));
+      
       console.log("token being set true")
     }
   }
-  // const queryString = window.location.search;
-  // const urlParams = new URLSearchParams(queryString);
-  // const eventId = 1
-  // console.log(eventId.toString())
+//   const queryString = window.location.search;
+//   const urlParams = new URLSearchParams(queryString);
+//   const eventId = 1
+//   console.log(eventId.toString())
 
 
-  // const displayEventRoute = "?eventid=" + eventId
-  // console.log(displayEventRoute)
+//   const displayEventRoute = "?eventid=" + eventId
+//   console.log(displayEventRoute)
 
 // localStorage.getItem("token" === "") ? dispatch(loggedIn(false)) : dispatch(loggedIn(false));
 

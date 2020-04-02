@@ -23,3 +23,10 @@ export const getProfile = (usersProfile) => {
     }
   }
 
+  export const renderComp = (renderSwitch) => {
+
+    return {
+      type: "RENDER_PARENT",
+      payload: renderSwitch
+    }
+  }

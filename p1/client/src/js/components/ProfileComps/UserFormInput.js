@@ -1,5 +1,11 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
+
+
+import { useDispatch } from "react-redux";
+import { renderComp } from "../../../redux/actions/index";
+import FormSubmitHelper from "./FormSubmitHelper";
+
 class UserFormInput extends Component {
   constructor(props) {
     super(props);
@@ -15,12 +21,16 @@ class UserFormInput extends Component {
       linkedIn: "",
       bio: "",
       userId: localStorage.getItem("token"),
-      formTitle : "Edit Profile"
+      formTitle: "Edit Profile",
+      open: true
     };
   }
   submitProfile = e => {
     e.preventDefault();
-    localStorage.getItem("token")
+
+    // this.storeSwitchRedux();
+
+    localStorage.getItem("token");
     axios({
       method: "post",
       url: "http://localhost:5000/profile",
@@ -28,27 +38,44 @@ class UserFormInput extends Component {
     })
       .then(response => {
         console.log(response);
-
       })
       .catch(error => {
         console.log(error);
       });
   };
+  
   changeHandler = e => {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
+    this.setState({open:false})
   };
 
+   storeSwitchRedux = () => {
 
+    // const dispatch = useDispatch();
+    // dispatch(renderComp(true));
+
+    
+  };
 
   render() {
-    const { fName, lName, city, st, dateOfBirth, speciality, github, linkedIn, bio } = this.state;
+    const {
+      fName,
+      lName,
+      city,
+      st,
+      dateOfBirth,
+      speciality,
+      github,
+      linkedIn,
+      bio
+    } = this.state;
 
     return (
       <div>
-{        <h3 className="formName" value="Edit Profile"></h3>
-}        <form onSubmit={this.submitProfile}>
+        {<h3 className="formName" value="Edit Profile"></h3>}{" "}
+        <form >
           <input
             type="text"
             placeholder="First Name "
@@ -73,7 +100,6 @@ class UserFormInput extends Component {
             value={city}
             placeholder="City"
             onChange={this.changeHandler}
-
           />
           <br />
           <input
@@ -125,8 +151,10 @@ class UserFormInput extends Component {
             onChange={this.changeHandler}
           />
           <br />
+          <input type="submit" onClick={this.submitProfile} name="Submit" />
+          {/* <FormSubmitHelper submitProfile={this.submitProfile} /> */}
+          {/* <FormSubmitHelper storeRenderSwitch={this.storeRenderSwitch} /> */}
 
-          <input type="submit" name="Submit" />
         </form>
       </div>
     );

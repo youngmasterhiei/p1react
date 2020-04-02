@@ -18,7 +18,6 @@ class EventsDisplayParent extends Component {
   }
 
   componentWillMount() {
-    const userId = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/auth/api/events")
       .then(res => {
@@ -58,7 +57,7 @@ class EventsDisplayParent extends Component {
   };
 
   render() {
-    const { events, displayedEvent, eventIndex } = this.state;
+    const { events, displayedEvent } = this.state;
 
     return (
       <div>

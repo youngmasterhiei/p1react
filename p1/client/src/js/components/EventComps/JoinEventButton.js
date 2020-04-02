@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+// import { useDispatch } from "react-redux";
+// import { loggedIn } from "./redux/actions/index";
+
+
+
+
 
 const JoinEventButton = props => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
@@ -27,8 +33,8 @@ const JoinEventButton = props => {
 
   const joinEvent = e => {
     e.preventDefault();
-    props.joinButtonCallback();
     getUserEvents();
+    props.joinButtonCallback();
     const eventSignUp = {
       eventTitle: props.data.title,
       eventId: props.data.id,
@@ -47,11 +53,7 @@ const JoinEventButton = props => {
       });
   };
 
-  //   const signupDisplay = { buttonSwitch } ? (
-  //     <button onClick={joinEvent}>signup{buttonSwitch}</button>
-  //   ) : (
-  //     <label>attending</label>
-  //   );
+
 
   return (
     <div>
@@ -63,10 +65,7 @@ const JoinEventButton = props => {
     </div>
   );
 
-  if ({ buttonSwitch }) {
-    return <button>signup</button>;
-  }
-  return <button>hello</button>;
+
 };
 
 JoinEventButton.propTypes = {};
