@@ -32,4 +32,8 @@ run
 
 npm run dev 
 
+<<<<<<< HEAD
 to boot up both server and react 
+=======
+to boot up both server and react 
+>>>>>>> 11839614a10a7e7d1b800ac8335a7533dc6d7546
