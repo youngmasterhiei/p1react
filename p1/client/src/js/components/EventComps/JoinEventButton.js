@@ -27,6 +27,8 @@ const JoinEventButton = props => {
 
   const joinEvent = e => {
     e.preventDefault();
+    props.joinButtonCallback();
+    getUserEvents();
     const eventSignUp = {
       eventTitle: props.data.title,
       eventId: props.data.id,
@@ -52,16 +54,13 @@ const JoinEventButton = props => {
   //   );
 
   return (
-    console.log(buttonSwitch),
-    (
-      <div>
-        {buttonSwitch === false ? (
-          <h3>Attending</h3>
-        ) : (
-          <button onClick={joinEvent}>signup </button>
-        )}
-      </div>
-    )
+    <div>
+      {buttonSwitch === false ? (
+        <h3>Attending</h3>
+      ) : (
+        <button onClick={joinEvent}>signup </button>
+      )}
+    </div>
   );
 
   if ({ buttonSwitch }) {

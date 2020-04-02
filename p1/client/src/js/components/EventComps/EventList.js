@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,8 @@ import axios from "axios";
 import JoinEventButton from "./JoinEventButton";
 
 const EventList = props => {
+  let [ref, setRef] = useState(false);
+
   //   console.log(props);
   //   const propData = Object.values(props);
   const propData = Object.values(props.data);
@@ -17,6 +19,20 @@ const EventList = props => {
   const setEventId = eventId => {
     localStorage.setItem("eventId", eventId);
   };
+
+  const joinButtonCallback = () => {
+    // setAttending(true);
+    console.log("hello callback");
+    props.joinButtonCallback();
+  };
+
+  useEffect(() => {
+
+    console.log(ref)
+  }, [ref]);
+
+
+
 
   return (
     <div
@@ -47,7 +63,7 @@ const EventList = props => {
         <li style={{}}>{props.data.desc}</li>
         <li>
          
-          <JoinEventButton data = {props.data}/>
+          <JoinEventButton  data = {props.data} joinButtonCallback={joinButtonCallback}/>
         </li>
       </ul>
       {/* <ul style={{ listStyle: "none" }}>

@@ -12,7 +12,8 @@ class EventsDisplayParent extends Component {
     this.state = {
       events: [{}],
       displayedEvent: "",
-      eventIndex: 0
+      eventIndex: 0,
+      attending: false
     };
   }
 
@@ -21,11 +22,10 @@ class EventsDisplayParent extends Component {
     axios
       .get("http://localhost:5000/auth/api/events")
       .then(res => {
-
-        const events = res.data
-        events.map(function(name, index){
-            name.index = index;
-          })
+        const events = res.data;
+        events.map(function(name, index) {
+          name.index = index;
+        });
 
         this.setState({
           events: events,
@@ -35,11 +35,6 @@ class EventsDisplayParent extends Component {
       .catch(error => {
         console.log(error.events);
       });
-
-
-
-    
-      
   }
 
   nextSlide = () => {
@@ -56,6 +51,12 @@ class EventsDisplayParent extends Component {
     });
   };
 
+  joinButtonCallback = () => {
+    this.setState({ attending: true });
+    console.log("hello second callback");
+    console.log(this.state.attending);
+  };
+
   render() {
     const { events, displayedEvent, eventIndex } = this.state;
 
@@ -66,33 +67,34 @@ class EventsDisplayParent extends Component {
         </div>
         <button
           onClick={this.nextSlide}
-            disabled={displayedEvent.index === events.length - 1}
+          disabled={displayedEvent.index === events.length - 1}
         >
           next
         </button>
-        <button
-          onClick={this.prevSlide}
-            disabled={displayedEvent.index === 0}
-        >
+        <button onClick={this.prevSlide} disabled={displayedEvent.index === 0}>
           prev
         </button>
         <div
           className={`card-slider active-slide-${displayedEvent.index}`}
           style={{
             overflow: "hidden",
-            display: "flex",
-            
-
+            display: "flex"
           }}
         >
           <div
             className="cards-slider-wrapper"
             style={{
-              transform: `translateX(-${displayedEvent.index * (100 / events.length)}%)`
+              transform: `translateX(-${displayedEvent.index *
+                (100 / events.length)}%)`
             }}
           >
             {this.state.events.map((data, i) => (
-              <EventList key={i} data={data} activeCard={displayedEvent.index} />
+              <EventList
+                key={i}
+                data={data}
+                joinButtonCallback={this.joinButtonCallback}
+                activeCard={displayedEvent.index}
+              />
             ))}
           </div>
         </div>
