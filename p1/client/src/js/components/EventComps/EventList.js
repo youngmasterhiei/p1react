@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import JoinEventButton from "./JoinEventButton";
 
-
-
 const EventList = props => {
   const eventId = props.data.id;
 
@@ -16,11 +14,6 @@ const EventList = props => {
     props.joinButtonCallback();
   };
 
-
-
-
-
-
   return (
     <div
       id={`card-${props.data.index}`}
@@ -30,8 +23,7 @@ const EventList = props => {
     >
       <ul style={{ listStyle: "none" }}>
         <li>
-
-          <Link to={"/displayevent?eventid=" + eventId}  onClick={setEventId()}>
+          <Link to={"/displayevent?eventid=" + eventId} onClick={setEventId()}>
             {" "}
             <img
               style={{ width: "200px", height: "20%", minWidth: "150px" }}
@@ -46,11 +38,12 @@ const EventList = props => {
         <li style={{ fontWeight: "bold" }}>{props.data.title}</li>
         <li style={{}}>{props.data.desc}</li>
         <li>
-         
-          <JoinEventButton  data = {props.data} joinButtonCallback={joinButtonCallback}/>
+          <JoinEventButton
+            data={props.data}
+            joinButtonCallback={joinButtonCallback}
+          />
         </li>
       </ul>
-
     </div>
   );
 };
