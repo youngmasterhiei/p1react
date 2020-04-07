@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 
-
 import { useDispatch } from "react-redux";
 import { renderComp } from "../../../redux/actions/index";
 import FormSubmitHelper from "./FormSubmitHelper";
@@ -27,7 +26,8 @@ class UserFormInput extends Component {
   }
   submitProfile = e => {
     e.preventDefault();
-
+    console.log(this.props);
+    // this.props.joinButtonCallback(this.state);
     // this.storeSwitchRedux();
 
     localStorage.getItem("token");
@@ -43,20 +43,17 @@ class UserFormInput extends Component {
         console.log(error);
       });
   };
-  
+
   changeHandler = e => {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
-    this.setState({open:false})
+    this.setState({ open: false });
   };
 
-   storeSwitchRedux = () => {
-
+  storeSwitchRedux = () => {
     // const dispatch = useDispatch();
     // dispatch(renderComp(true));
-
-    
   };
 
   render() {
@@ -75,7 +72,7 @@ class UserFormInput extends Component {
     return (
       <div>
         {<h3 className="formName" value="Edit Profile"></h3>}{" "}
-        <form >
+        <form>
           <input
             type="text"
             placeholder="First Name "
@@ -154,7 +151,6 @@ class UserFormInput extends Component {
           <input type="submit" onClick={this.submitProfile} name="Submit" />
           {/* <FormSubmitHelper submitProfile={this.submitProfile} /> */}
           {/* <FormSubmitHelper storeRenderSwitch={this.storeRenderSwitch} /> */}
-
         </form>
       </div>
     );

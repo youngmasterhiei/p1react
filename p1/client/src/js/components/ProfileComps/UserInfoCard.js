@@ -18,6 +18,13 @@ class UserInfoCard extends Component {
       userEvents: []
     };
   }
+  displayDataFromForm = () => {
+    console.log(this.props.userInfo.userData);
+    console.log("props reveived info card");
+    this.setState({
+      userData: [this.props.userInfo.userInfo]
+    });
+  };
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
@@ -55,20 +62,18 @@ class UserInfoCard extends Component {
       });
   }
 
+  // componentWillReceiveProps() {
+  //   console.log(this.props);
+  //   console.log("props reveived info card");
+  //   // this.setState({
+  //   //   userData: [...this.state.userData, ...this.props.userData]
+  //   // });
+  // }
+
   render() {
     // // const usersProfile = useSelector(state => state.profile)
     // const dispatch = useDispatch();
     // dispatch(getProfile)
-    const storeProfileRedux = data => {
-      const dispatch = useDispatch();
-      dispatch(getProfile(data));
-    };
-
-    const storeProjectsRedux = data => {
-      const dispatch = useDispatch();
-      dispatch(getProjects(data));
-    };
-
 
     return (
       <div style={{ display: "flex" }}>
@@ -83,22 +88,14 @@ class UserInfoCard extends Component {
         <div>
           <h3>UserInfo</h3>
           {this.state.userData.map((data, i) => (
-            <UserDetails
-              key={i}
-              data={data}
-              passedFunction={storeProfileRedux}
-            />
+            <UserDetails key={i} data={data} />
           ))}
         </div>
         <div>
           <h3>Projects</h3>
           {this.state.userProjects.map((data, i) => (
             <a href="https://www.w3schools.com">
-              <UserDetails
-                key={i}
-                data={data}
-                passedFunction={storeProjectsRedux}
-              />
+              <UserDetails key={i} data={data} />
             </a>
           ))}
         </div>

@@ -1,21 +1,23 @@
 import React from "react";
-
+import DropDownForm from "../reusable/DropDownForm";
 
 const UserDetails = props => {
-  
   const propData = Object.values(props.data);
-
-          // console.log("user profile from redux");
-        // // const usersProfile = useSelector(state => state.profile);
-    props.passedFunction(props.data)
-        // console.log(props);
+  // console.log(props.comp.key);
+  // console.log("here")
+  // console.log("user profile from redux");
+  // // const usersProfile = useSelector(state => state.profile);
+  // props.passedFunction(props.data)
+  // console.log(props);
   return (
+    // const forms = <
     <div>
-      <ul style={{listStyle:'none'}}>
+      <ul style={{ listStyle: "none" }}>
         {propData.map((data, i) => (
           <li key={i}>{data}</li>
         ))}
       </ul>
+      <DropDownForm data={props} name={props.comp.key} />
     </div>
   );
 };

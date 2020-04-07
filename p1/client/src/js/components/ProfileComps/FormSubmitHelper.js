@@ -6,8 +6,6 @@ import { renderComp } from "../../../redux/actions/index";
 const FormSubmitHelper = props => {
   console.log(props);
 
-
-
   const storeSwitchRedux = e => {
     e.preventDefault();
     props.submitProfile();
