@@ -93,7 +93,9 @@ exports.createProfile = (req, res) => {
   console.log(profile);
   // Save Tutorial in the database
   db.profile
-    .create(profile)
+    .update(profile, {
+      where: { userId: decoded }
+    })
     .then(data => {
       res.send(data);
     })

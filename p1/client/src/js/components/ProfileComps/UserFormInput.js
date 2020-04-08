@@ -20,19 +20,19 @@ class UserFormInput extends Component {
       linkedIn: "",
       bio: "",
       userId: localStorage.getItem("token"),
-      formTitle: "Edit Profile",
       open: true
     };
   }
   submitProfile = e => {
     e.preventDefault();
-    console.log(this.props);
     // this.props.joinButtonCallback(this.state);
     // this.storeSwitchRedux();
-
+    const userInfo = this.state;
+    delete userInfo.userId;
+    this.props.formCallback(userInfo);
     localStorage.getItem("token");
     axios({
-      method: "post",
+      method: "put",
       url: "http://localhost:5000/profile",
       data: this.state
     })
@@ -68,6 +68,7 @@ class UserFormInput extends Component {
       linkedIn,
       bio
     } = this.state;
+    console.log(this.props);
 
     return (
       <div>

@@ -19,7 +19,7 @@ module.exports = (app, db) => {
   // passes the request/response to controller.js using /login route
   router.post("/login", cors(), users.passportLogin);
   // create profile, get specific profile
-  router.post("/profile", cors(), profile.createProfile);
+  router.put("/profile", cors(), profile.createProfile);
   router.get("/auth/api/profile/:userId", cors(), profile.getProfile);
   router.get("/auth/api/displayprofile/:userId", cors(), profile.getViewUserProfile);
 

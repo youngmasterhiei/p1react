@@ -18,9 +18,27 @@ class DisplayUserDetails extends Component {
       userProjects: [],
       userEvents: [],
       userId: localStorage.getItem("token"),
-      open: true
+      open: true,
+      toggleRerender: true
     };
   }
+
+  getUserInfo = () => {
+    const userId = localStorage.getItem("token");
+
+    axios
+      .get("http://localhost:5000/auth/api/profile/" + userId)
+      .then(res => {
+        this.setState({
+          userData: [res.data[0]]
+        });
+        console.log(this.state.userData);
+        console.log("asdf here");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
@@ -67,14 +85,27 @@ class DisplayUserDetails extends Component {
   //   this.setState({ open: false });
   // };
 
-  // storeSwitchRedux = () => {
-  //   // const dispatch = useDispatch();
-  //   // dispatch(renderComp(true));
-  // };
+  formCallback = data => {
+    console.log(data);
+    console.log("hello");
+    // this.getUserInfo();
+    this.setState({ userData: [data] });
+    console.log(this.state);
+    console.log("newState");
+  };
+
+  closeDropDown = () => {
+    console.log("dropdown submit");
+    // this.getUserInfo();
+  };
 
   render() {
-    const { userData, userProjects, userEvents } = this.state;
-    userData.key = "Edit Profile";
+    const { userData, userProjects, userEvents, toggleRerender } = this.state;
+    const MyComponent =
+      toggleRerender === true ? <h1>data</h1> : <h3>no user data here!</h3>;
+    // const MyComponent =
+    // (receivedData === true) ? <h1>data</h1> : <h3>no user data here!</h3>;
+
     return (
       <div>
         <div style={{ display: "flex" }}>
@@ -88,11 +119,18 @@ class DisplayUserDetails extends Component {
           </div>
           <div>
             <h3>UserInfo</h3>
+            {MyComponent}
             {userData.map((data, i) => (
               <UserDetails
                 data={data}
                 key={"User Input"}
-                comp={<UserFormInput key={"Edit Profile"} />}
+                closeDropDown={this.closeDropDown}
+                comp={
+                  <UserFormInput
+                    key={"Edit Profile"}
+                    formCallback={this.formCallback}
+                  />
+                }
               />
             ))}
           </div>
@@ -122,25 +160,3 @@ class DisplayUserDetails extends Component {
   }
 }
 export default DisplayUserDetails;
-
-// import React from "react";
-// import UserInfoCard from "./UserInfoCard";
-
-// // //display top half comp
-// // class DisplayTopHalfProfile extends Component {
-// //   render() {
-// //     return (
-// //       <div>
-// //         <UserInfoCard />
-// //       </div>
-// //     );
-// //   }
-// // }
-
-// const DisplayUserDetails = props => (
-//   <div>
-//     <UserInfoCard userInfo={props} />
-//   </div>
-// );
-
-// export default DisplayUserDetails;
