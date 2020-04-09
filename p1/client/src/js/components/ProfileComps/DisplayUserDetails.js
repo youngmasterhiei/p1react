@@ -19,7 +19,7 @@ class DisplayUserDetails extends Component {
       userEvents: [],
       userId: localStorage.getItem("token"),
       open: true,
-      toggleRerender: true,
+      toggleRerender: true
     };
   }
 
@@ -28,15 +28,13 @@ class DisplayUserDetails extends Component {
 
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then((res) => {
-        console.log("helo there");
-        console.log(res);
+      .then(res => {
         this.setState({
-          userData: [res.data[0]],
+          userData: res.data
         });
         console.log(this.state.userData);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -47,34 +45,34 @@ class DisplayUserDetails extends Component {
 
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then((res) => {
+      .then(res => {
         this.setState({
-          userData: [...this.state.userData, ...res.data[0]],
+          userData: res.data
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/project/" + userId)
-      .then((res) => {
+      .then(res => {
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]],
+          userProjects: [...this.state.userProjects, ...res.data[0]]
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/events/" + userId)
-      .then((res) => {
+      .then(res => {
         this.setState({
-          userEvents: [...this.state.userEvents, ...res.data[0]],
+          userEvents: [...this.state.userEvents, ...res.data[0]]
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -86,11 +84,13 @@ class DisplayUserDetails extends Component {
   //   this.setState({ open: false });
   // };
 
-  formCallback = (data) => {
-    console.log(data);
-    console.log("hello");
+  formCallback = data => {
+    // console.log(data);
+    // console.log("hello");
     // this.getUserInfo();
-    this.setState({ userData: [data] });
+    this.setState({
+      userData: data
+    });
     console.log(this.state);
     console.log("newState");
   };
@@ -102,12 +102,12 @@ class DisplayUserDetails extends Component {
 
   render() {
     const { userData, userProjects, userEvents, toggleRerender } = this.state;
-    console.log("state");
-    console.log(this.state);
     const MyComponent =
       toggleRerender === true ? <h1>data</h1> : <h3>no user data here!</h3>;
     // const MyComponent =
     // (receivedData === true) ? <h1>data</h1> : <h3>no user data here!</h3>;
+    console.log(userData);
+    console.log("userdata");
 
     return (
       <div>
@@ -123,21 +123,24 @@ class DisplayUserDetails extends Component {
           <div>
             <h3>UserInfo</h3>
             {MyComponent}
-            {userData.map((data, i) => (
-              <UserDetails
-                data={data}
-                key={"User Input"}
-                closeDropDown={this.closeDropDown}
-                comp={
-                  <UserFormInput
-                    key={"Edit Profile"}
-                    formCallback={this.formCallback}
-                  />
-                }
-              />
-            ))}
+
+            {/* {Object.keys(githubData).map(key => (
+            <Issue key={key} details={githubData[key]} />
+                ))} */}
+            {/* scrapping userdetails component, added object.keys.map instead of .map, no need to map it twice.
+            passing each form component into the drop down using a switch inside dropdown
+            */}
+            <ul style={{ listStyle: "none" }}>
+              {Object.keys(userData).map(key => (
+                <li key={key}>{userData[key]}</li>
+              ))}
+            </ul>
+            <DropDownForm
+              name={"Edit Profile"}
+              formCallback={this.formCallback}
+            />
           </div>
-          <div>
+          {/* <div>
             <h3>Projects</h3>
             {userProjects.map((data, i) => (
               <UserDetails
@@ -156,7 +159,7 @@ class DisplayUserDetails extends Component {
                 comp={<CreateEventForm key={"Add Event"} />}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     );

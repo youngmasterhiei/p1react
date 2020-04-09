@@ -9,16 +9,16 @@ const config = require("../config/db.config");
 exports.create = (req, res) => {
   const userInfo = {
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password
   };
   console.log(userInfo);
   // Save Tutorial in the database
   db.user
     .create(userInfo)
 
-    .then((data) => {
+    .then(data => {
       const payload = {
-        sub: data.dataValues.id,
+        sub: data.dataValues.id
       };
       console.log(data.dataValues.id);
       console.log("users id");
@@ -27,10 +27,10 @@ exports.create = (req, res) => {
       res.send(token);
       console.log(token);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };
@@ -40,7 +40,7 @@ exports.passportLogin = (req, res, next) => {
   console.log("hello");
   const userInfo = {
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password
   };
   console.log(userInfo);
 
@@ -52,13 +52,13 @@ exports.passportLogin = (req, res, next) => {
       if (err.name === "IncorrectCredentialsError") {
         return res.status(400).json({
           success: false,
-          message: err.message,
+          message: err.message
         });
       }
 
       return res.status(400).json({
         success: false,
-        message: "Could not process the form.",
+        message: "Could not process the form."
       });
     }
 
@@ -67,7 +67,7 @@ exports.passportLogin = (req, res, next) => {
       success: true,
       message: "You have successfully logged in!",
       token,
-      user: userInfo,
+      user: userInfo
     });
   })(req, res, next);
 };
@@ -88,21 +88,21 @@ exports.createProfile = (req, res) => {
     github: req.body.github,
     linkedIn: req.body.linkedIn,
     bio: req.body.bio,
-    userId: decoded,
+    userId: decoded
   };
   console.log(profile);
   // Save Tutorial in the database
   db.profile
     .update(profile, {
-      where: { userId: decoded },
+      where: { userId: decoded }
     })
-    .then((data) => {
+    .then(data => {
       res.send(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };
@@ -115,11 +115,10 @@ exports.getProfile = (req, res) => {
 
   // Save Tutorial in the database
   db.profile
-    .findAll({
-      where: { userId: decoded },
+    .findOne({
+      where: { userId: decoded }
     })
-    .then(function (dbprofile) {
-      console.log("am i here?");
+    .then(function(dbprofile) {
       console.log(dbprofile);
       // delete dbprofile[0].dataValues.id;
       // delete dbprofile[0].dataValues.userId;
@@ -129,10 +128,9 @@ exports.getProfile = (req, res) => {
 
       res.json(dbprofile);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while getting the profile.",
+        message: err.message || "Some error occurred while getting the profile."
       });
     });
 };
@@ -146,19 +144,19 @@ exports.createProject = (req, res) => {
     project3: req.body.project3,
     project4: req.body.project4,
     project5: req.body.project5,
-    userId: decoded,
+    userId: decoded
   };
   console.log(project);
   // Save Tutorial in the database
   db.project
     .create(project)
-    .then((data) => {
+    .then(data => {
       res.send(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };
@@ -169,9 +167,9 @@ exports.getProjects = (req, res) => {
   // Save Tutorial in the database
   db.project
     .findAll({
-      where: { userId: decoded },
+      where: { userId: decoded }
     })
-    .then(function (dbProject) {
+    .then(function(dbProject) {
       delete dbProject[0].dataValues.id;
       delete dbProject[0].dataValues.userId;
       delete dbProject[0].dataValues.updatedAt;
@@ -180,10 +178,10 @@ exports.getProjects = (req, res) => {
 
       res.json(dbProject);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -192,9 +190,9 @@ exports.getViewUserProjects = (req, res) => {
   // Save Tutorial in the database
   db.project
     .findAll({
-      where: { userId: req.params.userId },
+      where: { userId: req.params.userId }
     })
-    .then(function (dbProject) {
+    .then(function(dbProject) {
       delete dbProject[0].dataValues.id;
       delete dbProject[0].dataValues.userId;
       delete dbProject[0].dataValues.updatedAt;
@@ -203,10 +201,10 @@ exports.getViewUserProjects = (req, res) => {
 
       res.json(dbProject);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -222,19 +220,19 @@ exports.createEvent = (req, res) => {
     imagePath: req.body.imagePath,
     author: req.body.author,
     location: req.body.location,
-    userId: decoded,
+    userId: decoded
   };
   console.log(event);
   // Save Tutorial in the database
   db.event
     .create(event)
-    .then((data) => {
+    .then(data => {
       res.send(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };
@@ -244,9 +242,9 @@ exports.getEvents = (req, res) => {
 
   db.event
     .findAll({
-      where: { userId: decoded },
+      where: { userId: decoded }
     })
-    .then(function (dbEvent) {
+    .then(function(dbEvent) {
       delete dbEvent[0].dataValues.id;
       delete dbEvent[0].dataValues.userId;
       delete dbEvent[0].dataValues.updatedAt;
@@ -255,10 +253,10 @@ exports.getEvents = (req, res) => {
 
       res.json(dbEvent);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -267,9 +265,9 @@ exports.getEvents = (req, res) => {
 exports.getAllEvents = (req, res) => {
   db.event
     .findAll()
-    .then(function (dbEvent) {
+    .then(function(dbEvent) {
       // cycles through each event and removes details before sending to front end
-      dbEvent.forEach((ele) => {
+      dbEvent.forEach(ele => {
         delete ele.dataValues.updatedAt;
         delete ele.dataValues.deletedAt;
         delete ele.dataValues.createdAt;
@@ -277,10 +275,10 @@ exports.getAllEvents = (req, res) => {
 
       res.json(dbEvent);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -290,9 +288,9 @@ exports.getSingleEvent = (req, res) => {
   // Save Tutorial in the database
   db.event
     .findAll({
-      where: { id: req.params.eventId },
+      where: { id: req.params.eventId }
     })
-    .then(function (dbEvent) {
+    .then(function(dbEvent) {
       delete dbEvent[0].dataValues.eventId;
       delete dbEvent[0].dataValues.userId;
       delete dbEvent[0].dataValues.updatedAt;
@@ -301,10 +299,10 @@ exports.getSingleEvent = (req, res) => {
 
       res.json(dbEvent);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -314,9 +312,9 @@ exports.joinEvent = (req, res) => {
 
   db.profile
     .findOne({
-      where: { userId: decoded },
+      where: { userId: decoded }
     })
-    .then(function (dbprofile) {
+    .then(function(dbprofile) {
       let username =
         dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
       console.log(username);
@@ -325,19 +323,19 @@ exports.joinEvent = (req, res) => {
         eventTitle: req.body.eventTitle,
         username: username,
         userId: decoded,
-        eventId: req.body.eventId,
+        eventId: req.body.eventId
       };
       console.log(eventSignUp);
       // Save Tutorial in the database
       db.eventAttendance
         .create(eventSignUp)
-        .then((data) => {
+        .then(data => {
           res.send(data);
         })
-        .catch((err) => {
+        .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while creating the Tutorial.",
+              err.message || "Some error occurred while creating the Tutorial."
           });
         });
     });
@@ -351,17 +349,17 @@ exports.getUserAttendingEvents = (req, res) => {
     .findAll({
       where: {
         userId: decoded,
-        eventId: req.params.eventId,
-      },
+        eventId: req.params.eventId
+      }
     })
-    .then(function (dbAttendance) {
+    .then(function(dbAttendance) {
       // cycles through each event and removes details before sending to front end
       res.json(dbAttendance);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -372,17 +370,17 @@ exports.getAllAttendingEvent = (req, res) => {
   db.eventAttendance
     .findAll({
       where: {
-        eventId: req.params.eventId,
-      },
+        eventId: req.params.eventId
+      }
     })
-    .then(function (dbAttendance) {
+    .then(function(dbAttendance) {
       // cycles through each event and removes details before sending to front end
       res.json(dbAttendance);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while getting the projects.",
+          err.message || "Some error occurred while getting the projects."
       });
     });
 };
@@ -396,9 +394,9 @@ exports.getViewUserProfile = (req, res) => {
   // Save Tutorial in the database
   db.profile
     .findAll({
-      where: { userId: req.params.userId },
+      where: { userId: req.params.userId }
     })
-    .then(function (dbprofile) {
+    .then(function(dbprofile) {
       console.log();
       delete dbprofile[0].dataValues.updatedAt;
       delete dbprofile[0].dataValues.deletedAt;
@@ -406,10 +404,9 @@ exports.getViewUserProfile = (req, res) => {
 
       res.json(dbprofile);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while getting the profile.",
+        message: err.message || "Some error occurred while getting the profile."
       });
     });
 };
@@ -423,19 +420,19 @@ exports.sendFriendRequest = (req, res) => {
     receivingUserId: req.body.receivingUserId,
     message: req.body.message,
     read: false,
-    actedUpon: false,
+    actedUpon: false
   };
   console.log(notification);
   // Save Tutorial in the database
   db.notification
     .create(notification)
-    .then((data) => {
+    .then(data => {
       res.send(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };
@@ -446,9 +443,9 @@ exports.getAllNotifications = (req, res) => {
   // Save Tutorial in the database
   db.notification
     .findAll({
-      where: { receivingUserId: decoded, actedUpon: false },
+      where: { receivingUserId: decoded, actedUpon: false }
     })
-    .then(function (dbNotificationList) {
+    .then(function(dbNotificationList) {
       delete dbNotificationList[0].dataValues.userId;
       delete dbNotificationList[0].dataValues.updatedAt;
       delete dbNotificationList[0].dataValues.deletedAt;
@@ -456,10 +453,9 @@ exports.getAllNotifications = (req, res) => {
 
       res.json(dbNotificationList);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while getting the profile.",
+        message: err.message || "Some error occurred while getting the profile."
       });
     });
 };
@@ -470,7 +466,7 @@ exports.updateNotification = (req, res) => {
   db.notification
     .update({ actedUpon: true }, { where: { id: req.params.notifyId } })
 
-    .then(function (dbNotificationList) {
+    .then(function(dbNotificationList) {
       delete dbNotificationList[0].dataValues.userId;
       delete dbNotificationList[0].dataValues.updatedAt;
       delete dbNotificationList[0].dataValues.deletedAt;
@@ -479,10 +475,9 @@ exports.updateNotification = (req, res) => {
       console.log(dbNotificationList);
       res.json(dbNotificationList);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while getting the profile.",
+        message: err.message || "Some error occurred while getting the profile."
       });
     });
 };
@@ -492,12 +487,12 @@ exports.addFriend = (req, res) => {
   console.log(req.body);
   const connection = {
     userId: decoded,
-    friendUserId: req.body.friendUserId,
+    friendUserId: req.body.friendUserId
   };
 
   const connectionLink = {
     userId: req.body.friendUserId,
-    friendUserId: decoded,
+    friendUserId: decoded
   };
   console.log(connection);
   // Save Tutorial in the database
@@ -505,13 +500,13 @@ exports.addFriend = (req, res) => {
     db.friendsList
       .create(connectionLink)
 
-      .then((data) => {
+      .then(data => {
         res.send(data);
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Tutorial.",
+            err.message || "Some error occurred while creating the Tutorial."
         });
       });
 };

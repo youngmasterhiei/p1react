@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
+import UserFormInput from "../ProfileComps/UserFormInput";
 
-const DropDownForm = (props) => {
+const DropDownForm = props => {
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen(!open);
@@ -8,8 +9,30 @@ const DropDownForm = (props) => {
   const closeToggle = () => {
     setOpen(!open);
   };
+  // using switch statement to select the correct form
+  const selectForm = formTitle => {
+    switch (formTitle) {
+      case "Edit Profile":
+        return (
+          <UserFormInput
+            formCallback={props.formCallback}
+            toggleDropdown={toggle}
+          />
+        );
+        break;
+      // case "Orange":
+      //   text = "I am not a fan of orange.";
+      //   break;
+      // case "Apple":
+      //   text = "How you like them apples?";
+      //   break;
+      default:
+        text = "I have never heard of that fruit...";
+    }
+  };
+
   return (
-    console.log(props.name),
+    console.log(props),
     (
       <div className="dd-wrapper">
         <div
@@ -29,7 +52,15 @@ const DropDownForm = (props) => {
             </p>
           </div>
         </div>
-        <div> {open && <span>{props.data.comp}</span>}</div>
+        <div>
+          {" "}
+          {open && (
+            <span>
+              {selectForm(props.name)}
+              {/* <UserFormInput /> */}
+            </span>
+          )}
+        </div>
       </div>
     )
   );

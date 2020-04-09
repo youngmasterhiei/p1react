@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import DropDownForm from "../reusable/DropDownForm";
 
-const UserDetails = (props) => {
+const UserDetails = props => {
   const propData = Object.values(props.data);
   // const dropdownRef = useRef(null)
   // console.log(props.comp.key);
@@ -11,8 +11,8 @@ const UserDetails = (props) => {
   // props.passedFunction(props.data)
   // console.log(props);
 
-  console.log("propData");
-  console.log(propData);
+  // console.log("propData");
+  // console.log(propData);
 
   useEffect(() => {
     // dropdownRef.current.toggle(!open)
