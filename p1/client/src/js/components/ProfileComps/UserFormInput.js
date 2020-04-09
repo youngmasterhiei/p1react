@@ -32,17 +32,31 @@ class UserFormInput extends Component {
     this.props.toggleDropdown();
     console.log(userInfo);
     localStorage.getItem("token");
-    axios({
-      method: "put",
-      url: "http://localhost:5000/auth/api/profile",
-      data: this.state
-    })
-      .then(response => {
-        console.log(response);
+    if (this.props.formApiAction === "put") {
+      axios({
+        method: "put",
+        url: "http://localhost:5000/auth/api/profile",
+        data: this.state
       })
-      .catch(error => {
-        console.log(error);
-      });
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      axios({
+        method: "post",
+        url: "http://localhost:5000/auth/api/profile",
+        data: this.state
+      })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
   changeHandler = e => {

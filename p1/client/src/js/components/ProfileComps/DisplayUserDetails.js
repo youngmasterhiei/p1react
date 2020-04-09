@@ -18,11 +18,9 @@ class DisplayUserDetails extends Component {
       userProjects: [],
       userEvents: [],
       userId: localStorage.getItem("token"),
-      open: true,
       toggleRerender: true
     };
   }
-
   getUserInfo = () => {
     const userId = localStorage.getItem("token");
 
@@ -106,7 +104,6 @@ class DisplayUserDetails extends Component {
     // console.log(this.state.userData.length);
     if (userData != null) {
       console.log("got data");
-
       const MyComponent = (
         <ul style={{ listStyle: "none" }}>
           {Object.keys(userData).map(key => (
@@ -115,14 +112,22 @@ class DisplayUserDetails extends Component {
         </ul>
       );
       const dropdown = (
-        <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
+        <DropDownForm
+          name={"Edit Profile"}
+          formCallback={this.formCallback}
+          formApiAction={"put"}
+        />
       );
 
       return [MyComponent, dropdown];
     } else {
       console.log("no data ran");
       const dropdown = (
-        <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
+        <DropDownForm
+          name={"Edit Profile"}
+          formCallback={this.formCallback}
+          formApiAction={"post"}
+        />
       );
 
       return dropdown;
@@ -150,6 +155,7 @@ class DisplayUserDetails extends Component {
     // const dropdown = (
     //   <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
     // );
+    const that = this;
     const { userData, userProjects, userEvents, toggleRerender } = this.state;
 
     return (

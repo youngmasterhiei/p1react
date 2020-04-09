@@ -17,6 +17,7 @@ const DropDownForm = props => {
           <UserFormInput
             formCallback={props.formCallback}
             toggleDropdown={toggle}
+            formApiAction={props.formApiAction}
           />
         );
         break;
