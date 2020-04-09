@@ -42,7 +42,6 @@ class DisplayUserDetails extends Component {
   componentWillMount() {
     const userId = localStorage.getItem("token");
     // const forms = [<UserFormInput key={"Edit Profile"} />, <UserProjectInput key={"Edit Projects"}/>, <CreateEventForm key={"Create Event"}/>]
-
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
       .then(res => {
@@ -100,14 +99,58 @@ class DisplayUserDetails extends Component {
     // this.getUserInfo();
   };
 
-  render() {
+  renderProfile = () => {
     const { userData, userProjects, userEvents, toggleRerender } = this.state;
-    const MyComponent =
-      toggleRerender === true ? <h1>data</h1> : <h3>no user data here!</h3>;
-    // const MyComponent =
-    // (receivedData === true) ? <h1>data</h1> : <h3>no user data here!</h3>;
-    console.log(userData);
-    console.log("userdata");
+    // delete userData.userId;
+    // console.log(this.state.userData);
+    // console.log(this.state.userData.length);
+    if (userData != null) {
+      console.log("got data");
+
+      const MyComponent = (
+        <ul style={{ listStyle: "none" }}>
+          {Object.keys(userData).map(key => (
+            <li key={key}>{userData[key]}</li>
+          ))}
+        </ul>
+      );
+      const dropdown = (
+        <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
+      );
+
+      return [MyComponent, dropdown];
+    } else {
+      console.log("no data ran");
+      const dropdown = (
+        <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
+      );
+
+      return dropdown;
+    }
+  };
+
+  render() {
+    // if (this.state.userData !== "undefined") {
+    //   // const MyComponent =
+    //   // (receivedData === true) ? <h1>data</h1> : <h3>no user data here!</h3>;
+    //   console.log(userData);
+    //   console.log("userdata");
+    // } else {
+    // }
+    // const { userData, userProjects, userEvents, toggleRerender } = this.state;
+    // delete userData.userId;
+
+    // const MyComponent = (
+    //   <ul style={{ listStyle: "none" }}>
+    //     {Object.keys(userData).map(key => (
+    //       <li key={key}>{userData[key]}</li>
+    //     ))}
+    //   </ul>
+    // );
+    // const dropdown = (
+    //   <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
+    // );
+    const { userData, userProjects, userEvents, toggleRerender } = this.state;
 
     return (
       <div>
@@ -122,23 +165,13 @@ class DisplayUserDetails extends Component {
           </div>
           <div>
             <h3>UserInfo</h3>
-            {MyComponent}
-
+            {this.renderProfile()}
             {/* {Object.keys(githubData).map(key => (
             <Issue key={key} details={githubData[key]} />
                 ))} */}
             {/* scrapping userdetails component, added object.keys.map instead of .map, no need to map it twice.
             passing each form component into the drop down using a switch inside dropdown
             */}
-            <ul style={{ listStyle: "none" }}>
-              {Object.keys(userData).map(key => (
-                <li key={key}>{userData[key]}</li>
-              ))}
-            </ul>
-            <DropDownForm
-              name={"Edit Profile"}
-              formCallback={this.formCallback}
-            />
           </div>
           {/* <div>
             <h3>Projects</h3>
