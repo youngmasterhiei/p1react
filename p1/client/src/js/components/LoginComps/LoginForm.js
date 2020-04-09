@@ -1,52 +1,43 @@
 import React, { useEffect, useState, Component } from "react";
-import axios from "axios"
+import axios from "axios";
 class LoginForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
   }
 
   sendToken = () => {
-
     this.props.parentCallback(localStorage.getItem("token"));
+  };
 
-
-  }
-
-  
-
-
-  submitHandler = e => {
-
-    e.preventDefault()
+  submitHandler = (e) => {
+    e.preventDefault();
     axios({
-        method: 'post',
-        url: "http://localhost:5000/login", 
-        data: this.state
-      }).then(response => {
-        if (response.data.token){
-        localStorage.setItem("token", response.data.token);
-        console.log(response.data)
-}
+      method: "post",
+      url: "http://localhost:5000/login",
+      data: this.state,
+    })
+      .then((response) => {
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          console.log(response.data);
+        }
         this.sendToken();
         this.props.storeToken();
-
-    })
-    .catch(error => {
-        console.log(error)
-    });
-}
-  changeHandler = e => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  changeHandler = (e) => {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
   };
-
-
 
   render() {
     const { email, password } = this.state;
@@ -73,8 +64,6 @@ class LoginForm extends Component {
             onChange={this.changeHandler}
           />
           <br />
-
-     
 
           <input type="submit" name="Submit" />
         </form>

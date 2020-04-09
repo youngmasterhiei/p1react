@@ -3,11 +3,11 @@ const db = require("../models");
 module.exports = (sequelize, DataTypes) => {
   const friendsList = sequelize.define("friendsList", {
     userId: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     friendUserId: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+    },
   });
 
   return friendsList;

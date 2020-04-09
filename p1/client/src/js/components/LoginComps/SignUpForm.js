@@ -8,36 +8,32 @@ class SignUpform extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
-
-  
   }
 
   sendToken = () => {
-
     this.props.parentCallback(localStorage.getItem("token"));
-  }
-  submitHandler = e => {
+  };
+  submitHandler = (e) => {
     e.preventDefault();
     console.log(this.state);
     axios({
       method: "post",
       url: "http://localhost:5000/newuser",
-      data: this.state
-    }).then(response => {
-      if (response){
-      localStorage.setItem("token", response.data);
-}
-      this.sendToken();
-
-  }).catch(error => {
+      data: this.state,
+    })
+      .then((response) => {
+        if (response) {
+          localStorage.setItem("token", response.data);
+        }
+        this.sendToken();
+      })
+      .catch((error) => {
         console.log(error);
       });
-
-    
   };
-  changeHandler = e => {
+  changeHandler = (e) => {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });

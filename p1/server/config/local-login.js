@@ -12,60 +12,57 @@ module.exports = new PassportLocalStrategy(
     usernameField: "email",
     passwordField: "password",
     session: false,
-    passReqToCallback: true
+    passReqToCallback: true,
   },
   (req, email, password, done) => {
     const userData = {
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
     };
     // find a user by email address
 
-    return db.user.findOne({
-      where: { email: userData.email }
-    })
-    .then(function(user) {
-      userPass = userData.password;
-      dataPass = user.dataValues.password;
-      console.log("user Id no jwt")
-      console.log(user.dataValues.id)
+    return db.user
+      .findOne({
+        where: { email: userData.email },
+      })
+      .then(function (user) {
+        userPass = userData.password;
+        dataPass = user.dataValues.password;
+        console.log("user Id no jwt");
+        console.log(user.dataValues.id);
 
+        return db.user
+          .build()
+          .validatePass(userData.password, dataPass, (err, result) => {
+            console.log(err);
+            if (result == true) {
+              console.log("Checked password, match.");
+            }
+            // } else if (!result) {
+            //   console.log("no match");
+            //   return done(err);
+            // }
+            console.log(result);
+            const payload = {
+              sub: user.dataValues.id,
+            };
 
-      return db.user.build().validatePass(
-        userData.password,
-        dataPass,
-        (err, result) => {
-          console.log(err);
-          if (result == true) {
-            console.log("Checked password, match.");
-          } else if (!result) {
-            console.log("no match");
-            return done(err);
-          }
-          console.log(result)
-          const payload = {
-            sub: user.dataValues.id
-          };
+            // create a token string
+            const token = jwt.sign(payload.sub, config.jwtSecret);
+            // const token = user.dataValues.id;
 
-          // create a token string
-          const token = jwt.sign(payload.sub, config.jwtSecret);
-          // const token = user.dataValues.id;
-         
-          const data = {
-            email: user.dataValues.email,
-            id: user.dataValues.id
-          };
-          console.log(data);
-          return done(null, token, data);
-        }
-      );
-    }).catch(function (err) {
-      console.log("not found");
-      console.log(err)
-      return err
-  
-  });
+            const data = {
+              email: user.dataValues.email,
+              id: user.dataValues.id,
+            };
+            console.log(data);
+            return done(null, token, data);
+          });
+      })
+      .catch(function (err) {
+        console.log("not found");
+        console.log(err);
+        return err;
+      });
   }
 );
-
-

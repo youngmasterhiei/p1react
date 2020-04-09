@@ -7,7 +7,7 @@ class DisplayNotifications extends React.Component {
     super(props);
 
     this.state = {
-      notifications: [{}]
+      notifications: [{}],
     };
   }
 
@@ -15,13 +15,13 @@ class DisplayNotifications extends React.Component {
     const userId = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/auth/api/notifications/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          notifications: [res.data[0]]
+          notifications: [res.data[0]],
         });
         console.log(this.state.notifications);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }

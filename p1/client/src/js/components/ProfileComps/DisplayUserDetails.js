@@ -19,7 +19,7 @@ class DisplayUserDetails extends Component {
       userEvents: [],
       userId: localStorage.getItem("token"),
       open: true,
-      toggleRerender: true
+      toggleRerender: true,
     };
   }
 
@@ -28,14 +28,15 @@ class DisplayUserDetails extends Component {
 
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
+      .then((res) => {
+        console.log("helo there");
+        console.log(res);
         this.setState({
-          userData: [res.data[0]]
+          userData: [res.data[0]],
         });
         console.log(this.state.userData);
-        console.log("asdf here");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -46,34 +47,34 @@ class DisplayUserDetails extends Component {
 
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userData: [...this.state.userData, ...res.data[0]]
+          userData: [...this.state.userData, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/project/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]]
+          userProjects: [...this.state.userProjects, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/events/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userEvents: [...this.state.userEvents, ...res.data[0]]
+          userEvents: [...this.state.userEvents, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -85,7 +86,7 @@ class DisplayUserDetails extends Component {
   //   this.setState({ open: false });
   // };
 
-  formCallback = data => {
+  formCallback = (data) => {
     console.log(data);
     console.log("hello");
     // this.getUserInfo();
@@ -101,6 +102,8 @@ class DisplayUserDetails extends Component {
 
   render() {
     const { userData, userProjects, userEvents, toggleRerender } = this.state;
+    console.log("state");
+    console.log(this.state);
     const MyComponent =
       toggleRerender === true ? <h1>data</h1> : <h3>no user data here!</h3>;
     // const MyComponent =

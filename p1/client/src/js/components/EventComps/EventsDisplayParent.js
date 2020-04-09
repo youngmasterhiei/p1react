@@ -13,25 +13,25 @@ class EventsDisplayParent extends Component {
       events: [{}],
       displayedEvent: "",
       eventIndex: 0,
-      attending: false
+      attending: false,
     };
   }
 
   componentWillMount() {
     axios
       .get("http://localhost:5000/auth/api/events")
-      .then(res => {
+      .then((res) => {
         const events = res.data;
-        events.map(function(name, index) {
+        events.map(function (name, index) {
           name.index = index;
         });
 
         this.setState({
           events: events,
-          displayedEvent: events[0]
+          displayedEvent: events[0],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.events);
       });
   }
@@ -39,14 +39,14 @@ class EventsDisplayParent extends Component {
   nextSlide = () => {
     let newIndex = this.state.displayedEvent.index + 1;
     this.setState({
-      displayedEvent: this.state.events[newIndex]
+      displayedEvent: this.state.events[newIndex],
     });
   };
 
   prevSlide = () => {
     let newIndex = this.state.displayedEvent.index - 1;
     this.setState({
-      displayedEvent: this.state.events[newIndex]
+      displayedEvent: this.state.events[newIndex],
     });
   };
 
@@ -77,14 +77,15 @@ class EventsDisplayParent extends Component {
           className={`card-slider active-slide-${displayedEvent.index}`}
           style={{
             overflow: "hidden",
-            display: "flex"
+            display: "flex",
           }}
         >
           <div
             className="cards-slider-wrapper"
             style={{
-              transform: `translateX(-${displayedEvent.index *
-                (100 / events.length)}%)`
+              transform: `translateX(-${
+                displayedEvent.index * (100 / events.length)
+              }%)`,
             }}
           >
             {this.state.events.map((data, i) => (

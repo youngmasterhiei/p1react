@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { renderComp } from "../../../redux/actions/index";
 
-const FormSubmitHelper = props => {
+const FormSubmitHelper = (props) => {
   console.log(props);
 
-  const storeSwitchRedux = e => {
+  const storeSwitchRedux = (e) => {
     e.preventDefault();
     props.submitProfile();
     // const dispatch = useDispatch();

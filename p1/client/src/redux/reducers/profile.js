@@ -2,7 +2,7 @@
 const profile = (state = {}, action) => {
   switch (action.type) {
     case "GETPROFILE":
-      return state = action.payload;
+      return (state = action.payload);
     default:
       return state;
   }
