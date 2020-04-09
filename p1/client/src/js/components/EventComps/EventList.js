@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import JoinEventButton from "./JoinEventButton";
 
-const EventList = props => {
+const EventList = (props) => {
   const eventId = props.data.id;
 
-  const setEventId = eventId => {
+  const setEventId = (eventId) => {
     localStorage.setItem("eventId", eventId);
   };
 

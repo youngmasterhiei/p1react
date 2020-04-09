@@ -3,11 +3,11 @@ const db = require("../models");
 module.exports = (sequelize, DataTypes) => {
   const eventAttendance = sequelize.define("eventAttendance", {
     eventTitle: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     username: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+    },
   });
 
   return eventAttendance;

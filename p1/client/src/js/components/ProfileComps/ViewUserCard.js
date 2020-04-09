@@ -16,11 +16,9 @@ class UserInfoCard extends Component {
     this.state = {
       userData: [],
       userProjects: [],
-      userEvents: []
+      userEvents: [],
     };
   }
-
-
 
   componentWillMount() {
     const queryString = window.location.search;
@@ -28,23 +26,23 @@ class UserInfoCard extends Component {
     const userId = urlParams.get("userId");
     axios
       .get("http://localhost:5000/auth/api/displayprofile/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userData: [...this.state.userData, ...res.data[0]]
+          userData: [...this.state.userData, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/displayprojects/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]]
+          userProjects: [...this.state.userProjects, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
@@ -61,14 +59,12 @@ class UserInfoCard extends Component {
   }
 
   render() {
-  
-
-  const addFriend = () => {
-    //
-    //*implement later***
-    //
-    //
-  };
+    const addFriend = () => {
+      //
+      //*implement later***
+      //
+      //
+    };
 
     return (
       <div style={{ display: "flex" }}>
@@ -83,31 +79,20 @@ class UserInfoCard extends Component {
         <div>
           <h3>UserInfo</h3>
           {this.state.userData.map((data, i) => (
-            <UserDetails
-              key={i}
-              data={data}
-              passedFunction={addFriend}
-
-              
-            />
+            <UserDetails key={i} data={data} passedFunction={addFriend} />
           ))}
         </div>
         <div>
           <h3>Projects</h3>
           {this.state.userProjects.map((data, i) => (
             <a href="https://www.w3schools.com">
-              <UserDetails
-                key={i}
-                data={data}
-                passedFunction={addFriend}
-f
-              />
+              <UserDetails key={i} data={data} passedFunction={addFriend} f />
             </a>
           ))}
         </div>
-        <div><AddFriendButton data={this.state.userData} /></div>
-        
-
+        <div>
+          <AddFriendButton data={this.state.userData} />
+        </div>
       </div>
     );
   }

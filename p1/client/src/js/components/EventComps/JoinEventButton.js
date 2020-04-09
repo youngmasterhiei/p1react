@@ -4,11 +4,7 @@ import axios from "axios";
 // import { useDispatch } from "react-redux";
 // import { loggedIn } from "./redux/actions/index";
 
-
-
-
-
-const JoinEventButton = props => {
+const JoinEventButton = (props) => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
 
   const getUserEvents = () => {
@@ -20,40 +16,38 @@ const JoinEventButton = props => {
           "/" +
           props.data.id
       )
-      .then(res => {
+      .then((res) => {
         res.data[0].eventId === props.data.id
           ? setButtonSwitch(false)
           : setButtonSwitch(true);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.events);
       });
   };
   getUserEvents();
 
-  const joinEvent = e => {
+  const joinEvent = (e) => {
     e.preventDefault();
     getUserEvents();
     props.joinButtonCallback();
     const eventSignUp = {
       eventTitle: props.data.title,
       eventId: props.data.id,
-      userId: localStorage.getItem("token")
+      userId: localStorage.getItem("token"),
     };
     axios({
       method: "post",
       url: "http://localhost:5000/auth/api/joinevent",
-      data: eventSignUp
+      data: eventSignUp,
     })
-      .then(response => {
+      .then((response) => {
         console.log(response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
-
-
 
   return (
     <div>
@@ -64,8 +58,6 @@ const JoinEventButton = props => {
       )}
     </div>
   );
-
-
 };
 
 JoinEventButton.propTypes = {};

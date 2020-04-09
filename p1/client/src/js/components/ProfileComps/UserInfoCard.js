@@ -15,14 +15,14 @@ class UserInfoCard extends Component {
     this.state = {
       userData: [],
       userProjects: [],
-      userEvents: []
+      userEvents: [],
     };
   }
   displayDataFromForm = () => {
     console.log(this.props.userInfo.userData);
     console.log("props reveived info card");
     this.setState({
-      userData: [this.props.userInfo.userInfo]
+      userData: [this.props.userInfo.userInfo],
     });
   };
 
@@ -30,34 +30,34 @@ class UserInfoCard extends Component {
     const userId = localStorage.getItem("token");
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userData: [...this.state.userData, ...res.data[0]]
+          userData: [...this.state.userData, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/project/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]]
+          userProjects: [...this.state.userProjects, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/events/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userEvents: [...this.state.userEvents, ...res.data[0]]
+          userEvents: [...this.state.userEvents, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }

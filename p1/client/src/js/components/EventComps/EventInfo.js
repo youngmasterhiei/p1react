@@ -14,7 +14,7 @@ class EventInfo extends Component {
       //holds event data to display
       event: {},
       // attendee list
-      attendees: [{}]
+      attendees: [{}],
     };
   }
   // runs before component mounts
@@ -31,25 +31,24 @@ class EventInfo extends Component {
     axios
       // api route
       .get("http://localhost:5000/auth/api/event/" + eventId)
-      .then(res => {
+      .then((res) => {
         // saves to state
         this.setState({
-          event: res.data[0]
+          event: res.data[0],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.events);
       });
-      // gets all users attending the event
+    // gets all users attending the event
     axios
       .get("http://localhost:5000/auth/api/userAttendingEvents/" + eventId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          attendees: res.data
+          attendees: res.data,
         });
-
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.events);
       });
   }

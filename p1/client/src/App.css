@@ -28,7 +28,6 @@
   color: #61dafb;
 }
 
-
 .App-float {
   float: right;
 }
@@ -41,7 +40,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .navBar {
   display: flex;

@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
 
-const DropDownForm = props => {
+const DropDownForm = (props) => {
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen(!open);
 
-  const closeToggle = () =>{
+  const closeToggle = () => {
     setOpen(!open);
-  }
+  };
   return (
     console.log(props.name),
     (

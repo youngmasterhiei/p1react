@@ -3,23 +3,23 @@ const db = require("../models");
 module.exports = (sequelize, DataTypes) => {
   const notification = sequelize.define("notification", {
     messageType: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     fromUserId: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     receivingUserId: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     message: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     seen: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
     },
     actedUpon: {
-      type: DataTypes.BOOLEAN
-    }
+      type: DataTypes.BOOLEAN,
+    },
   });
 
   return notification;

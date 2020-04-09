@@ -1,12 +1,7 @@
-
-
-  export function isLogged() {
-    if (localStorage.getItem("token") === "") {
-        return false
-      }
-    
-      else {
-        return true
-      }
-
+export function isLogged() {
+  if (localStorage.getItem("token") === "") {
+    return false;
+  } else {
+    return true;
+  }
 }
