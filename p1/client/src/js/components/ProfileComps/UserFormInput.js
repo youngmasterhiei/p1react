@@ -28,14 +28,13 @@ class UserFormInput extends Component {
     // this.props.joinButtonCallback(this.state);
     // this.storeSwitchRedux();
     const userInfo = this.state;
-    delete userInfo.userId;
     this.props.formCallback(userInfo);
     this.props.toggleDropdown();
     console.log(userInfo);
     localStorage.getItem("token");
     axios({
       method: "put",
-      url: "http://localhost:5000/profile",
+      url: "http://localhost:5000/auth/api/profile",
       data: this.state
     })
       .then(response => {

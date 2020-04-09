@@ -12,14 +12,16 @@ module.exports = (app, db) => {
 
   const router = require("express").Router();
   router.use(cors());
-
+  // login routes
   router.post("/newuser", cors(), users.create);
-
-  // passes the request/response to controller.js using /login route
   router.post("/login", cors(), users.passportLogin);
-  // create profile, get specific profile
-  router.put("/profile", cors(), profile.createProfile);
+
+  // profile routes
+  router.post("/auth/api/profile", cors(), profile.createProfile);
   router.get("/auth/api/profile/:userId", cors(), profile.getProfile);
+  router.put("/auth/api/profile", cors(), profile.updateProfile);
+
+  // view a users profile
   router.get(
     "/auth/api/displayprofile/:userId",
     cors(),

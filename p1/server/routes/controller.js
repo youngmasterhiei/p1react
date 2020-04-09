@@ -74,7 +74,35 @@ exports.passportLogin = (req, res, next) => {
 
 //profile create
 exports.createProfile = (req, res) => {
-  console.log(req.body.userId);
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
+  const profile = {
+    fName: req.body.fName,
+    lName: req.body.lName,
+    city: req.body.city,
+    st: req.body.st,
+    dateOfBirth: req.body.dateOfBirth,
+    speciality: req.body.speciality,
+    github: req.body.github,
+    linkedIn: req.body.linkedIn,
+    bio: req.body.bio,
+    userId: decoded
+  };
+  console.log(profile);
+  // Save Tutorial in the database
+  db.profile
+    .create(profile)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};
+exports.updateProfile = (req, res) => {
+  console.log(req.body);
   let decoded = jwt.verify(req.body.userId, config.jwtSecret);
   console.log(decoded);
   console.log("decoded token");
