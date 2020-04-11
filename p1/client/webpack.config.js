@@ -1,86 +1,82 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const InterpolateHtmlPlugin = require("interpolate-html-plugin");
-const path = require('path');
-
-
+const path = require("path");
 
 module.exports = {
-    entry: './src/index.js',
-    output: {
-        path: __dirname + '/dist',
-        filename: 'index_bundle.js'
-
-      },
-      devServer: {
-        historyApiFallback: true,
-        contentBase: './',
-        hot: true
-     },
+  entry: "./src/index.js",
+  output: {
+    path: __dirname + "/dist",
+    filename: "index.js",
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: "./",
+    hot: true,
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
-          }
-        ]
+            loader: "html-loader",
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.s[ac]ss$/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-        }, {
-          loader: 'postcss-loader',
-        },
-        { loader: 'resolve-url-loader', },
-        {
-          loader: 'sass-loader',
-        
-        }]
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+          },
+          { loader: "resolve-url-loader" },
+          {
+            loader: "sass-loader",
+          },
+        ],
       },
- 
 
-
-    {
-      test: /\.svg$/,
-      use: [
-        "babel-loader",
-        {
-          loader: "svg-url-loader",
-          options: {
-            svgo: {
-              plugins: [{ removeTitle: false }],
-              floatPrecision: 2
+      {
+        test: /\.svg$/,
+        use: [
+          "babel-loader",
+          {
+            loader: "svg-url-loader",
+            options: {
+              svgo: {
+                plugins: [{ removeTitle: false }],
+                floatPrecision: 2,
+              },
+              jsx: true,
             },
-            jsx: true
-          }
-        }
-      ]
-    }
-    ]
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./public/index.html"
+      template: "./public/index.html",
     }),
     new InterpolateHtmlPlugin({
-      PUBLIC_URL: 'static' // can modify `static` to another name or get it from `process`
-  })
-  ]
-  
+      PUBLIC_URL: "static", // can modify `static` to another name or get it from `process`
+    }),
+  ],
 };
-
