@@ -18,9 +18,7 @@ import PublicRoute from "./Routes/PublicRoute";
 import { useDispatch } from "react-redux";
 import { loggedIn } from "./redux/actions/index";
 
-import logo from "./logo.svg";
 import "./App.css";
-import EventInfo from "./js/components/EventComps/EventInfo";
 
 function App() {
   const dispatch = useDispatch();

@@ -5,11 +5,15 @@ const JoinEventButton = (props) => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
 
   const getUserEvents = () => {
-    API.getAttendingEventForUser({eventId: props.data.id, userId, successfulCb = (res) => {
-      res.data[0].eventId === props.data.id
+    API.getAttendingEventForUser({
+      eventId: props.data.id,
+      userId,
+      successfulCb: (res) => {
+        res.data[0].eventId === props.data.id
           ? setButtonSwitch(false)
           : setButtonSwitch(true);
-    }})
+      },
+    });
   };
 
   getUserEvents();
