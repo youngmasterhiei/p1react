@@ -5,6 +5,7 @@ const JoinEventButton = (props) => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
 
   const getUserEvents = () => {
+    const userId = localStorage.getItem("token");
     API.getAttendingEventForUser({
       eventId: props.data.id,
       userId,
