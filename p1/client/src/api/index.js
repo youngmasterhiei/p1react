@@ -1,6 +1,13 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
+if (!process.env.REACT_APP_API_LOCATION) {
+  throw Error("SET THE REACT_APP_API_LOCATION");
+}
+if (!process.env.REACT_APP_API_PORT) {
+  throw Error("SET THE REACT_APP_API_PORT");
+}
+
+const BASE_URL = `http://${process.env.REACT_APP_API_LOCATION}:${process.env.REACT_APP_API_PORT}`;
 const BASE_AUTH_URL = `${BASE_URL}/auth/api`;
 
 export const API = {
