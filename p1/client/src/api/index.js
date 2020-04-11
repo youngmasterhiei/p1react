@@ -1,11 +1,14 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:5000";
+const BASE_AUTH_URL = `${BASE_URL}/auth/api`;
+
 export const API = {
   addEvent: ({ data }) => {
     axios({
       data,
       method: "POST",
-      url: "http://localhost:5000/auth/api/events",
+      url: BASE_AUTH_URL + "/events",
     })
       .then((response) => {
         console.log(response);
@@ -16,7 +19,7 @@ export const API = {
   },
   getEvents: ({ eventId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/event/" + eventId)
+      .get(BASE_AUTH_URL + "/event/" + eventId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error.events);
@@ -26,7 +29,7 @@ export const API = {
   // that the user is attending
   getAttendingEvent: ({ eventId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/userAttendingEvents/" + eventId)
+      .get(BASE_AUTH_URL + "/userAttendingEvents/" + eventId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error.events);
@@ -34,9 +37,7 @@ export const API = {
   },
   getAttendingEventForUser: ({ eventId, userId, successfulCb }) => {
     axios
-      .get(
-        `http://localhost:5000/auth/api/userAttendingEvents/${userId}/${eventId}`
-      )
+      .get(BASE_AUTH_URL + `/userAttendingEvents/${userId}/${eventId}`)
       .then(successfulCb)
       .catch((error) => {
         console.log(error.events);
@@ -45,7 +46,7 @@ export const API = {
   signUpForEvent: ({ data }) => {
     axios({
       method: "POST",
-      url: "http://localhost:5000/auth/api/joinevent",
+      url: BASE_AUTH_URL + "/joinevent",
       data,
     })
       .then((response) => {
@@ -58,7 +59,7 @@ export const API = {
   login: ({ data, successfulCb }) => {
     axios({
       method: "POST",
-      url: "http://localhost:5000/login",
+      url: `${BASE_URL}/login`,
       data,
     })
       .then(successfulCb)
@@ -69,7 +70,7 @@ export const API = {
   createNewUser: ({ data, successfulCb }) => {
     axios({
       method: "post",
-      url: "http://localhost:5000/newuser",
+      url: `${BASE_URL}/newuser`,
       data,
     })
       .then(successfulCb)
@@ -79,7 +80,7 @@ export const API = {
   },
   getNotificationsForUser: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/notifications/" + userId)
+      .get(BASE_AUTH_URL + "/notifications/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
@@ -88,7 +89,7 @@ export const API = {
   addFriend: ({ data }) => {
     axios({
       method: "POST",
-      url: "http://localhost:5000/auth/api/addFriend",
+      url: BASE_AUTH_URL + "/addFriend",
       data,
     })
       .then((response) => {
@@ -101,8 +102,7 @@ export const API = {
   updateNotification: ({ data, notificationId }) => {
     axios({
       method: "PUT",
-      url:
-        "http://localhost:5000/auth/api/updateNotification/" + notificationId,
+      url: BASE_AUTH_URL + "/updateNotification/" + notificationId,
       data,
     })
       .then((response) => {
@@ -115,7 +115,7 @@ export const API = {
   sendFriendRequest: ({ data }) => {
     axios({
       method: "post",
-      url: "http://localhost:5000/auth/api/sendFriendRequest",
+      url: BASE_AUTH_URL + "/sendFriendRequest",
       data,
     })
       .then((response) => {
@@ -127,7 +127,7 @@ export const API = {
   },
   getUserProfile: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/profile/" + userId)
+      .get(BASE_AUTH_URL + "/profile/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
@@ -135,7 +135,7 @@ export const API = {
   },
   getUserProjects: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/project/" + userId)
+      .get(BASE_AUTH_URL + "/project/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
@@ -143,7 +143,7 @@ export const API = {
   },
   getEventsForUser: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/events/" + userId)
+      .get(BASE_AUTH_URL + "/events/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
@@ -153,7 +153,7 @@ export const API = {
   updateUserProfile: ({ data }) => {
     axios({
       method: "PUT",
-      url: "http://localhost:5000/auth/api/profile",
+      url: BASE_AUTH_URL + "/profile",
       data,
     })
       .then((response) => {
@@ -166,7 +166,7 @@ export const API = {
   createUserProfile: ({ data }) => {
     axios({
       method: "POST",
-      url: "http://localhost:5000/auth/api/profile",
+      url: BASE_AUTH_URL + "/profile",
       data,
     })
       .then((response) => {
@@ -180,7 +180,7 @@ export const API = {
   updateProject: ({ data }) => {
     axios({
       method: "PUT",
-      url: "http://localhost:5000/auth/api/project",
+      url: BASE_AUTH_URL + "/project",
       data,
     })
       .then((response) => {
@@ -193,7 +193,7 @@ export const API = {
   createProject: ({ data }) => {
     axios({
       method: "POST",
-      url: "http://localhost:5000/auth/api/project",
+      url: BASE_AUTH_URL + "/project",
       data,
     })
       .then((response) => {
@@ -205,7 +205,7 @@ export const API = {
   },
   getDisplayProfile: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/displayprofile/" + userId)
+      .get(BASE_AUTH_URL + "/displayprofile/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
@@ -213,7 +213,7 @@ export const API = {
   },
   getDisplayProjects: ({ userId, successfulCb }) => {
     axios
-      .get("http://localhost:5000/auth/api/displayprojects/" + userId)
+      .get(BASE_AUTH_URL + "/displayprojects/" + userId)
       .then(successfulCb)
       .catch((error) => {
         console.log(error);
