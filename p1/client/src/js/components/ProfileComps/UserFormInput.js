@@ -28,7 +28,8 @@ class UserFormInput extends Component {
     // this.props.joinButtonCallback(this.state);
     // this.storeSwitchRedux();
     const userInfo = this.state;
-    this.props.formCallback(userInfo);
+
+    this.props.formCallback(userInfo, "Edit Profile");
     this.props.toggleDropdown();
     console.log(userInfo);
     localStorage.getItem("token");

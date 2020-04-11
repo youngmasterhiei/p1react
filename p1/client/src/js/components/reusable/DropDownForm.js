@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import UserFormInput from "../ProfileComps/UserFormInput";
+import UserProjectInput from "../ProfileComps/UserProjectInput";
 
 const DropDownForm = props => {
   const [open, setOpen] = useState(false);
@@ -21,9 +22,15 @@ const DropDownForm = props => {
           />
         );
         break;
-      // case "Orange":
-      //   text = "I am not a fan of orange.";
-      //   break;
+      case "Edit Projects":
+        return (
+          <UserProjectInput
+            formCallback={props.formCallback}
+            toggleDropdown={toggle}
+            formApiAction={props.formApiAction}
+          />
+        );
+        break;
       // case "Apple":
       //   text = "How you like them apples?";
       //   break;

@@ -31,6 +31,8 @@ module.exports = (app, db) => {
   // create project, get users projects
   router.post("/auth/api/project", cors(), project.createProject);
   router.get("/auth/api/project/:userId", cors(), project.getProjects);
+  router.put("/auth/api/project", cors(), project.updateProjects);
+
   router.get(
     "/auth/api/displayprojects/:userId",
     cors(),

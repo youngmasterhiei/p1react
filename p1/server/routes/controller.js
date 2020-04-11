@@ -194,15 +194,15 @@ exports.getProjects = (req, res) => {
 
   // Save Tutorial in the database
   db.project
-    .findAll({
+    .findOne({
       where: { userId: decoded }
     })
     .then(function(dbProject) {
-      delete dbProject[0].dataValues.id;
-      delete dbProject[0].dataValues.userId;
-      delete dbProject[0].dataValues.updatedAt;
-      delete dbProject[0].dataValues.deletedAt;
-      delete dbProject[0].dataValues.createdAt;
+      // delete dbProject[0].dataValues.id;
+      // delete dbProject[0].dataValues.userId;
+      // delete dbProject[0].dataValues.updatedAt;
+      // delete dbProject[0].dataValues.deletedAt;
+      // delete dbProject[0].dataValues.createdAt;
 
       res.json(dbProject);
     })
@@ -210,6 +210,36 @@ exports.getProjects = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while getting the projects."
+      });
+    });
+};
+
+exports.updateProjects = (req, res) => {
+  console.log(req.body);
+  let decoded = jwt.verify(req.body.userId, config.jwtSecret);
+  console.log(decoded);
+  console.log("decoded token");
+  const project = {
+    project1: req.body.project1,
+    project2: req.body.project2,
+    project3: req.body.project3,
+    project4: req.body.project4,
+    project5: req.body.project5,
+    userId: decoded
+  };
+  console.log(project);
+  // Save Tutorial in the database
+  db.project
+    .update(project, {
+      where: { userId: decoded }
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };

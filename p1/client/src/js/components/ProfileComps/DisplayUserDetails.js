@@ -55,7 +55,7 @@ class DisplayUserDetails extends Component {
       .get("http://localhost:5000/auth/api/project/" + userId)
       .then(res => {
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]]
+          userProjects: res.data
         });
       })
       .catch(error => {
@@ -81,39 +81,51 @@ class DisplayUserDetails extends Component {
   //   this.setState({ open: false });
   // };
 
-  formCallback = data => {
+  formCallback = (data, formTitle) => {
     // console.log(data);
     // console.log("hello");
     // this.getUserInfo();
-    this.setState({
-      userData: data
-    });
-    console.log(this.state);
-    console.log("newState");
+
+    switch (formTitle) {
+      case "Edit Profile":
+        console.log("switch for profile hit");
+        this.setState({
+          userData: data
+        });
+        break;
+      case "Edit Projects":
+        console.log("switch for projects hit");
+
+        this.setState({
+          userProjects: data
+        });
+        break;
+      // case "Apple":
+      //   text = "How you like them apples?";
+      //   break;
+      // default:
+      //   text = "I have never heard of that fruit...";
+    }
   };
 
   closeDropDown = () => {
     console.log("dropdown submit");
-    // this.getUserInfo();
   };
 
-  renderProfile = () => {
-    const { userData, userProjects, userEvents, toggleRerender } = this.state;
-    // delete userData.userId;
-    // console.log(this.state.userData);
-    // console.log(this.state.userData.length);
-    if (userData != null) {
-      console.log("got data");
+  renderProfile = (userInfoType, formTitle) => {
+    if (userInfoType != null) {
+      console.log(userInfoType);
+
       const MyComponent = (
         <ul style={{ listStyle: "none" }}>
-          {Object.keys(userData).map(key => (
-            <li key={key}>{userData[key]}</li>
+          {Object.keys(userInfoType).map(key => (
+            <li key={key}>{userInfoType[key]}</li>
           ))}
         </ul>
       );
       const dropdown = (
         <DropDownForm
-          name={"Edit Profile"}
+          name={formTitle}
           formCallback={this.formCallback}
           formApiAction={"put"}
         />
@@ -124,7 +136,7 @@ class DisplayUserDetails extends Component {
       console.log("no data ran");
       const dropdown = (
         <DropDownForm
-          name={"Edit Profile"}
+          name={formTitle}
           formCallback={this.formCallback}
           formApiAction={"post"}
         />
@@ -135,27 +147,6 @@ class DisplayUserDetails extends Component {
   };
 
   render() {
-    // if (this.state.userData !== "undefined") {
-    //   // const MyComponent =
-    //   // (receivedData === true) ? <h1>data</h1> : <h3>no user data here!</h3>;
-    //   console.log(userData);
-    //   console.log("userdata");
-    // } else {
-    // }
-    // const { userData, userProjects, userEvents, toggleRerender } = this.state;
-    // delete userData.userId;
-
-    // const MyComponent = (
-    //   <ul style={{ listStyle: "none" }}>
-    //     {Object.keys(userData).map(key => (
-    //       <li key={key}>{userData[key]}</li>
-    //     ))}
-    //   </ul>
-    // );
-    // const dropdown = (
-    //   <DropDownForm name={"Edit Profile"} formCallback={this.formCallback} />
-    // );
-    const that = this;
     const { userData, userProjects, userEvents, toggleRerender } = this.state;
 
     return (
@@ -171,25 +162,13 @@ class DisplayUserDetails extends Component {
           </div>
           <div>
             <h3>UserInfo</h3>
-            {this.renderProfile()}
-            {/* {Object.keys(githubData).map(key => (
-            <Issue key={key} details={githubData[key]} />
-                ))} */}
-            {/* scrapping userdetails component, added object.keys.map instead of .map, no need to map it twice.
-            passing each form component into the drop down using a switch inside dropdown
-            */}
-          </div>
-          {/* <div>
-            <h3>Projects</h3>
-            {userProjects.map((data, i) => (
-              <UserDetails
-                key={"Projects"}
-                data={data}
-                comp={<UserProjectInput key={"Edit Projects"} />}
-              />
-            ))}
+            {this.renderProfile(userData, "Edit Profile")}
           </div>
           <div>
+            <h3>Projects</h3>
+            {this.renderProfile(userProjects, "Edit Projects")}
+          </div>
+          {/* <div>
             <h3>Events</h3>
             {userEvents.map((data, i) => (
               <UserDetails
