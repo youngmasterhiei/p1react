@@ -7,7 +7,6 @@ export default API = {
       method: "POST",
       url: "http://localhost:5000/auth/api/events",
     })
-      // log response from server
       .then((response) => {
         console.log(response);
       })
@@ -17,7 +16,6 @@ export default API = {
   },
   getEvents: ({ eventId, successfulCb }) => {
     axios
-      // api route
       .get("http://localhost:5000/auth/api/event/" + eventId)
       .then(successfulCb)
       .catch((error) => {
@@ -42,7 +40,7 @@ export default API = {
         console.log(error.events);
       });
   },
-  signUpForEvent = ({data}) => {
+  signUpForEvent: ({ data }) => {
     axios({
       method: "POST",
       url: "http://localhost:5000/auth/api/joinevent",
@@ -54,5 +52,27 @@ export default API = {
       .catch((error) => {
         console.log(error);
       });
-  }
+  },
+  login: ({ data, successfulCb }) => {
+    axios({
+      method: "POST",
+      url: "http://localhost:5000/login",
+      data,
+    })
+      .then(successfulCb)
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  createNewUser: ({ data, successfulCb }) => {
+    axios({
+      method: "post",
+      url: "http://localhost:5000/newuser",
+      data,
+    })
+      .then(successfulCb)
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
