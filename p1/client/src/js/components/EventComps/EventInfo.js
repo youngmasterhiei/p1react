@@ -31,7 +31,7 @@ class EventInfo extends Component {
       eventId,
       successfulCb: (res) => this.setState({ event: res.data[0] }),
     });
-    API.getUsersAttendingEvents({
+    API.getAttendingEvent({
       eventId,
       successfulCb: (res) => this.setState({ attendees: res.data }),
     });

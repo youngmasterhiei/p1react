@@ -1,5 +1,4 @@
 import React from "react";
-import EventsDisplayParent from "../EventComps/EventsDisplayParent";
 
 function Event() {
   return (

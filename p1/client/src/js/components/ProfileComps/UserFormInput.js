@@ -1,9 +1,5 @@
-import React, { useEffect, useState, Component } from "react";
-import axios from "axios";
-
-import { useDispatch } from "react-redux";
-import { renderComp } from "../../../redux/actions/index";
-import FormSubmitHelper from "./FormSubmitHelper";
+import React, { Component } from "react";
+import API from "../../../api/";
 
 class UserFormInput extends Component {
   constructor(props) {
@@ -15,7 +11,7 @@ class UserFormInput extends Component {
       city: "",
       st: "",
       dateOfBirth: "",
-      speciality: "",
+      specialty: "",
       github: "",
       linkedIn: "",
       bio: "",
@@ -25,8 +21,6 @@ class UserFormInput extends Component {
   }
   submitProfile = (e) => {
     e.preventDefault();
-    // this.props.joinButtonCallback(this.state);
-    // this.storeSwitchRedux();
     const userInfo = this.state;
 
     this.props.formCallback(userInfo, "Edit Profile");
@@ -34,29 +28,9 @@ class UserFormInput extends Component {
     console.log(userInfo);
     localStorage.getItem("token");
     if (this.props.formApiAction === "put") {
-      axios({
-        method: "put",
-        url: "http://localhost:5000/auth/api/profile",
-        data: this.state,
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      API.updateUserProfile({ data: this.state });
     } else {
-      axios({
-        method: "post",
-        url: "http://localhost:5000/auth/api/profile",
-        data: this.state,
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      API.createUserProfile({ data: this.state });
     }
   };
 
@@ -67,11 +41,6 @@ class UserFormInput extends Component {
     this.setState({ open: false });
   };
 
-  storeSwitchRedux = () => {
-    // const dispatch = useDispatch();
-    // dispatch(renderComp(true));
-  };
-
   render() {
     const {
       fName,
@@ -79,12 +48,11 @@ class UserFormInput extends Component {
       city,
       st,
       dateOfBirth,
-      speciality,
+      specialty,
       github,
       linkedIn,
       bio,
     } = this.state;
-    console.log(this.props);
 
     return (
       <div>
@@ -134,9 +102,9 @@ class UserFormInput extends Component {
           <br />
           <input
             type="text"
-            name="speciality"
-            value={speciality}
-            placeholder="Programming Speciality"
+            name="specialty"
+            value={specialty}
+            placeholder="Programming specialty"
             onChange={this.changeHandler}
           />
           <br />
@@ -166,8 +134,6 @@ class UserFormInput extends Component {
           />
           <br />
           <input type="submit" onClick={this.submitProfile} name="Submit" />
-          {/* <FormSubmitHelper submitProfile={this.submitProfile} /> */}
-          {/* <FormSubmitHelper storeRenderSwitch={this.storeRenderSwitch} /> */}
         </form>
       </div>
     );

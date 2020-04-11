@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import DropDownForm from "../reusable/DropDownForm";
 
 const UserDetails = (props) => {
