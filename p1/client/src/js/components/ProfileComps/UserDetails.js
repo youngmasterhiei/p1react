@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import DropDownForm from "../reusable/DropDownForm";
 
-const UserDetails = props => {
+const UserDetails = (props) => {
   const propData = Object.values(props.data);
   // const dropdownRef = useRef(null)
   // console.log(props.comp.key);

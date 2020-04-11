@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import UserFormInput from "../ProfileComps/UserFormInput";
 import UserProjectInput from "../ProfileComps/UserProjectInput";
 
-const DropDownForm = props => {
+const DropDownForm = (props) => {
   const [open, setOpen] = useState(false);
 
   const toggle = () => setOpen(!open);
@@ -11,7 +11,7 @@ const DropDownForm = props => {
     setOpen(!open);
   };
   // using switch statement to select the correct form
-  const selectForm = formTitle => {
+  const selectForm = (formTitle) => {
     switch (formTitle) {
       case "Edit Profile":
         return (

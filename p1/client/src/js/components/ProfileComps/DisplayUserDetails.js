@@ -18,7 +18,7 @@ class DisplayUserDetails extends Component {
       userProjects: [],
       userEvents: [],
       userId: localStorage.getItem("token"),
-      toggleRerender: true
+      toggleRerender: true,
     };
   }
   getUserInfo = () => {
@@ -26,13 +26,13 @@ class DisplayUserDetails extends Component {
 
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userData: res.data
+          userData: res.data,
         });
         console.log(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -42,34 +42,34 @@ class DisplayUserDetails extends Component {
     // const forms = [<UserFormInput key={"Edit Profile"} />, <UserProjectInput key={"Edit Projects"}/>, <CreateEventForm key={"Create Event"}/>]
     axios
       .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userData: res.data
+          userData: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/project/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userProjects: res.data
+          userProjects: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     axios
       .get("http://localhost:5000/auth/api/events/" + userId)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          userEvents: [...this.state.userEvents, ...res.data[0]]
+          userEvents: [...this.state.userEvents, ...res.data[0]],
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -90,14 +90,14 @@ class DisplayUserDetails extends Component {
       case "Edit Profile":
         console.log("switch for profile hit");
         this.setState({
-          userData: data
+          userData: data,
         });
         break;
       case "Edit Projects":
         console.log("switch for projects hit");
 
         this.setState({
-          userProjects: data
+          userProjects: data,
         });
         break;
       // case "Apple":
@@ -118,7 +118,7 @@ class DisplayUserDetails extends Component {
 
       const MyComponent = (
         <ul style={{ listStyle: "none" }}>
-          {Object.keys(userInfoType).map(key => (
+          {Object.keys(userInfoType).map((key) => (
             <li key={key}>{userInfoType[key]}</li>
           ))}
         </ul>

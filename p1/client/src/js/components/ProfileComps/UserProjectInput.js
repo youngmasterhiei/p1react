@@ -15,10 +15,10 @@ class UserProjectInput extends Component {
       p3Link: "",
       p4Link: "",
       p5Link: "",
-      userId: localStorage.getItem("token")
+      userId: localStorage.getItem("token"),
     };
   }
-  submitProfile = e => {
+  submitProfile = (e) => {
     e.preventDefault();
     const projectInfo = this.state;
     this.props.formCallback(projectInfo, "Edit Projects");
@@ -31,29 +31,29 @@ class UserProjectInput extends Component {
       axios({
         method: "put",
         url: "http://localhost:5000/auth/api/project",
-        data: this.state
+        data: this.state,
       })
-        .then(response => {
+        .then((response) => {
           console.log(response);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } else {
       axios({
         method: "post",
         url: "http://localhost:5000/auth/api/project",
-        data: this.state
+        data: this.state,
       })
-        .then(response => {
+        .then((response) => {
           console.log(response);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
   };
-  changeHandler = e => {
+  changeHandler = (e) => {
     e.preventDefault();
 
     this.setState({ [e.target.name]: e.target.value });
@@ -70,7 +70,7 @@ class UserProjectInput extends Component {
       p2Link,
       p3Link,
       p4Link,
-      p5Link
+      p5Link,
     } = this.state;
 
     return (
