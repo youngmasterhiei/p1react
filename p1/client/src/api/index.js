@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default API = {
+export const API = {
   addEvent: ({ data }) => {
     axios({
       data,

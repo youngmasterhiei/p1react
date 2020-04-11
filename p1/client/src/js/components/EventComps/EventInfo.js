@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "../../../api";
+import { API } from "../../../api";
 import "../../../style/Event.css";
 import JoinEventButton from "./JoinEventButton";
 // used to turn event image into link to navigate to Display another users profile

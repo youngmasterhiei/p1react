@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import API from "../../../api";
+import { API } from "../../../api";
 import UserDetails from "./UserDetails";
 import AddFriendButton from "./AddFriendButton";
 

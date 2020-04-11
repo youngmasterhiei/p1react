@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
-import API from "../../../api";
+import { API } from "../../../api";
 
 //displays all data left quarter of page, picture, user info
 // makes api get requests for children stateless react comps

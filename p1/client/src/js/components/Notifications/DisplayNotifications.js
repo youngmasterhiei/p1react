@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Notification from "./Notification";
-import API from "../../../api";
+import { API } from "../../../api";
 
 class DisplayNotifications extends Component {
   constructor(props) {

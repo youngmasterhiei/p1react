@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DropDownForm from "../reusable/DropDownForm";
-import API from "../../../api";
+import { API } from "../../../api";
 // import { useDispatch } from "react-redux";
 // import { renderComp } from "../../../redux/actions/index";
 // import FormSubmitHelper from "./FormSubmitHelper";
