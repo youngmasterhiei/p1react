@@ -75,4 +75,39 @@ export default API = {
         console.log(error);
       });
   },
+  getNotificationsForUser: ({ userId, successfulCb }) => {
+    axios
+      .get("http://localhost:5000/auth/api/notifications/" + userId)
+      .then(successfulCb)
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  addFriend: ({ data }) => {
+    axios({
+      method: "post",
+      url: "http://localhost:5000/auth/api/addFriend",
+      data,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  updateNotification: ({ data, notificationId }) => {
+    axios({
+      method: "put",
+      url:
+        "http://localhost:5000/auth/api/updateNotification/" + notificationId,
+      data,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
