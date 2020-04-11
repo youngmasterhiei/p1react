@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import SearchEvents from "./SearchEvents";
 import axios from "axios";
 import EventList from "./EventList";
