@@ -1,13 +1,6 @@
-import React, { useEffect, useState, Component } from "react";
-import axios from "axios";
-import UserFormInput from "../ProfileComps/UserFormInput";
-import UserProjectInput from "../ProfileComps/UserProjectInput";
-import CreateEventForm from "../EventComps/CreateEventForm";
+import React, { Component } from "react";
 import DropDownForm from "../reusable/DropDownForm";
-import UserDetails from "./UserDetails";
-// import { useDispatch } from "react-redux";
-// import { renderComp } from "../../../redux/actions/index";
-// import FormSubmitHelper from "./FormSubmitHelper";
+import { API } from "../../../api";
 
 class DisplayUserDetails extends Component {
   constructor(props) {
@@ -18,93 +11,49 @@ class DisplayUserDetails extends Component {
       userProjects: [],
       userEvents: [],
       userId: localStorage.getItem("token"),
-      toggleRerender: true
     };
   }
   getUserInfo = () => {
     const userId = localStorage.getItem("token");
-
-    axios
-      .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
-        this.setState({
-          userData: res.data
-        });
-        console.log(this.state.userData);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    API.getUserProfile({
+      userId,
+      successfulCb: (res) => this.setState({ userData: res.data }),
+    });
   };
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
-    // const forms = [<UserFormInput key={"Edit Profile"} />, <UserProjectInput key={"Edit Projects"}/>, <CreateEventForm key={"Create Event"}/>]
-    axios
-      .get("http://localhost:5000/auth/api/profile/" + userId)
-      .then(res => {
-        this.setState({
-          userData: res.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.getUserInfo();
+    API.getUserProjects({
+      userId,
+      successfulCb: (res) => this.setState({ userProjects: res.data }),
+    });
 
-    axios
-      .get("http://localhost:5000/auth/api/project/" + userId)
-      .then(res => {
+    API.getEventsForUser({
+      userId,
+      successfulCb: (res) =>
         this.setState({
-          userProjects: res.data
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    axios
-      .get("http://localhost:5000/auth/api/events/" + userId)
-      .then(res => {
-        this.setState({
-          userEvents: [...this.state.userEvents, ...res.data[0]]
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+          userEvents: [...this.state.userEvents, ...res.data[0]],
+        }),
+    });
   }
 
-  // changeHandler = e => {
-  //   e.preventDefault();
-
-  //   this.setState({ [e.target.name]: e.target.value });
-  //   this.setState({ open: false });
-  // };
-
   formCallback = (data, formTitle) => {
-    // console.log(data);
-    // console.log("hello");
-    // this.getUserInfo();
-
     switch (formTitle) {
       case "Edit Profile":
         console.log("switch for profile hit");
         this.setState({
-          userData: data
+          userData: data,
         });
         break;
       case "Edit Projects":
         console.log("switch for projects hit");
-
         this.setState({
-          userProjects: data
+          userProjects: data,
         });
         break;
-      // case "Apple":
-      //   text = "How you like them apples?";
-      //   break;
-      // default:
-      //   text = "I have never heard of that fruit...";
+      default:
+        throw Error("You shouldn't be here");
     }
   };
 
@@ -118,7 +67,7 @@ class DisplayUserDetails extends Component {
 
       const MyComponent = (
         <ul style={{ listStyle: "none" }}>
-          {Object.keys(userInfoType).map(key => (
+          {Object.keys(userInfoType).map((key) => (
             <li key={key}>{userInfoType[key]}</li>
           ))}
         </ul>
@@ -147,12 +96,13 @@ class DisplayUserDetails extends Component {
   };
 
   render() {
-    const { userData, userProjects, userEvents, toggleRerender } = this.state;
+    const { userData, userProjects } = this.state;
 
     return (
       <div>
         <div style={{ display: "flex" }}>
           <div>
+            {/* TODO: make this local */}
             <img
               src="https://images.idgesg.net/images/article/2017/06/reactjs_code_coding_thinkstock-100725807-large.jpg"
               width="400"

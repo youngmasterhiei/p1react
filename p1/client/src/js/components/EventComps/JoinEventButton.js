@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-// import { useDispatch } from "react-redux";
-// import { loggedIn } from "./redux/actions/index";
+import React, { useState } from "react";
+import { API } from "../../../api";
 
 const JoinEventButton = (props) => {
   const [buttonSwitch, setButtonSwitch] = useState(true);
 
   const getUserEvents = () => {
     const userId = localStorage.getItem("token");
-    axios
-      .get(
-        "http://localhost:5000/auth/api/userAttendingEvents/" +
-          userId +
-          "/" +
-          props.data.id
-      )
-      .then((res) => {
+    API.getAttendingEventForUser({
+      eventId: props.data.id,
+      userId,
+      successfulCb: (res) => {
         res.data[0].eventId === props.data.id
           ? setButtonSwitch(false)
           : setButtonSwitch(true);
-      })
-      .catch((error) => {
-        console.log(error.events);
-      });
+      },
+    });
   };
+
   getUserEvents();
 
   const joinEvent = (e) => {
@@ -36,17 +28,7 @@ const JoinEventButton = (props) => {
       eventId: props.data.id,
       userId: localStorage.getItem("token"),
     };
-    axios({
-      method: "post",
-      url: "http://localhost:5000/auth/api/joinevent",
-      data: eventSignUp,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    API.signUpForEvent({ data: eventSignUp });
   };
 
   return (

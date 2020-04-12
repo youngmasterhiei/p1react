@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-// brings in axios for get / post
-import axios from "axios";
+import { API } from "../../../api";
 import "../../../style/Event.css";
 import JoinEventButton from "./JoinEventButton";
 // used to turn event image into link to navigate to Display another users profile
@@ -27,30 +26,15 @@ class EventInfo extends Component {
     const eventId = urlParams.get("eventid");
     // saves to local storage for later use
     localStorage.setItem("eventId", eventId);
-    // call db to get a specific event's details
-    axios
-      // api route
-      .get("http://localhost:5000/auth/api/event/" + eventId)
-      .then((res) => {
-        // saves to state
-        this.setState({
-          event: res.data[0],
-        });
-      })
-      .catch((error) => {
-        console.log(error.events);
-      });
-    // gets all users attending the event
-    axios
-      .get("http://localhost:5000/auth/api/userAttendingEvents/" + eventId)
-      .then((res) => {
-        this.setState({
-          attendees: res.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error.events);
-      });
+
+    API.getEvents({
+      eventId,
+      successfulCb: (res) => this.setState({ event: res.data[0] }),
+    });
+    API.getAttendingEvent({
+      eventId,
+      successfulCb: (res) => this.setState({ attendees: res.data }),
+    });
   }
 
   render() {

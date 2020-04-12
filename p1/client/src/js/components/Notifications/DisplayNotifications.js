@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from "react";
 import Notification from "./Notification";
+import { API } from "../../../api";
 
-class DisplayNotifications extends React.Component {
+class DisplayNotifications extends Component {
   constructor(props) {
     super(props);
 
@@ -13,17 +13,10 @@ class DisplayNotifications extends React.Component {
 
   componentWillMount() {
     const userId = localStorage.getItem("token");
-    axios
-      .get("http://localhost:5000/auth/api/notifications/" + userId)
-      .then((res) => {
-        this.setState({
-          notifications: [res.data[0]],
-        });
-        console.log(this.state.notifications);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    API.getNotificationsForUser({
+      userId,
+      successfulCb: (res) => this.setState({ notifications: [res.data[0]] }),
+    });
   }
   //   <ul style={{listStyle:'none'}}>
   //   {propData.map((data, i) => (
@@ -44,7 +37,5 @@ class DisplayNotifications extends React.Component {
     );
   }
 }
-
-DisplayNotifications.propTypes = {};
 
 export default DisplayNotifications;

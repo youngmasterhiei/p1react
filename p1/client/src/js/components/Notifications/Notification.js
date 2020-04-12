@@ -1,52 +1,28 @@
 import React from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
+import { API } from "../../../api";
 
 const Notification = (props) => {
-  console.log(props.data.id);
   const acceptFriendRequest = (e) => {
     e.preventDefault();
     const userId = localStorage.getItem("token");
     const friendUserId = props.data.fromUserId;
-    console.log(friendUserId);
     const data = {
       userId: userId,
       friendUserId: friendUserId,
     };
-    axios({
-      method: "post",
-      url: "http://localhost:5000/auth/api/addFriend",
-      data: data,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+    const update = {
+      actedUpon: true,
+    };
+    API.addFriend({ data });
+    API.updateNotification({ data: update, notificationId: props.data.id });
     //
     // *******Add in update read to true when dropdown is open, add display only non read messages?? or
     // display only latest 5-10 unless display all messages clicked********
     //
     //
-    const update = {
-      actedUpon: true,
-    };
-
-    axios({
-      method: "put",
-      url: "http://localhost:5000/auth/api/updateNotification/" + props.data.id,
-      data: update,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
+  // TODO: this does not make sense what's going on here...
   const notifyAction =
     props.data.messageType === "Add Friend" ? (
       <li>
@@ -54,9 +30,7 @@ const Notification = (props) => {
         {notifyAction}
         <button onClick={acceptFriendRequest}>Accept?</button>
       </li>
-    ) : (
-      <h1></h1>
-    );
+    ) : null;
   return <div>{notifyAction}</div>;
 };
 

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import SearchEvents from "./SearchEvents";
 import axios from "axios";
 import EventList from "./EventList";
@@ -22,8 +21,9 @@ class EventsDisplayParent extends Component {
       .get("http://localhost:5000/auth/api/events")
       .then((res) => {
         const events = res.data;
+        // TODO: this does nothing
         events.map(function (name, index) {
-          name.index = index;
+          return (name.index = index);
         });
 
         this.setState({

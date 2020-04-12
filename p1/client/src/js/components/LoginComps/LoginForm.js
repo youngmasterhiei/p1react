@@ -1,5 +1,6 @@
-import React, { useEffect, useState, Component } from "react";
-import axios from "axios";
+import React, { Component } from "react";
+import { API } from "../../../api";
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -16,22 +17,17 @@ class LoginForm extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    axios({
-      method: "post",
-      url: "http://localhost:5000/login",
+    API.login({
       data: this.state,
-    })
-      .then((response) => {
+      successfulCb: (response) => {
         if (response.data.token) {
           localStorage.setItem("token", response.data.token);
           console.log(response.data);
         }
         this.sendToken();
         this.props.storeToken();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      },
+    });
   };
   changeHandler = (e) => {
     e.preventDefault();

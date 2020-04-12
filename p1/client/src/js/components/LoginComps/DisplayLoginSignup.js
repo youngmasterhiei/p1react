@@ -18,7 +18,8 @@ class DisplayLoginSignup extends Component {
     this.setState({ loginClicked: false });
   };
   handleLogOut = (e) => {
-    localStorage.setItem("token", ""), this.setState({ token: "" });
+    localStorage.setItem("token", "");
+    this.setState({ token: "" });
     this.props.storeToken();
 
     this.props.history.push("/");

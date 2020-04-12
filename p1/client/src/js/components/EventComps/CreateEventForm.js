@@ -1,5 +1,6 @@
-import React, { useEffect, useState, Component } from "react";
-import axios from "axios";
+import React, { Component } from "react";
+import { API } from "../../../api";
+
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
@@ -21,18 +22,7 @@ class CreateEventForm extends Component {
     e.preventDefault();
     localStorage.getItem("token");
     console.log(this.state);
-    axios({
-      method: "post",
-      url: "http://localhost:5000/auth/api/events",
-      data: this.state,
-    })
-      // log response from server
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    API.addEvent({ data: this.state });
   };
   // handles change in the input boxes and sets state to the value
   changeHandler = (e) => {
@@ -44,7 +34,6 @@ class CreateEventForm extends Component {
   render() {
     // destructs the state into a const
     const { title, date, time, desc, imagePath, author, location } = this.state;
-    const header = "Create an Event";
 
     return (
       <div>

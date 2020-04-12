@@ -1,10 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
+import { API } from "../../../api";
 
 const AddFriendButton = (props) => {
-  console.log(props.data);
-
   const friendSubmit = (e) => {
     console.log("hello");
     const userId = localStorage.getItem("token");
@@ -16,18 +13,9 @@ const AddFriendButton = (props) => {
       message: "Requested you as a friend",
       userId: userId,
     };
-    axios({
-      method: "post",
-      url: "http://localhost:5000/auth/api/sendFriendRequest",
-      data: notification,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    API.sendFriendRequest({ data: notification });
   };
+
   return (
     <div>
       <button onClick={friendSubmit} name={"Add Friend"}>
@@ -36,7 +24,5 @@ const AddFriendButton = (props) => {
     </div>
   );
 };
-
-AddFriendButton.propTypes = {};
 
 export default AddFriendButton;
