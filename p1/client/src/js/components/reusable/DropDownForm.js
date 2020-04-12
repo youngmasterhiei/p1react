@@ -26,6 +26,8 @@ const DropDownForm = (props) => {
             formApiAction={props.formApiAction}
           />
         );
+      default:
+        throw Error("This should not happen");
     }
   };
 

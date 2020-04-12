@@ -21,8 +21,9 @@ class EventsDisplayParent extends Component {
       .get("http://localhost:5000/auth/api/events")
       .then((res) => {
         const events = res.data;
+        // TODO: this does nothing
         events.map(function (name, index) {
-          name.index = index;
+          return (name.index = index);
         });
 
         this.setState({

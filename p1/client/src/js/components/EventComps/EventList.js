@@ -26,6 +26,7 @@ const EventList = (props) => {
           <Link to={"/displayevent?eventid=" + eventId} onClick={setEventId()}>
             {" "}
             <img
+              alt="event"
               style={{ width: "200px", height: "20%", minWidth: "150px" }}
               src={props.data.imagePath}
             />

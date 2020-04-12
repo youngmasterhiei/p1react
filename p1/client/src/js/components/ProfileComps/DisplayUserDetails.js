@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import DropDownForm from "../reusable/DropDownForm";
 import { API } from "../../../api";
-// import { useDispatch } from "react-redux";
-// import { renderComp } from "../../../redux/actions/index";
-// import FormSubmitHelper from "./FormSubmitHelper";
 
 class DisplayUserDetails extends Component {
   constructor(props) {
@@ -41,16 +38,7 @@ class DisplayUserDetails extends Component {
     });
   }
 
-  // changeHandler = e => {
-  //   e.preventDefault();
-
-  //   this.setState({ [e.target.name]: e.target.value });
-  //   this.setState({ open: false });
-  // };
-
   formCallback = (data, formTitle) => {
-    // this.getUserInfo();
-
     switch (formTitle) {
       case "Edit Profile":
         console.log("switch for profile hit");
@@ -64,6 +52,8 @@ class DisplayUserDetails extends Component {
           userProjects: data,
         });
         break;
+      default:
+        throw Error("You shouldn't be here");
     }
   };
 

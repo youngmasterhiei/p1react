@@ -22,6 +22,7 @@ const Notification = (props) => {
     //
   };
 
+  // TODO: this does not make sense what's going on here...
   const notifyAction =
     props.data.messageType === "Add Friend" ? (
       <li>
@@ -29,9 +30,7 @@ const Notification = (props) => {
         {notifyAction}
         <button onClick={acceptFriendRequest}>Accept?</button>
       </li>
-    ) : (
-      <h1></h1>
-    );
+    ) : null;
   return <div>{notifyAction}</div>;
 };
 

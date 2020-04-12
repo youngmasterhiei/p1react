@@ -56,7 +56,6 @@ class UserFormInput extends Component {
 
     return (
       <div>
-        {<h3 className="formName" value="Edit Profile"></h3>}{" "}
         <form>
           <input
             type="text"
