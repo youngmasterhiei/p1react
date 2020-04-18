@@ -248,16 +248,10 @@ exports.updateProjects = (req, res) => {
 exports.getViewUserProjects = (req, res) => {
   // Save Tutorial in the database
   db.project
-    .findAll({
+    .findOne({
       where: { userId: req.params.userId },
     })
     .then(function (dbProject) {
-      delete dbProject[0].dataValues.id;
-      delete dbProject[0].dataValues.userId;
-      delete dbProject[0].dataValues.updatedAt;
-      delete dbProject[0].dataValues.deletedAt;
-      delete dbProject[0].dataValues.createdAt;
-
       res.json(dbProject);
     })
     .catch((err) => {
@@ -447,19 +441,16 @@ exports.getAllAttendingEvent = (req, res) => {
 exports.getViewUserProfile = (req, res) => {
   console.log(req.params.userId);
   // let decoded = jwt.verify(req.params.userId, config.jwtSecret);
-  // console.log(decoded);
+  console.log("hello frrom get view user profile controller");
   // console.log("decoded token");
 
   // Save Tutorial in the database
   db.profile
-    .findAll({
+    .findOne({
       where: { userId: req.params.userId },
     })
     .then(function (dbprofile) {
-      console.log();
-      delete dbprofile[0].dataValues.updatedAt;
-      delete dbprofile[0].dataValues.deletedAt;
-      delete dbprofile[0].dataValues.createdAt;
+      console.log(dbprofile);
 
       res.json(dbprofile);
     })

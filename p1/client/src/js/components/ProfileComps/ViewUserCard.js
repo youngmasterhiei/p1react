@@ -24,14 +24,16 @@ class UserInfoCard extends Component {
     API.getDisplayProfile({
       userId,
       successfulCb: (res) =>
-        this.setState({ userData: [...this.state.userData, ...res.data[0]] }),
+        this.setState({
+          userData: res.data,
+        }),
     });
 
     API.getDisplayProjects({
       userId,
       successfulCb: (res) =>
         this.setState({
-          userProjects: [...this.state.userProjects, ...res.data[0]],
+          userProjects: res.data,
         }),
     });
   }
@@ -43,6 +45,8 @@ class UserInfoCard extends Component {
       //
       //
     };
+
+    const { userData, userProjects } = this.state;
 
     return (
       <div style={{ display: "flex" }}>
@@ -57,17 +61,25 @@ class UserInfoCard extends Component {
         </div>
         <div>
           <h3>UserInfo</h3>
-          {this.state.userData.map((data, i) => (
-            <UserDetails key={i} data={data} passedFunction={addFriend} />
-          ))}
+          {/* <ul style={{ listStyle: "none" }}>
+            {this.state.userData.map((data, i) => (
+              <li key={i}>{data}</li>
+            ))}
+          </ul> */}
+
+          <ul style={{ listStyle: "none" }}>
+            {Object.keys(userData).map((key) => (
+              <li key={key}>{userData[key]}</li>
+            ))}
+          </ul>
         </div>
         <div>
           <h3>Projects</h3>
-          {this.state.userProjects.map((data, i) => (
-            <a href="https://www.w3schools.com">
-              <UserDetails key={i} data={data} passedFunction={addFriend} f />
-            </a>
-          ))}
+          <ul style={{ listStyle: "none" }}>
+            {Object.keys(userProjects).map((key) => (
+              <li key={key}>{userProjects[key]}</li>
+            ))}
+          </ul>
         </div>
         <div>
           <AddFriendButton data={this.state.userData} />
