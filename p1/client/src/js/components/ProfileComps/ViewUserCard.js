@@ -38,6 +38,32 @@ class UserInfoCard extends Component {
     });
   }
 
+  renderUsersProfile = (userInfoType) => {
+    if (userInfoType != null) {
+      console.log(userInfoType);
+
+      const MyComponent = (
+        <ul style={{ listStyle: "none" }}>
+          {Object.keys(userInfoType).map((key) => (
+            <li key={key}>{userInfoType[key]}</li>
+          ))}
+        </ul>
+      );
+
+      return [MyComponent];
+    } else {
+      console.log("no data ran");
+      // const dropdown = (
+      //   <DropDownForm
+      //     name={formTitle}
+      //     formCallback={this.formCallback}
+      //     formApiAction={"post"}
+      //   />
+
+      return <h4>no user data</h4>;
+    }
+  };
+
   render() {
     const addFriend = () => {
       //
@@ -61,25 +87,12 @@ class UserInfoCard extends Component {
         </div>
         <div>
           <h3>UserInfo</h3>
-          {/* <ul style={{ listStyle: "none" }}>
-            {this.state.userData.map((data, i) => (
-              <li key={i}>{data}</li>
-            ))}
-          </ul> */}
 
-          <ul style={{ listStyle: "none" }}>
-            {Object.keys(userData).map((key) => (
-              <li key={key}>{userData[key]}</li>
-            ))}
-          </ul>
+          {this.renderUsersProfile(userData)}
         </div>
         <div>
           <h3>Projects</h3>
-          <ul style={{ listStyle: "none" }}>
-            {Object.keys(userProjects).map((key) => (
-              <li key={key}>{userProjects[key]}</li>
-            ))}
-          </ul>
+          {this.renderUsersProfile(userProjects)}
         </div>
         <div>
           <AddFriendButton data={this.state.userData} />
