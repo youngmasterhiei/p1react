@@ -490,18 +490,14 @@ exports.sendFriendRequest = (req, res) => {
 
 exports.getAllNotifications = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
-
-  // Save Tutorial in the database
+  console.log("hello from get all nostificiations");
+  console.log(decoded);
   db.notification
     .findAll({
       where: { receivingUserId: decoded, actedUpon: false },
     })
     .then(function (dbNotificationList) {
-      delete dbNotificationList[0].dataValues.userId;
-      delete dbNotificationList[0].dataValues.updatedAt;
-      delete dbNotificationList[0].dataValues.deletedAt;
-      delete dbNotificationList[0].dataValues.createdAt;
-
+      console.log(dbNotificationList);
       res.json(dbNotificationList);
     })
     .catch((err) => {

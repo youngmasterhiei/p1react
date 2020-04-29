@@ -6,13 +6,11 @@ import { Link } from "react-router-dom";
 import DisplayNotifications from "../Notifications/DisplayNotifications";
 import DropDownForm from "../reusable/DropDownForm";
 
-const notifications = <DisplayNotifications key={"Notifications"} />;
-
 const Navigation = (props) => {
   return (
     <div className="navBar">
       <div>
-        <DropDownForm form={notifications} />
+        <DropDownForm name={"Notifications"} />
       </div>
       <Link to="/">Home</Link>
       <Link to="/events">Events</Link>

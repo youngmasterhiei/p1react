@@ -7,35 +7,109 @@ class DisplayNotifications extends Component {
     super(props);
 
     this.state = {
-      notifications: [{}],
+      notifications: [],
     };
   }
 
   componentWillMount() {
+    console.log("hello from displaynotif");
     const userId = localStorage.getItem("token");
     API.getNotificationsForUser({
       userId,
-      successfulCb: (res) => this.setState({ notifications: [res.data[0]] }),
+      successfulCb: (res) => this.setState({ notifications: res.data[0] }),
     });
   }
-  //   <ul style={{listStyle:'none'}}>
-  //   {propData.map((data, i) => (
-  //     <li key={i}>{data}</li>
-  //   ))}
+
+  acceptFriendRequest = (e) => {
+    e.preventDefault();
+    const userId = localStorage.getItem("token");
+    const friendUserId = this.props.data.fromUserId;
+    const data = {
+      userId: userId,
+      friendUserId: friendUserId,
+      actedUpon: true,
+    };
+
+    API.addFriend({ data });
+    // API.updateNotification({ data: update, notificationId: props.data.id });
+    //
+    // *******Add in update read to true when dropdown is open, add display only non read messages?? or
+    // display only latest 5-10 unless display all messages clicked********
+    //
+    //
+  };
+
+  notificationAction = (notification) => {
+    console.log("from inside function");
+
+    console.log(notification.messageType);
+    console.log("from inside function");
+
+    switch (notification.messageType) {
+      case "Message":
+        return (
+          <h3>Message From User</h3>
+          // <UserFormInput
+          //   formCallback={props.formCallback}
+          //   toggleDropdown={toggle}
+          //   formApiAction={props.formApiAction}
+          // />
+        );
+      case "Add Friend":
+        return (
+          <ul>
+            <li>
+              {notification.fromUserId + " "}
+              {notification.message + " "}
+              <button onClick={this.acceptFriendRequest}>Accept?</button>
+            </li>
+          </ul>
+        );
+      // case "Notifications":
+      //   return <DisplayNotifications name={props.name} />;
+      default:
+        return <h1> no message</h1>;
+    }
+  };
+
+  //   const notifyAction =
+  //   props.data.messageType === "Add Friend" ? (
+  //     <li>
+  //       {"user id: " + props.data.fromUserId} {props.data.message}{" "}
+  //       {notifyAction}
+  //       <button onClick={acceptFriendRequest}>Accept?</button>
+  //     </li>
+  //   ) : null;
+  // return <div>{notifyAction}</div>;
+  // };
 
   render() {
     const notifications = this.state.notifications;
+    // console.log(this.state.notifications);
+
     return (
-      <div>
-        <h3>notifications</h3>
-        <ul>
-          {notifications.map((data, i) => (
-            <Notification key={i} data={data} />
-          ))}
-        </ul>
-      </div>
+      // <div>
+      //   {/* <h3>notifications</h3> */}
+
+      //   <ul style={{ listStyle: "none" }}>
+      //     {Object.keys(notifications).map((key) => (
+      //       <li key={key}>{notifications[key]}</li>
+      //     ))}
+      //     {/* {this.notificationAction(notifications)} */}
+      //   </ul>
+      // </div>
+
+      <div>{this.notificationAction(notifications)}</div>
     );
   }
+}
+
+{
+  /* <ul style={{ listStyle: "none" }}>
+{Object.keys(userInfoType).map((key) => (
+  <li key={key}>{userInfoType[key]}</li>
+))}
+</ul> */
 }
 
 export default DisplayNotifications;
