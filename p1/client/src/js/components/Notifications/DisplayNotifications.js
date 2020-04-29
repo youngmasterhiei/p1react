@@ -16,7 +16,10 @@ class DisplayNotifications extends Component {
     const userId = localStorage.getItem("token");
     API.getNotificationsForUser({
       userId,
-      successfulCb: (res) => this.setState({ notifications: res.data[0] }),
+      successfulCb: (res) => {
+        console.log(res.data);
+        this.setState({ notifications: res.data });
+      },
     });
   }
 
@@ -98,8 +101,15 @@ class DisplayNotifications extends Component {
       //     {/* {this.notificationAction(notifications)} */}
       //   </ul>
       // </div>
-
-      <div>{this.notificationAction(notifications)}</div>
+      // {Object.keys(userInfoType).map((key) => (
+      //   <li key={key}>{userInfoType[key]}</li>
+      // ))}
+      <div>
+        {/* {this.notificationAction(notifications[0])} */}
+        {Object.keys(notifications).map((key) =>
+          this.notificationAction(notifications[key])
+        )}
+      </div>
     );
   }
 }
