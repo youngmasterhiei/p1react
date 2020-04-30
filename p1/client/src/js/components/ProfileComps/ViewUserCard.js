@@ -14,6 +14,7 @@ class UserInfoCard extends Component {
       userData: [],
       userProjects: [],
       userEvents: [],
+      query: this.props.key,
     };
   }
 
