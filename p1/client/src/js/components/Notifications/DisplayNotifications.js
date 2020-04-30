@@ -65,7 +65,7 @@ class DisplayNotifications extends Component {
         return (
           <ul>
             <li>
-              {notification.fromUserId + " "}
+              {notification.fromUserName + " "}
               {notification.message + " "}
               <button onClick={this.acceptFriendRequest}>Accept?</button>
             </li>
