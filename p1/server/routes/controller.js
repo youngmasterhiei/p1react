@@ -465,26 +465,37 @@ exports.getViewUserProfile = (req, res) => {
 exports.sendFriendRequest = (req, res) => {
   let decoded = jwt.verify(req.body.fromUserId, config.jwtSecret);
 
-  const notification = {
-    messageType: req.body.messageType,
-    fromUserId: decoded,
-    receivingUserId: req.body.receivingUserId,
-    message: req.body.message,
-    read: false,
-    actedUpon: false,
-  };
-  console.log(notification);
-  // Save Tutorial in the database
-  db.notification
-    .create(notification)
-    .then((data) => {
-      res.send(data);
+  db.profile
+    .findOne({
+      where: { userId: decoded },
     })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial.",
-      });
+    .then(function (dbprofile) {
+      let username =
+        dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
+      console.log(username);
+
+      const notification = {
+        messageType: req.body.messageType,
+        fromUserId: decoded,
+        fromUserName: username,
+        receivingUserId: req.body.receivingUserId,
+        message: req.body.message,
+        read: false,
+        actedUpon: false,
+      };
+      console.log(notification);
+      // Save Tutorial in the database
+      db.notification
+        .create(notification)
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Tutorial.",
+          });
+        });
     });
 };
 

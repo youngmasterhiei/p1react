@@ -72,7 +72,6 @@ class UserInfoCard extends Component {
     };
 
     const { userData, userProjects } = this.state;
-
     return (
       <div style={{ display: "flex" }}>
         <div>

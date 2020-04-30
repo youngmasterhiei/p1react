@@ -44,10 +44,13 @@ class DisplayNotifications extends Component {
 
   notificationAction = (notification) => {
     console.log("from inside function");
-
-    console.log(notification.messageType);
+    console.log(notification.fromUserId);
     console.log("from inside function");
-
+    // API.getUserProfile
+    // API.getUserProfile({
+    //   eventId,
+    //   successfulCb: (res) => this.setState({ event: res.data[0] }),
+    // });
     switch (notification.messageType) {
       case "Message":
         return (
