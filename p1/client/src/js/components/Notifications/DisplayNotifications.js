@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Notification from "./Notification";
 import { API } from "../../../api";
+import { Link } from "react-router-dom";
 
 class DisplayNotifications extends Component {
   constructor(props) {
@@ -65,7 +66,10 @@ class DisplayNotifications extends Component {
         return (
           <ul>
             <li>
-              {notification.fromUserName + " "}
+              <Link to={"/displayprofile?userId=" + notification.fromUserId}>
+                {notification.fromUserName + " "}
+              </Link>
+
               {notification.message + " "}
               <button onClick={this.acceptFriendRequest}>Accept?</button>
             </li>
