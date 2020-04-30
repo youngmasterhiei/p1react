@@ -35,7 +35,7 @@ class DisplayNotifications extends Component {
     };
 
     API.addFriend({ data });
-    // API.updateNotification({ data: update, notificationId: props.data.id });
+    API.updateNotification({ data, notificationId: e.target.name });
     //
     // *******Add in update read to true when dropdown is open, add display only non read messages?? or
     // display only latest 5-10 unless display all messages clicked********
@@ -67,6 +67,7 @@ class DisplayNotifications extends Component {
               <button
                 onClick={this.acceptFriendRequest}
                 value={notification.fromUserId}
+                name={notification.id}
               >
                 Accept?
               </button>

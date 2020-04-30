@@ -544,10 +544,6 @@ exports.updateNotification = (req, res) => {
     .update({ actedUpon: true }, { where: { id: req.params.notifyId } })
 
     .then(function (dbNotificationList) {
-      delete dbNotificationList[0].dataValues.userId;
-      delete dbNotificationList[0].dataValues.updatedAt;
-      delete dbNotificationList[0].dataValues.deletedAt;
-      delete dbNotificationList[0].dataValues.createdAt;
       console.log("after up date");
       console.log(dbNotificationList);
       res.json(dbNotificationList);
