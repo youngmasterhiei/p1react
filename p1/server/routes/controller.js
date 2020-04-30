@@ -499,6 +499,24 @@ exports.sendFriendRequest = (req, res) => {
     });
 };
 
+exports.getFriendRequest = (req, res) => {
+  db.notification
+    .findOne({
+      where: { receivingUserId: req.params.userId, actedUpon: false },
+    })
+    .then(function (dbNotificationList) {
+      console.log(dbNotificationList);
+      res.json(dbNotificationList);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message ||
+          "Some error occurred while getting the friend request status.",
+      });
+    });
+};
+
 exports.getAllNotifications = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
   console.log("hello from get all nostificiations");

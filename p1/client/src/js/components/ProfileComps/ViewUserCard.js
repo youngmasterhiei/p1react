@@ -14,6 +14,7 @@ class UserInfoCard extends Component {
       userData: [],
       userProjects: [],
       userEvents: [],
+      friendStatus: null,
       query: this.props.key,
     };
   }
@@ -36,6 +37,19 @@ class UserInfoCard extends Component {
         this.setState({
           userProjects: res.data,
         }),
+    });
+
+    API.getFriendStatus({
+      userId,
+      successfulCb: (res) => {
+        console.log(res);
+        this.setState({
+          friendStatus: res.data.actedUpon,
+        });
+      },
+      // this.setState({
+      //   friendStatus: res.data.actedUpon,
+      // }),
     });
   }
 
@@ -64,15 +78,24 @@ class UserInfoCard extends Component {
     }
   };
 
-  render() {
-    const addFriend = () => {
-      //
-      //*implement later***
-      //
-      //
-    };
+  renderAddFriendButton = (friendStatus) => {
+    console.log(friendStatus);
+    switch (friendStatus) {
+      case null:
+        return <AddFriendButton data={this.state.userData} />;
+      case false:
+        return <h3>Friend request pending</h3>;
 
-    const { userData, userProjects } = this.state;
+      case true:
+        return <h3>Friends</h3>;
+
+      default:
+        return <h1> no message</h1>;
+    }
+  };
+
+  render() {
+    const { userData, userProjects, friendStatus } = this.state;
     return (
       <div style={{ display: "flex" }}>
         <div>
@@ -92,9 +115,7 @@ class UserInfoCard extends Component {
           <h3>Projects</h3>
           {this.renderUsersProfile(userProjects)}
         </div>
-        <div>
-          <AddFriendButton data={this.state.userData} />
-        </div>
+        <div>{this.renderAddFriendButton(friendStatus)}</div>
       </div>
     );
   }
