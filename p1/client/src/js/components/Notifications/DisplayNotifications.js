@@ -27,7 +27,7 @@ class DisplayNotifications extends Component {
   acceptFriendRequest = (e) => {
     e.preventDefault();
     const userId = localStorage.getItem("token");
-    const friendUserId = this.props.data.fromUserId;
+    const friendUserId = e.target.value;
     const data = {
       userId: userId,
       friendUserId: friendUserId,
@@ -54,14 +54,7 @@ class DisplayNotifications extends Component {
     // });
     switch (notification.messageType) {
       case "Message":
-        return (
-          <h3>Message From User</h3>
-          // <UserFormInput
-          //   formCallback={props.formCallback}
-          //   toggleDropdown={toggle}
-          //   formApiAction={props.formApiAction}
-          // />
-        );
+        return <h3>Message From User</h3>;
       case "Add Friend":
         return (
           <ul>
@@ -71,48 +64,26 @@ class DisplayNotifications extends Component {
               </Link>
 
               {notification.message + " "}
-              <button onClick={this.acceptFriendRequest}>Accept?</button>
+              <button
+                onClick={this.acceptFriendRequest}
+                value={notification.fromUserId}
+              >
+                Accept?
+              </button>
             </li>
           </ul>
         );
-      // case "Notifications":
-      //   return <DisplayNotifications name={props.name} />;
+
       default:
         return <h1> no message</h1>;
     }
   };
 
-  //   const notifyAction =
-  //   props.data.messageType === "Add Friend" ? (
-  //     <li>
-  //       {"user id: " + props.data.fromUserId} {props.data.message}{" "}
-  //       {notifyAction}
-  //       <button onClick={acceptFriendRequest}>Accept?</button>
-  //     </li>
-  //   ) : null;
-  // return <div>{notifyAction}</div>;
-  // };
-
   render() {
     const notifications = this.state.notifications;
-    // console.log(this.state.notifications);
 
     return (
-      // <div>
-      //   {/* <h3>notifications</h3> */}
-
-      //   <ul style={{ listStyle: "none" }}>
-      //     {Object.keys(notifications).map((key) => (
-      //       <li key={key}>{notifications[key]}</li>
-      //     ))}
-      //     {/* {this.notificationAction(notifications)} */}
-      //   </ul>
-      // </div>
-      // {Object.keys(userInfoType).map((key) => (
-      //   <li key={key}>{userInfoType[key]}</li>
-      // ))}
       <div>
-        {/* {this.notificationAction(notifications[0])} */}
         {Object.keys(notifications).map((key) =>
           this.notificationAction(notifications[key])
         )}
