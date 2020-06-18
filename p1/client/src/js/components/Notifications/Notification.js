@@ -23,6 +23,9 @@ const Notification = (props) => {
   };
 
   // TODO: this does not make sense what's going on here...
+
+  // needs to be a switch if case == Add friend do x
+  // if case == message do x
   const notifyAction =
     props.data.messageType === "Add Friend" ? (
       <li>

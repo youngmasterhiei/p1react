@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import UserFormInput from "../ProfileComps/UserFormInput";
 import UserProjectInput from "../ProfileComps/UserProjectInput";
+import DisplayNotifications from "../Notifications/DisplayNotifications";
+// import { notification } from "../../../../../server/models";
 
 const DropDownForm = (props) => {
   const [open, setOpen] = useState(false);
@@ -26,6 +28,9 @@ const DropDownForm = (props) => {
             formApiAction={props.formApiAction}
           />
         );
+      case "Notifications":
+        console.log("notifications hello ddrodp down!!!");
+        return <DisplayNotifications name={props.name} />;
       default:
         throw Error("This should not happen");
     }

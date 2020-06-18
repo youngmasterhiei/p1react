@@ -3,13 +3,24 @@ import { API } from "../../../api";
 
 const AddFriendButton = (props) => {
   const friendSubmit = (e) => {
-    console.log("hello");
-    const userId = localStorage.getItem("token");
     e.preventDefault();
+
+    console.log("adding friend");
+    console.log(props.data);
+
+    const userId = localStorage.getItem("token");
+    let username = "";
+    // API.getUserProfile
+    API.getUserProfile({
+      userId,
+      successfulCb: (res) => (username = res.data.fName + " " + res.data.lName),
+    });
+    console.log(username);
     const notification = {
       messageType: e.target.name,
       fromUserId: userId,
-      receivingUserId: props.data[0].userId,
+      fromUserName: username,
+      receivingUserId: props.data.userId,
       message: "Requested you as a friend",
       userId: userId,
     };

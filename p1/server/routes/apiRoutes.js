@@ -69,6 +69,12 @@ module.exports = (app, db) => {
   );
 
   router.get(
+    "/auth/api/getFriendRequest/:userId",
+    cors(),
+    notification.getFriendRequest
+  );
+
+  router.get(
     "/auth/api/notifications/:userId",
     cors(),
     notification.getAllNotifications
