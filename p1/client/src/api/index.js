@@ -94,6 +94,7 @@ export const API = {
       });
   },
   addFriend: ({ data }) => {
+    console.log("adding friend asdf")
     axios({
       method: "POST",
       url: BASE_AUTH_URL + "/addFriend",

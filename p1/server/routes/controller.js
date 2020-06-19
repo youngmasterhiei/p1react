@@ -581,19 +581,22 @@ exports.addFriend = (req, res) => {
     userId: req.body.friendUserId,
     friendUserId: decoded,
   };
-  // console.log(connection);
-  // // Save Tutorial in the database
-  // db.friendsList.create(connection),
-  //   db.friendsList
-  //     .create(connectionLink)
+  console.log(connection);
+  // Save Tutorial in the database
+  db.friendsList
+  .create(connection)
+    db.friendsList
+      .create(connectionLink)
 
-  //     .then((data) => {
-  //       res.send(data);
-  //     })
-  //     .catch((err) => {
-  //       res.status(500).send({
-  //         message:
-  //           err.message || "Some error occurred while creating the Tutorial.",
-  //       });
-  //     });
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial.",
+        });
+      });
 };
+
+
