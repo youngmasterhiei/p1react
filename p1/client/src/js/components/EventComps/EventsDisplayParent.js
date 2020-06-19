@@ -52,7 +52,7 @@ class EventsDisplayParent extends Component {
 
   joinButtonCallback = () => {
     this.setState({ attending: true });
-    console.log("hello second callback");
+    console.log("hello here? callback");
     console.log(this.state.attending);
   };
 

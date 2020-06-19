@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     fromUserId: {
       type: DataTypes.STRING,
     },
+    fromUserName: {
+      type: DataTypes.STRING,
+    },
     receivingUserId: {
       type: DataTypes.STRING,
     },

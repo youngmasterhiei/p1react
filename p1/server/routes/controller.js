@@ -465,43 +465,81 @@ exports.getViewUserProfile = (req, res) => {
 exports.sendFriendRequest = (req, res) => {
   let decoded = jwt.verify(req.body.fromUserId, config.jwtSecret);
 
-  const notification = {
-    messageType: req.body.messageType,
-    fromUserId: decoded,
-    receivingUserId: req.body.receivingUserId,
-    message: req.body.message,
-    read: false,
-    actedUpon: false,
-  };
-  console.log(notification);
-  // Save Tutorial in the database
+  db.profile
+    .findOne({
+      where: { userId: decoded },
+    })
+    .then(function (dbprofile) {
+      let username =
+        dbprofile.dataValues.fName + " " + dbprofile.dataValues.lName;
+      console.log(username);
+
+      const notification = {
+        messageType: req.body.messageType,
+        fromUserId: decoded,
+        fromUserName: username,
+        receivingUserId: req.body.receivingUserId,
+        message: req.body.message,
+        read: false,
+        actedUpon: false,
+      };
+      console.log(notification);
+      // Save Tutorial in the database
+      db.notification
+        .create(notification)
+        .then((data) => {
+          res.send(data);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Tutorial.",
+          });
+        });
+    });
+};
+
+exports.getFriendRequest = (req, res) => {
   db.notification
-    .create(notification)
-    .then((data) => {
-      res.send(data);
+    .findOne({
+      where: { receivingUserId: req.params.userId, actedUpon: false },
+    })
+    .then(function (dbNotificationList) {
+      console.log(dbNotificationList);
+      res.json(dbNotificationList);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message ||
+          "Some error occurred while getting the friend request status.",
       });
     });
 };
 
+// db.eventAttendance
+// .findAll({
+//   where: {
+//     eventId: req.params.eventId,
+//   },
+// })
+// .then(function (dbAttendance) {
+//   // cycles through each event and removes details before sending to front end
+//   res.json(dbAttendance);
+// })
+
 exports.getAllNotifications = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
-
-  // Save Tutorial in the database
+  console.log("hello from get all nostificiations");
+  console.log(decoded);
   db.notification
     .findAll({
-      where: { receivingUserId: decoded, actedUpon: false },
+      where: { receivingUserId: decoded },
     })
     .then(function (dbNotificationList) {
-      delete dbNotificationList[0].dataValues.userId;
-      delete dbNotificationList[0].dataValues.updatedAt;
-      delete dbNotificationList[0].dataValues.deletedAt;
-      delete dbNotificationList[0].dataValues.createdAt;
+      console.log("hello from return notifi");
 
+      console.log(dbNotificationList);
       res.json(dbNotificationList);
     })
     .catch((err) => {
@@ -519,10 +557,6 @@ exports.updateNotification = (req, res) => {
     .update({ actedUpon: true }, { where: { id: req.params.notifyId } })
 
     .then(function (dbNotificationList) {
-      delete dbNotificationList[0].dataValues.userId;
-      delete dbNotificationList[0].dataValues.updatedAt;
-      delete dbNotificationList[0].dataValues.deletedAt;
-      delete dbNotificationList[0].dataValues.createdAt;
       console.log("after up date");
       console.log(dbNotificationList);
       res.json(dbNotificationList);
@@ -547,19 +581,19 @@ exports.addFriend = (req, res) => {
     userId: req.body.friendUserId,
     friendUserId: decoded,
   };
-  console.log(connection);
-  // Save Tutorial in the database
-  db.friendsList.create(connection),
-    db.friendsList
-      .create(connectionLink)
+  // console.log(connection);
+  // // Save Tutorial in the database
+  // db.friendsList.create(connection),
+  //   db.friendsList
+  //     .create(connectionLink)
 
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Tutorial.",
-        });
-      });
+  //     .then((data) => {
+  //       res.send(data);
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).send({
+  //         message:
+  //           err.message || "Some error occurred while creating the Tutorial.",
+  //       });
+  //     });
 };

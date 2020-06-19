@@ -14,6 +14,7 @@ class EventInfo extends Component {
       event: {},
       // attendee list
       attendees: [{}],
+      attending: false,
     };
   }
   // runs before component mounts
@@ -37,6 +38,12 @@ class EventInfo extends Component {
     });
   }
 
+  joinButtonCallback = () => {
+    this.setState({ attending: true });
+    console.log("hello from eventinfo callback");
+    console.log(this.state.attending);
+  };
+
   render() {
     // destructures state
     const event = this.state.event;
@@ -48,7 +55,10 @@ class EventInfo extends Component {
         <h3>{event.date}</h3>
         <h3>{event.time}</h3>
         <h3>{event.desc}</h3>
-        <JoinEventButton data={event} />
+        <JoinEventButton
+          data={event}
+          joinButtonCallback={this.joinButtonCallback}
+        />
 
         <ul>
           {/* map through attendees and print each out with their name being a link to their profile */}

@@ -132,6 +132,16 @@ export const API = {
         console.log(error);
       });
   },
+
+  getFriendStatus: ({ userId, successfulCb }) => {
+    axios
+      .get(BASE_AUTH_URL + "/getFriendRequest/" + userId)
+      .then(successfulCb)
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
   getUserProfile: ({ userId, successfulCb }) => {
     axios
       .get(BASE_AUTH_URL + "/profile/" + userId)
