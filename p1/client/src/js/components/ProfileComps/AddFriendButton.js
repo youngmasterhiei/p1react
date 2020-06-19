@@ -24,6 +24,7 @@ const AddFriendButton = (props) => {
       message: "Requested you as a friend",
       userId: userId,
     };
+    console.log(notification);
     API.sendFriendRequest({ data: notification });
   };
 

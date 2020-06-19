@@ -517,15 +517,28 @@ exports.getFriendRequest = (req, res) => {
     });
 };
 
+// db.eventAttendance
+// .findAll({
+//   where: {
+//     eventId: req.params.eventId,
+//   },
+// })
+// .then(function (dbAttendance) {
+//   // cycles through each event and removes details before sending to front end
+//   res.json(dbAttendance);
+// })
+
 exports.getAllNotifications = (req, res) => {
   let decoded = jwt.verify(req.params.userId, config.jwtSecret);
   console.log("hello from get all nostificiations");
   console.log(decoded);
   db.notification
     .findAll({
-      where: { receivingUserId: decoded, actedUpon: false },
+      where: { receivingUserId: decoded },
     })
     .then(function (dbNotificationList) {
+      console.log("hello from return notifi");
+
       console.log(dbNotificationList);
       res.json(dbNotificationList);
     })
@@ -568,19 +581,19 @@ exports.addFriend = (req, res) => {
     userId: req.body.friendUserId,
     friendUserId: decoded,
   };
-  console.log(connection);
-  // Save Tutorial in the database
-  db.friendsList.create(connection),
-    db.friendsList
-      .create(connectionLink)
+  // console.log(connection);
+  // // Save Tutorial in the database
+  // db.friendsList.create(connection),
+  //   db.friendsList
+  //     .create(connectionLink)
 
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the Tutorial.",
-        });
-      });
+  //     .then((data) => {
+  //       res.send(data);
+  //     })
+  //     .catch((err) => {
+  //       res.status(500).send({
+  //         message:
+  //           err.message || "Some error occurred while creating the Tutorial.",
+  //       });
+  //     });
 };
