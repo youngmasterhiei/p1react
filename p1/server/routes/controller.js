@@ -502,7 +502,7 @@ exports.sendFriendRequest = (req, res) => {
 exports.getFriendRequest = (req, res) => {
   db.notification
     .findOne({
-      where: { receivingUserId: req.params.userId, actedUpon: false },
+      where: { receivingUserId: req.params.userId},
     })
     .then(function (dbNotificationList) {
       console.log(dbNotificationList);

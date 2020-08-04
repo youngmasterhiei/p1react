@@ -78,8 +78,9 @@ class UserInfoCard extends Component {
     }
   };
 
-  renderAddFriendButton = (friendStatus) => {
+  renderAddFriendButton= (friendStatus) => {
     console.log(friendStatus);
+    console.log("friendstatus")
     switch (friendStatus) {
       case null:
         return <AddFriendButton data={this.state.userData} />;
